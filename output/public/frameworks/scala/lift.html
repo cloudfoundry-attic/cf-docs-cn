@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/frameworks/scala/lift.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | Lift' property='og:title'>
+<meta content='在 Cloud Foundry 中使用 Lift' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | Lift</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Frameworks</h1>
+<p class='sub-head'>Lift</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>在 Cloud Foundry 中使用 Lift</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/scala" rel="tag">scala</a><a href="/tags/lift" rel="tag">lift</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-09-29
+</span>
+</p>
+<div id='social-share'></div>
+<h2 id="section">背景信息</h2>
+
+<p>在宣布支持 <a href="http://blog.cloudfoundry.com/2011/06/02/cloud-foundry-now-supporting-scala/">Scala / Lift on CloudFoundry</a> 的那篇博客中提供了关于如何在 CloudFoundry 中部署 Lift 应用程序的宝贵信息。本知识库文章介绍有助于解决部署中常见问题的补充材料和信息。</p>
+
+<p>请注意，本说明已利用 Maven 在 Lift v2.3 和 Scala v2.8.1 上进行了测试。如果使用更新版本的 Lift 和 Scala 时此流程出入较大，请告知我们。</p>
+
+<h2 id="lift-">创建 Lift 项目</h2>
+
+<p>您可以按照 <a href="http://www.assembla.com/spaces/liftweb/wiki/Getting_Started">Lift 的“入门”一节</a>说明创建 Lift 项目，
+正如该节重点指出的那样，项目可以用 <a href="http://www.assembla.com/wiki/show/liftweb/Using_Maven">Maven</a>、<a href="http://www.assembla.com/wiki/show/liftweb/Using_SBT">SBT</a>、<a href="http://www.assembla.com/wiki/show/liftweb/Using_Gradle">Gradle</a> 或 <a href="http://www.assembla.com/spaces/liftweb/wiki/Using_Ant">Ant</a> 进行设置。</p>
+
+<h2 id="section-1">对服务依赖项配置进行外部化</h2>
+
+<p>不使用任何服务（如数据库、键值存储或消息总线）的 Lift 应用程序在 Cloud Foundry 上运行时不需要进行修改，而使用服务的应用程序应根据应用程序对该服务的配置进行外部化。</p>
+
+<p>在使用上述说明（比如使用 Maven）时，生成的项目结构对数据库所需的服务配置进行了外部化。请注意，其前提是您使用的项目原型生成了数据库物件（如使用 Maven 时生成的“lift-archetype-basic” 或“lift-archetype-jpa”）。例如：</p>
+
+<pre><code class="language-java"><span class="n">mvn</span> <span class="nl">archetype:</span><span class="n">generate</span> <span class="err">\</span>
+ <span class="o">-</span><span class="n">DarchetypeGroupId</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="na">liftweb</span> <span class="err">\</span>
+ <span class="o">-</span><span class="n">DarchetypeArtifactId</span><span class="o">=</span><span class="n">lift</span><span class="o">-</span><span class="n">archetype</span><span class="o">-</span><span class="n">basic_2</span><span class="o">.</span><span class="mf">8.1</span> <span class="err">\</span>
+ <span class="o">-</span><span class="n">DarchetypeVersion</span><span class="o">=</span><span class="mf">2.3</span> <span class="err">\</span>
+ <span class="o">-</span><span class="n">DarchetypeRepository</span><span class="o">=</span><span class="nl">http:</span><span class="c1">//scala-tools.org/repo-releases \</span>
+ <span class="o">-</span><span class="n">DremoteRepositories</span><span class="o">=</span><span class="nl">http:</span><span class="c1">//scala-tools.org/repo-releases \</span>
+ <span class="o">-</span><span class="n">DgroupId</span><span class="o">=</span><span class="n">com</span><span class="o">.</span><span class="na">company</span> <span class="err">\</span>
+ <span class="o">-</span><span class="n">DartifactId</span><span class="o">=</span><span class="n">lift_test</span> <span class="err">\</span>
+ <span class="o">-</span><span class="n">Dversion</span><span class="o">=</span><span class="mf">1.0</span></code></pre>
+
+<p>生成的项目物件中包含本地开发的常用配置，其路径为 $APPLICATION_HOME/src/main/resources/props/default.props. 这种文件的示例如下。</p>
+
+<pre><code class="language-java"><span class="n">db</span><span class="o">.</span><span class="na">class</span><span class="o">=</span><span class="n">com</span><span class="o">.</span><span class="na">mysql</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">Driver</span>
+<span class="n">db</span><span class="o">.</span><span class="na">url</span><span class="o">=</span><span class="nl">jdbc:mysql:</span><span class="c1">//localhost/my_app</span>
+<span class="n">db</span><span class="o">.</span><span class="na">user</span><span class="o">=</span><span class="n">root</span>
+<span class="n">db</span><span class="o">.</span><span class="na">pass</span><span class="o">=</span><span class="n">root</span></code></pre>
+
+<h2 id="section-2">解析应用程序中使用的外部化服务配置</h2>
+
+<p>Lift 利用外部化配置信息使应用程序不需要修改直接在各种环境中运行。根据应用程序运行环境的不同，需要使用不同的属性文件。确定所用属性文件的规则在 Lift 实用程序类 net.util.liftweb.Props 中指定。应用程序的<a href="http://www.assembla.com/wiki/show/liftweb/Run_Modes">运行模式</a>指定应用程序运行的环境。只要在 $APPLICATION_HOME/src/main/resources/props/<run-mode>.props 中存在根据此规则命名的属性文件，就会用到该文件。如果没有，则使用 default.props 文件。部署属性文件的示例[在此处提供](http://www.assembla.com/spaces/liftweb/wiki/Properties)。</run-mode></p>
+
+<p>使用外部服务配置的代码物件
+如果给定了采用外部化数据库配置进行设置的项目，就可以用 net.util.liftweb.Props 实用程序来获取相关属性。使用 Props 实用程序的代码示例如下。该代码取自 $APPLICATION_HOME/src/main/scala/bootstrap/liftweb/Boot.scala 文件：</p>
+
+<pre><code class="language-java"><span class="n">def</span> <span class="n">boot</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">DB</span><span class="o">.</span><span class="na">jndiJdbcConnAvailable_</span><span class="o">?)</span> <span class="o">{</span>
+      <span class="n">val</span> <span class="n">vendor</span> <span class="o">=</span>
+            <span class="k">new</span> <span class="nf">StandardDBVendor</span><span class="o">(</span><span class="n">Props</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"db.class"</span><span class="o">)</span> <span class="n">openOr</span> <span class="s">"Invalid Class"</span><span class="o">,</span>
+                 <span class="n">Props</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"db.url"</span><span class="o">)</span> <span class="n">openOr</span> <span class="s">"Invalid DB url"</span><span class="o">,</span>
+                 <span class="n">Props</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"db.user"</span><span class="o">),</span>
+                             <span class="n">Props</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"db.pass"</span><span class="o">))</span>
+
+      <span class="n">LiftRules</span><span class="o">.</span><span class="na">unloadHooks</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">vendor</span><span class="o">.</span><span class="na">closeAllConnections_</span><span class="o">!</span> <span class="n">_</span><span class="o">)</span>
+
+      <span class="n">DB</span><span class="o">.</span><span class="na">defineConnectionManager</span><span class="o">(</span><span class="n">DefaultConnectionIdentifier</span><span class="o">,</span> <span class="n">vendor</span><span class="o">)</span>
+    <span class="o">}</span></code></pre>
+
+<p>在上述代码中，运行模式用来生成要使用的属性文件，然后根据该文件读取关联属性以连接数据库。</p>
+
+<h2 id="cloud-foundry--lift-">在 Cloud Foundry 中部署 Lift 应用程序时自动重新配置数据库配置</h2>
+
+<p>只要应用程序使用上述外部化服务配置并绑定了 Cloud Foundry (mysql) 的数据库服务实例，在 Cloud Foundry 中部署该应用程序（使用“vmc”或 STS）应该非常容易。
+应用程序自动重新配置并启动后，将生成以下样式的新运行模式属性文件：$APPLICATION_HOME/src/main/resources/props/<username>.<hostname>.props，其中 <username> 对应部署应用程序的用户，<hostname> 对应应用程序启动的主机和应用程序上绑定的数据库服务实例终端的 db. * 值。此时 Lift 应用程序应启动并连接数据库。</hostname></username></hostname></username></p>
+
+<h2 id="lift--1">在 Lift 中手动绑定数据库和其他服务配置</h2>
+
+<p>配置未进行外部化（即配置采用硬代码）或使用非数据库类的服务（目前，Cloud Foundry 自动重新配置仅对 Lift 数据库服务的单个实例有效）的应用程序需显示解析其配置依赖项。
+为此，Lift 项目需要在其依赖项中添加 Cloud Foundry 运行时。该运行时是一个 Java 包，该包可提供对提供给用户的所有服务终端信息的访问。为使 Maven 中包括依赖项，您需要在 pom.xml 中添加以下元素[属性和依赖项]。最好采用最新版本的运行时。</p>
+
+<pre><code class="language-xml">...
+  <span class="nt">&lt;properties&gt;</span>
+    ...
+    <span class="nt">&lt;org.cloudfoundry-version&gt;</span>0.6.1<span class="nt">&lt;/org.cloudfoundry-version&gt;</span>
+    ...
+  <span class="nt">&lt;/properties&gt;</span>
+
+  ...
+
+  <span class="nt">&lt;dependencies&gt;</span>
+    ...
+    <span class="c">&lt;!-- CloudFoundry --&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.cloudfoundry<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>cloudfoundry-runtime<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>${org.cloudfoundry-version}<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    ...
+  <span class="nt">&lt;/dependencies&gt;</span>
+  ...</code></pre>
+
+<p>为了获取代码中的服务属性，您需要按以下方式使用云运行时：</p>
+
+<p>在环境中导入 “import org.cloudfoundry.runtime.env.<em>”
+导入服务专用运行时包如 “org.cloudfoundry.runtime.service.relational.</em>”
+最后调用方法创建服务并取得和它的连接。
+使用示例如下：</p>
+
+<pre><code class="language-java"><span class="n">object</span> <span class="n">DBVendor</span> <span class="kd">extends</span> <span class="n">ConnectionManager</span> <span class="o">{</span>
+  <span class="n">def</span> <span class="nf">newConnection</span><span class="o">(</span><span class="nl">name:</span> <span class="n">ConnectionIdentifier</span><span class="o">):</span> <span class="n">Box</span><span class="o">[</span><span class="n">Connection</span><span class="o">]</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+
+      <span class="kn">import</span> <span class="nn">org.cloudfoundry.runtime.env._</span>
+      <span class="kn">import</span> <span class="nn">org.cloudfoundry.runtime.service.relational._</span>
+      <span class="nf">Full</span><span class="o">(</span><span class="k">new</span> <span class="n">MysqlServiceCreator</span><span class="o">(</span><span class="k">new</span> <span class="n">CloudEnvironment</span><span class="o">()).</span><span class="na">createSingletonService</span><span class="o">().</span><span class="na">service</span><span class="o">.</span><span class="na">getConnection</span><span class="o">())</span>
+
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="n">e</span> <span class="o">:</span> <span class="n">Exception</span> <span class="o">=&gt;</span> <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">;</span> <span class="n">Empty</span>
+    <span class="o">}</span>
+  <span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

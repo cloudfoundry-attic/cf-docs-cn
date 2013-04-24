@@ -1,0 +1,13 @@
+--- 
+applications: 
+  .: 
+    name: cndocs-test
+    framework: 
+      name: sinatra
+      info: 
+        mem: 128M
+        description: Sinatra Application
+        exec: ruby sample.rb
+    url: ${name}.${target-base}
+    mem: 512M
+    instances: 3

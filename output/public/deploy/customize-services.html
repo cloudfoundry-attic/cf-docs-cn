@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/deploy/customize-services.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | 分步指南：向开源软件 Cloud Foundry 添加系统服务' property='og:title'>
+<meta content='分步指南：向开源软件 Cloud Foundry 添加系统服务' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | 分步指南：向开源软件 Cloud Foundry 添加系统服务</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Deploy</h1>
+<p class='sub-head'>分步指南：向开源软件 Cloud Foundry 添加系统服务</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>分步指南：向开源软件 Cloud Foundry 添加系统服务</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/services" rel="tag">services</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-10-26
+</span>
+</p>
+<div id='social-share'></div>
+<p><em>作者：<strong>Georgi Sabev</strong></em></p>
+
+<h2 id="section">概述</h2>
+
+<p>本指南将一步步为您介绍向 Cloud Foundry 环境中
+添加新服务的过程，并向您说明如何从 Web 应用程序中使用此服务。
+本教程适用于使用 <a href="https://github.com/cloudfoundry/oss-docs/tree/master/vcap/single_and_multi_node_deployments_with_dev_setup">dev_setup 安装</a>的 CloudFoundry。
+出于本指南的需要，我们提供了一项示例回显服务，
+以及一个发送待回显消息的示例使用者 Web 应用程序。
+这两者都是使用 java 编写的，不过，您可以用您想用的任何语言编写您自己的服务，
+并可以用 Cloud Foundry 支持的任何语言来编写作为使用方的应用程序。
+每项服务都有一个服务节点、一个置备器和一个服务网关。服务节点是 Cloud Foundry 服务的实现。
+置备器是在置备或取消置备该服务时执行特定于域的操作的代理。
+例如，在置备标准的 MySQL 服务时，
+该服务会创建一个新用户和架构。
+服务网关是用来与服务置备器
+进行交互的 REST 接口。
+下面是一张显示了这些基本组件的小图片：</p>
+
+<p><img src="https://github.com/cloudfoundry/oss-docs/raw/master/vcap/adding_a_system_service/images/service_provisioning.png" alt="service_provisioning.png"></p>
+
+<h2 id="cloud-foundry-">Cloud Foundry 中的服务</h2>
+
+<p>在 Cloud Foundry 中，有两种基本的服务状态，即系统服务和置备的服务。
+系统服务是可供系统使用的所有类型的服务。
+可以置备这些类型的服务并将它们绑定到应用程序。
+置备一项服务时，需为其指定一个名称。
+应用程序以后将使用此名称来查找有关所置备服务的元数据。
+您可以通过登录到 vmc 
+并键入<code>vmc services</code> 来将系统服务和置备的服务都列出来：</p>
+
+<p><img src="https://github.com/cloudfoundry/oss-docs/raw/master/vcap/adding_a_system_service/images/services.png" alt="services.png"></p>
+
+<h2 id="section-1">我们引入了一个“回显”样板示例服务，您可以将它复制过来并根据自己的使用情况对它进行更新。</h2>
+
+<p>完成 dev_setup 后，服务目录 (vcap-services repo) 将被放置在 <code>.../cloudfoundry/vcap/</code>
+，此时您可以在 <code>...cloudfoundry/vcap/services/echo</code> 处找到此回显服务的实现。</p>
+
+<p>用“排除的组件”构建此回显服务（请参见 <code>https://github.com/cloudfoundry/vcap/blob/master/dev_setup/README</code>）后，请重新运行 <code>.../cloudfoundry/vcap/dev_setup/bin/vcap_dev start</code>，
+我们的回显服务将作为一项系统服务显示在
+<code>vmc services</code> 输出的表中。
+本指南既可用于单机 Cloud Foundry 环境，又可用于分布式 Cloud Foundry 环境。
+<strong>请注意，我们所用的省略号 (…) 表示 Cloud Foundry 的安装目录。</strong>
+如果您要构建自己的服务，您需要注意以下方面：</p>
+
+<ol>
+<li>
+    <p>在
+ <code>.../cloudfoundry/.deployments/devbox/config/vcap_components.json</code> 文件中，echo_node 和 echo_gateway 已放入下面的列表中：</p>
+
+    <pre><code> {"components":["router","cloud_controller","health_manager","dea","uaa",
+  "vcap_redis","serialization_data_server","redis_node","mysql_node",
+  "mongodb_node","neo4j_node","rabbitmq_node","postgresql_node",
+  "vblob_node","memcached_node","elasticsearch_node","couchdb_node",
+  "redis_gateway","mysql_gateway","mongodb_gateway","neo4j_gateway",
+  "rabbitmq_gateway","postgresql_gateway","vblob_gateway","memcached_gateway",
+  "elasticsearch_gateway","couchdb_gateway","filesystem_gateway",
+  "service_broker","backup_manager","snapshot_manager","redis_worker",
+  "mysql_worker","mongodb_worker","postgresql_worker",
+  "echo_node","echo_gateway"]}
+</code></pre>
+  </li>
+  <li>
+    <p>服务令牌配置位于 <code>.../cloudfoundry/.deployments/devbox/config/cloud_controller.yml</code></p>
+
+    <p>云控制器和服务网关均持有服务令牌，
+ 二者所持的令牌应完全匹配，它们才能正确地相互通信。</p>
+
+    <pre><code> # Services we provide, and their tokens. Avoids bootstrapping DB.
+  builtin_services:
+    redis:
+      token: changeredistoken
+    mongodb:
+      token: changemongodbtoken
+    mysql:
+      token: changemysqltoken
+    neo4j:
+      token: changeneo4jtoken
+    rabbitmq:
+      token: changerabbitmqtoken
+    postgresql:
+      token: changepostgresqltoken
+    vblob:
+      token: changevblobtoken
+    memcached:
+      token: changememcachedtoken
+    filesystem:
+      token: changefilesystemtoken
+    elasticsearch:
+      token: changeelasticsearchtoken
+    couchdb:
+      token: changecouchdbtoken
+    echo:
+      token: changeechotoken
+</code></pre>
+  </li>
+  <li>
+    <p>在服务主机上，转到
+<code>.../cloudfoundry/vcap/services/tools/misc/bin/nuke_service.rb</code> 
+然后您便可以看到其中显示了回显服务配置的路径。</p>
+
+    <p>此工具用于在您需要停止提供服务时从云中删除服务产品。</p>
+
+    <pre><code> default_configs = {
+   :mongodb =&gt; File.expand_path("../../mongodb/config/mongodb_gateway.yml", __FILE__),
+   :redis =&gt; File.expand_path("../../redis/config/redis_gateway.yml", __FILE__),
+   :mysql =&gt; File.expand_path("../../mysql/config/mysql_gateway.yml", __FILE__),
+   :neo4j =&gt; File.expand_path("../../neo4j/config/neo4j_gateway.yml", __FILE__),
+   :vblob =&gt; File.expand_path("../../vblob/config/vblob_gateway.yml", __FILE__),
+   :echo =&gt; File.expand_path("../../echo/config/echo_gateway.yml", __FILE__),
+ }
+</code></pre>
+  </li>
+  <li>
+    <p>在服务主机上，转到
+<code>.../cloudfoundry/vcap/services/echo</code> 
+然后您便可以看到此服务的实现，包括代码和配置文件</p>
+
+    <p>请确保 echo_gateway 和 echo_node 配置文件与下面的内容（需进行相应的 IP 地址和端口替换）类似：</p>
+
+    <p><code>.../cloudfoundry/.deployments/devbox/config/echo_gateway.yml</code></p>
+
+    <pre><code> ---  
+  cloud_controller_uri: api.vcap.me  
+  service:  
+    name: echo  
+    version: "1.0"  
+    description: 'Echo key-value store service'  
+    plans: ['free']  
+    tags: ['echo', 'echo-1.0', 'echobased', 'demo']
+  index: 0  
+  token: changeechotoken
+  logging:  
+    level: debug
+  mbus: nats://nats:nats@&lt;nats_host&gt;:&lt;nats_port&gt;/
+  pid: /var/vcap/sys/run/echo_service.pid   
+  node_timeout: 2
+</code></pre>
+
+    <p><code>.../cloudfoundry/.deployments/devbox/config/echo_node.yml</code></p>
+
+    <pre><code> ---  
+ capacity: 100
+ plan: free
+ local_db: sqlite3:/var/vcap/services/echo/echo_node.db  
+ mbus: nats://nats:nats@&lt;nats_host&gt;:&lt;nats_port&gt;/
+ index: 0
+ base_dir: /var/vcap/services/echo/  
+ ip_route: &lt;services_host_ip&gt;  
+ logging:  
+   level: debug  
+ pid: /var/vcap/sys/run/echo_node.pid  
+ node_id: echo_node_0
+ port:&lt;echo_service_port&gt; # 回显服务在进行侦听时使用的端口
+ host:&lt;echo_service_host&gt; # 回显服务所在的主机。可能不同于服务主机
+</code></pre>
+
+    <p><strong>相对于 localhost，优先使用实际 IP 地址，因为这些变量中的某些变量可能会成为其他主机上的环境的一部分！</strong></p>
+  </li>
+  <li>
+    <p>在服务主机上，转到
+<code>.../cloudfoundry/vcap/dev_setup/lib/vcap_components.rb</code>
+然后您便可以看到回显已注册为有效组件</p>
+
+    <p>https://github.com/cloudfoundry/vcap/blob/master/dev_setup/lib/vcap_components.rb#L399-L406</p>
+
+    <pre><code> ## services: gateways &amp; nodes
+ %w(redis mysql mongodb rabbitmq postgresql vblob neo4j memcached couchdb elasticsearch filesystem echo).each do |service|
+   ServiceComponent.register("#{service}_gateway")
+ end
+
+ %w(redis mysql mongodb rabbitmq postgresql vblob neo4j memcached couchdb elasticsearch echo).each do |service|
+   ServiceComponent.register("#{service}_node")
+ end
+</code></pre>
+  </li>
+  <li>
+    <p>为新服务的节点和网关捆绑必需的依赖项：</p>
+
+    <p>以回显服务为例：</p>
+
+    <pre><code> $ cd .../cloudfoundry/vcap/services/echo
+ $ source $HOME/.cloudfoundry_deployment_profile &amp;&amp; bundle package
+</code></pre>
+  </li>
+  <li>
+    <p>要修改默认的排除组件列表，请在 <code>.../cloudfoundry/vcap/dev_setup/lib/vcap_components.rb</code> 中更新组件名称，这样您便无需使用环境变量了</p>
+
+    <pre><code> DEFAULT_CLOUD_FOUNDRY_EXCLUDED_COMPONENT = 'neo4j|memcached|couchdb|service_broker|elasticsearch|backup_manager|vcap_redis|worker|snapshot_manager|serialization_data_server|echo'
+</code></pre>
+  </li>
+  <li>
+    <p>重新启动云控制器、服务网关和节点：</p>
+
+    <pre><code> $ .../cloudfoundry/vcap/dev_setup/bin/vcap_dev restart
+</code></pre>
+
+    <p>这应该会显示_echo_node_ 和_echo_gateway_ 正在运行。要查看它们的日志，请运行：</p>
+
+    <pre><code> $ cd .../cloudfoundry/.deployments/devbox/log &amp;&amp; tail -f *.log
+</code></pre>
+
+    <p>现在，请执行 <code>vmc services</code> 命令。在上部的表中应该会提供我们的
+新回显服务。恭喜！您刚刚已经提供了您的
+第一个 Cloud Foundry 服务！现在，我们来对这项服务进行一些处理！</p>
+  </li>
+</ol><h2 id="section-2">使用回显服务</h2>
+
+<ol>
+<li>
+    <p>通过运行 <code>vmc create-service echo myecho</code> 置备一项回显服务。</p>
+
+    <p>这将置备一个名为“myecho”的回显服务。测试应用程序以后将使用此名称来查找我们为
+此回显服务配置的主机和端口。
+置备 myecho 后，请执行 <code>vmc
+services</code>。这将输出与下面类似的内容：</p>
+
+    <p><img src="https://github.com/cloudfoundry/oss-docs/raw/master/vcap/adding_a_system_service/images/echo_service.png" alt="echo_service.png"></p>
+
+    <p>现在我们的服务就置备好了！</p>
+  </li>
+  <li>
+    <p>推送一个测试应用程序并绑定所置备的回显服务。</p>
+
+    <p>下载该测试应用程序的 <a href="https://github.com/cloudfoundry/oss-docs/raw/master/vcap/adding_a_system_service/support/testapp.war">.war 文件</a>，或者用<a href="https://github.com/cloudfoundry/oss-docs/raw/master/vcap/adding_a_system_service/support/testapp_src.zip">源代码</a>进行编译。将该文件放入一个空文件夹中，然后使用 <code>vmc push</code> 进行部署：</p>
+
+    <pre><code> Would you like to deploy from the current directory? [Yn]:  
+  Application Name: echotest  
+  Application Deployed URL: 'echotest.vcap.me'?  
+  Detected a Java Web Application, is this correct? [Yn]:  
+  Memory Reservation [Default:512M] (64M, 128M, 256M, 512M or 1G) 64M  
+  Creating Application: OK  
+  Would you like to bind any services to 'echotest'? [yN]: y  
+  Would you like to use an existing provisioned service [yN]? y  
+  The following provisioned services are available:  
+  1. db 2. myecho  
+  Please select one you wish to provision: 2  
+  Binding Service: OK  
+  Uploading Application:  
+    Checking for available resources: OK  
+    Processing resources: OK  
+    Packing application: OK  
+    Uploading (1K): OK  
+  Push Status: OK  
+  Staging Application: OK  
+  Starting Application: OK
+</code></pre>
+
+    <p><strong>注意：</strong>如果在同一目录下还有其他应用程序，vmc 将按词典编纂顺序对它们进行排序，然后将选择排在第一位的应用程序。您可以改用 <code>vmc push &lt;app_name&gt; --path &lt;path_to_app&gt;</code>。</p>
+  </li>
+  <li>
+    <p>启动此回显服务并访问该应用程序。</p>
+
+    <p>到目前为止，我们已经向 Cloud Foundry 中的用户和应用程序提供了回显服务元数据，但我们尚未启动提供回显服务本身的功能的程序。该测试应用程序从 <code>VCAP_SERVICES</code> 环境变量获取服务 IP 和端口，但我们需负责确保确有侦听服务。
+不然的话，该应用程序在尝试访问回显服务时会返回一个错误。那我们就来启动此服务：将<a href="https://github.com/cloudfoundry/oss-docs/raw/master/vcap/adding_a_system_service/support/echo_service.jar">回显服务的 jar 文件</a>下载到 <code>echo_node.yml</code> 中列出的 <code>host</code>，或者用<a href="https://github.com/cloudfoundry/oss-docs/raw/master/vcap/adding_a_system_service/support/echo_service_src.zip">源代码</a>编译出该文件。然后，执行下面的命令：</p>
+
+    <pre><code> $ java -jar echo_service.jar -port &lt;echo_service_port&gt;
+</code></pre>
+
+    <p>您以参数形式传递的端口应与您在 <code>echo_node.yml</code> 中配置的端口相同（除非修改了此参数，否则为端口 5002）。</p>
+
+    <p>启动此服务后，请打开您喜欢的 Web 浏览器，然后转到
+http://echotest.vcap.me 或您在推送时选用的 URI。
+在文本区域输入一些消息，然后单击_Echo message_ 按钮。
+此回显服务将会回显您的消息：</p>
+
+    <p><img src="https://github.com/cloudfoundry/oss-docs/raw/master/vcap/adding_a_system_service/images/helloworld.png" alt="helloworld.png"></p>
+  </li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

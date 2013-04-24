@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+# A few helpful tips about the Rules file:
+#
+# * The order of rules is important: for each item, only the first matching
+#   rule is applied.
+#
+# * Item identifiers start and end with a slash (e.g. “/about/” for the file
+#   “content/about.html”). To select all children, grandchildren, … of an
+#   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
+#   because “*” matches zero or more characters.
+
+compile '/static/*' do
+end
+
+compile '*' do
+  filter :fenced_code_block
+  filter :erb
+  filter :kramdown
+
+  filter :colorize_syntax,                  # the Syntax highlighter
+         :default_colorizer => :pygmentize,
+         :colorizers => {:groovy => :dummy}
+
+  layout 'default'
+
+end
+
+route '/' do
+    '/index.html'
+end
+
+route '/static/*' do
+  item.identifier[7..-2]
+end
+
+route '*' do
+  rep.item.identifier[0..(rep.item.identifier.length-2)] + ".html"
+end
+
+layout '*', :haml, { :format => :html5, :ugly => true }

@@ -1,0 +1,141 @@
+.hero-left .hero-content {
+  padding: 20px 35px 0 30px;
+}
+
+.form-login {
+    padding-top: 0px;
+    color: white;
+}
+
+.form-login label {
+    font-size: 12pt;
+    display: block;
+    margin-top: 15px;
+}
+.form-login input{
+    width: 100%;
+}
+
+.form-app input {
+    float:right;
+}
+
+.form-app input.domain {
+    float: none;
+    width: 260px;
+}
+.form-app input.short {width:400px}
+
+.form-login button[type=submit], .form-app button[type=submit] {
+	display: inline-block;
+    float:right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+	padding: 10px 12px;
+	color: #fff;
+	font-size: 20px;
+	text-align: center;
+	border: 1px solid #813516;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	background: #ec6129;
+	background: -moz-linear-gradient(top,  #ec6129 0%, #d66035 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ec6129), color-stop(100%,#d66035));
+	background: -webkit-linear-gradient(top,  #ec6129 0%,#d66035 100%);
+	background: -o-linear-gradient(top,  #ec6129 0%,#d66035 100%);
+	background: -ms-linear-gradient(top,  #ec6129 0%,#d66035 100%);
+	background: linear-gradient(top,  #ec6129 0%,#d66035 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ec6129', endColorstr='#d66035',GradientType=0 );
+	-webkit-box-shadow: inset 0 1px 0 0 rgba(255,255,255, .3), inset 0 -1px 0 0 rgba(0,0,0, .4);
+	-moz-box-shadow: inset 0 1px 0 0 rgba(255,255,255, .3), inset 0 -1px 0 0 rgba(0,0,0, .4);
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255, .3), inset 0 -1px 0 0 rgba(0,0,0, .4);
+
+}
+
+.form-login .orange-button {
+    margin-top:15px;
+}
+
+.hero-gallery {
+  background: url(/images/BG_DeployApp.png) #0084BD bottom right no-repeat;
+  color: white;
+}
+
+/* hand cursor on clickable input elements */
+input[type=button], input[type=submit], button { cursor: pointer; }
+
+/* Reduce the giant login fonts */
+.prominent, .buttons {margin-left: 10px; font-size: smaller;}
+
+.dc-social-float .tab {
+cursor: pointer;
+height: 38px;
+margin-left: -1px;
+}
+.dc-social-float .dc-social-float-content {
+background: #fff;
+border: 1px solid #bbb;
+padding: 5px 5px 0 5px;
+text-align: center;
+}
+.dc-social-float .dc-social-float-content {
+border-radius: 5px; -webkit-border-radius: 5px;
+}
+.dcssb-btn {margin-bottom: 5px;}
+
+/* Reduce the giant login fonts */
+.prominent, .buttons {margin-left: 10px; font-size: smaller;}
+
+p.little {
+    font-size: 10px;
+    color: #717074;
+    font-weight: normal;
+    margin-left: 100px;
+    margin-top: 0px;
+}
+
+.form-app label {
+    font-weight: bold;
+    color: #444;
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+p.hero-body.small_text, p.sub-head.small_text  {
+  font-size:12pt;
+}
+
+.deploy_title {
+    margin-bottom: 20px;
+}
+
+.app_container_hero {
+    display: inline;
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.app_container_hero img {
+    display: inline;
+    float: left;
+    width: 75px;
+}
+
+.app_container_hero p.small_text {
+    display:inline;
+    float:left;
+    width: 425px;
+    margin-left:20px;
+}
+
+hr.tall {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+span.right {
+    float:right;
+}

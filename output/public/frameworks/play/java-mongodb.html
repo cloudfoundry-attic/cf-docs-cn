@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/frameworks/play/java-mongodb.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | Cloud Foundry 上的 Play Java MongoDB 应用程序' property='og:title'>
+<meta content='Cloud Foundry 上部署的采用 MongoDB 后端的 Play Java 应用程序' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | Cloud Foundry 上的 Play Java MongoDB 应用程序</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Frameworks</h1>
+<p class='sub-head'>Cloud Foundry 上的 Play Java MongoDB 应用程序</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>Cloud Foundry 上部署的采用 MongoDB 后端的 Play Java 应用程序</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/play" rel="tag">play</a><a href="/tags/java" rel="tag">java</a><a href="/tags/mongodb" rel="tag">mongodb</a><a href="/tags/教程" rel="tag">教程</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-10-26
+</span>
+</p>
+<div id='social-share'></div>
+<p>本指南面向使用 Play 框架和 MongoDB NoSQL 数据库</p>
+
+<p>在 Cloud Foundry 上构建和部署自己的应用程序的 Java 开发人员。
+它说明了如何使用本机 Java 驱动程序来</p>
+
+<p>设置和访问 MongoDB。
+该应用程序使用 MongoDB 的本地实例进行开发，使用</p>
+
+<p>在 Cloud Foundry 上运行的一项现有 MongoDB 服务进行部署。</p>
+
+<p>开始前，您需备妥以下内容：</p>
+
+<ul>
+<li>
+    <p>一个 <a href="http://cloudfoundry.com/signup">Cloud Foundry 帐户</a></p>
+  </li>
+  <li>
+    <p><a href="/tools/vmc/installing-vmc.html">vmc</a> Cloud Foundry 命令行工具</p>
+  </li>
+  <li>
+    <p><a href="http://www.playframework.org/documentation/2.0.2/Home">Play 2.0 </a> 安装程序</p>
+  </li>
+  <li>
+    <p>一个本地 <a href="http://www.mongodb.org/downloads">MongoDB</a> 服务器和客户端环境</p>
+  </li>
+</ul><h2 id="section">简介</h2>
+
+<p>在本教程中，我们将采用以下简单的用例：</p>
+
+<p>修改 <a href="http://www.playframework.org/documentation/2.0.2/JavaTodoList">TodoList</a></p>
+
+<p>应用程序并将其部署到通过持久层与 MongoDB NoSQL 数据库相连的 Cloud Foundry。
+由于原始</p>
+
+<p>应用程序是为采用 Ebean 的 SQL 数据存储编写的，因此我们将重新编写</p>
+
+<p>此应用程序的控制器和模型以便将其与 MongoDB 后端搭配使用。</p>
+
+<h2 id="todolist-play-">TodoList Play 应用程序</h2>
+
+<p>TodoList 用来创建和管理任务。</p>
+
+<p><img src="/images/play/todolist-usecase.png" alt="todolist-usecase.png"></p>
+
+<p>这些任务由用户创建并将数据存储在</p>
+
+<p>基础关系存储区中。</p>
+
+<p>下面提供了使用 Play 运行时和 MongoDB 的应用程序的</p>
+
+<p>简要交互图：</p>
+
+<p><img src="/images/play/play-mongodb.png" alt="play-mongodb.png"></p>
+
+<h3 id="section-1">此应用程序的创建步骤</h3>
+
+<p>在本节中，我们将概括基于默认的 Play 应用程序模板创建此应用程序的步骤。</p>
+
+<h4 id="play-">创建一个新的 Play 应用程序</h4>
+
+<p>在命令行中键入 <code>play new todolist-java-mongodb</code> 命令。
+选择选项 2 以创建</p>
+
+<p>一个简单的 Java 应用程序。</p>
+
+<pre class="terminal">
+$ play new todolist-java-mongodb
+       _            _
+ _ __ | | __ _ _  _| |
+| '_ \| |/ _' | || |_|
+|  __/|_|\____|\__ (_)
+|_|            |__/
+
+play! 2.0.2, http://www.playframework.org
+
+The new application will be created in /Users/rajdeepd/vmware/play/mysamples/todolist-java-mongodb
+
+What is the application name?
+&gt; todolist-java-mongodb
+
+Which template do you want to use for this new application?
+
+  1 - Create a simple Scala application
+  2 - Create a simple Java application
+  3 - Create an empty project
+
+&gt; 2
+
+OK, application todolist-java-mongodb is created.
+
+Have fun!
+</pre>
+
+<h4 id="eclipse-">创建一个 Eclipse 项目</h4>
+
+<p>使用 Play 的“eclipsify”命令创建一个 Eclipse 项目。</p>
+
+<pre class="terminal">
+$ cd todolist-java-mongodb
+$ play
+[info] Loading project definition from /Users/&lt;username&gt;/play/mysamples/
+todolist-java-mongodb/project
+[info] Set current project to todolist-java-mongodb (in build file:/Users/&lt;username&gt;/play/mysamples/todolist-java-mongodb/)
+       _            _
+ _ __ | | __ _ _  _| |
+| '_ \| |/ _' | || |_|
+|  __/|_|\____|\__ (_)
+|_|            |__/
+
+play! 2.0.2, http://www.playframework.org
+
+&gt; Type "help play" or "license" for more information.
+&gt; Type "exit" or use Ctrl+D to leave this console.
+
+[todolist-java-mongodb] $ eclipsify
+[info] About to create Eclipse project files for your project(s).
+[info] Updating {file:/Users/&lt;username&gt;/play/mysamples/todolist-java-mongodb/}todolist-java-mongodb...
+[info] Done updating.
+[info] Compiling 4 Scala sources and 2 Java sources to /Users/&lt;username&gt;/play/mysamples/
+todolist-java-mongodb/target/scala-2.9.1/classes...
+[info] Successfully created Eclipse project files for project(s):
+[info] todolist-java-mongodb
+[todolist-java-mongodb] $
+</pre>
+
+<p>通过“文件”-&gt;“导入”将所创建的项目导入到 Eclipse 中，然后指向</p>
+
+<p><code>todolist-java-mongodb</code> 项目的根文件夹。</p>
+
+<p><img src="/images/screenshots/play/eclipse-import-mongoproject-1.png" alt="eclipse-import-mongoproject-1.png"></p>
+
+<p><img src="/images/screenshots/play/eclipse-import-mongoproject-2.png" alt="eclipse-import-mongoproject-2.png"></p>
+
+<h4 id="mongodb--gson-jar-">将 MongoDB 驱动程序和 Gson Jar 添加到此项目</h4>
+
+<p>下载 MongoDB 驱动程序文件和 Gson Jar，然后将它们添加到此项目的 lib 文件夹中。</p>
+
+<ul>
+<li><a href="http://www.mongodb.org/downloads">mongo-0.2.8.jar</a></li>
+  <li><a href="http://code.google.com/p/google-gson/downloads/list">gson-2.2.2.jar</a></li>
+</ul><h4 id="section-2">修改路由器</h4>
+
+<p>在 <code>routes</code> 配置文件中定义以下路由。
+该文件会将相对 URL</p>
+
+<p>映射到 <code>controllers.Application.java</code> 中的相应操作</p>
+
+<h5 id="section-3">索引页</h5>
+
+<p>下面的映射将 <code>HTTP GET</code> 调用映射到 <code>/</code> URL，后者继而映射到 index.html 页面。</p>
+
+<pre><code class="language-javascript"><span class="nx">GET</span>     <span class="o">/</span>                           <span class="nx">controllers</span><span class="p">.</span><span class="nx">Application</span><span class="p">.</span><span class="nx">index</span><span class="p">()</span></code></pre>
+
+<h5 id="section-4">获取所有任务</h5>
+
+<p>下面的映射使用 <code>HTTP GET</code> 调用列出位于 URL <code>/tasks</code> 处的所有任务。</p>
+
+<pre><code class="language-javascript"><span class="nx">GET</span>     <span class="o">/</span><span class="nx">tasks</span>                  <span class="nx">controllers</span><span class="p">.</span><span class="nx">Application</span><span class="p">.</span><span class="nx">tasks</span><span class="p">()</span></code></pre>
+
+<h5 id="section-5">创建任务</h5>
+
+<p>下面的映射将 <code>controllers.Application.newTask()</code> 控制器操作映射到 <code>HTTP POST</code> 调用，后者继而映射到 URL <code>/tasks</code>。</p>
+
+<pre><code class="language-javascript"><span class="nx">POST</span>    <span class="o">/</span><span class="nx">tasks</span>                  <span class="nx">controllers</span><span class="p">.</span><span class="nx">Application</span><span class="p">.</span><span class="nx">newTask</span><span class="p">()</span></code></pre>
+
+<h5 id="section-6">删除任务</h5>
+
+<p>下面的映射将 <code>controllers.Application.deleteTask(:id Long)</code> 控制器操作映射到</p>
+
+<p><code>HTTP POST</code> 调用，后者继而映射到 URL <code>/tasks/:id/delete</code>，其中 id 是该任务的唯一 id。</p>
+
+<pre><code class="language-javascript"><span class="nx">POST</span>    <span class="o">/</span><span class="nx">tasks</span><span class="o">/:</span><span class="nx">id</span><span class="o">/</span><span class="k">delete</span>        <span class="nx">controllers</span><span class="p">.</span><span class="nx">Application</span><span class="p">.</span><span class="nx">deleteTask</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span> <span class="nx">Long</span><span class="p">)</span></code></pre>
+
+<h5 id="section-7">完整列出</h5>
+
+<pre><code class="language-javascript"><span class="err">#</span> <span class="nx">Home</span> <span class="nx">page</span>
+<span class="nx">GET</span>     <span class="o">/</span>                       <span class="nx">controllers</span><span class="p">.</span><span class="nx">Application</span><span class="p">.</span><span class="nx">index</span><span class="p">()</span>
+
+<span class="err">#</span> <span class="nx">Map</span> <span class="kr">static</span> <span class="nx">resources</span> <span class="nx">from</span> <span class="nx">the</span> <span class="o">/</span><span class="kr">public</span> <span class="nx">folder</span> <span class="nx">to</span> <span class="nx">the</span> <span class="o">/</span><span class="nx">assets</span> <span class="nx">URL</span> <span class="nx">path</span>
+<span class="nx">GET</span>     <span class="o">/</span><span class="nx">assets</span><span class="o">/*</span><span class="nx">file</span>           <span class="nx">controllers</span><span class="p">.</span><span class="nx">Assets</span><span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="nx">path</span><span class="o">=</span><span class="s2">"/public"</span><span class="p">,</span> <span class="nx">file</span><span class="p">)</span>
+
+<span class="err">#</span> <span class="nx">Tasks</span>
+<span class="nx">GET</span>     <span class="o">/</span><span class="nx">tasks</span>                  <span class="nx">controllers</span><span class="p">.</span><span class="nx">Application</span><span class="p">.</span><span class="nx">tasks</span><span class="p">()</span>
+<span class="nx">POST</span>    <span class="o">/</span><span class="nx">tasks</span>                  <span class="nx">controllers</span><span class="p">.</span><span class="nx">Application</span><span class="p">.</span><span class="nx">newTask</span><span class="p">()</span>
+<span class="nx">POST</span>    <span class="o">/</span><span class="nx">tasks</span><span class="o">/:</span><span class="nx">id</span><span class="o">/</span><span class="k">delete</span>       <span class="nx">controllers</span><span class="p">.</span><span class="nx">Application</span><span class="p">.</span><span class="nx">deleteTask</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span> <span class="nx">Long</span><span class="p">)</span></code></pre>
+
+<h4 id="section-8">修改模型</h4>
+
+<p>在模型包中创建一个将与底层 MongoDB 驱动程序进行交互的 Task 类。</p>
+
+<p>Task 包含两个公共字段：<code>id</code> 和 ‘label`。</p>
+
+<pre><code class="language-java"><span class="kn">package</span> <span class="n">models</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Task</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="n">label</span><span class="o">;</span>
+
+<span class="o">}</span></code></pre>
+
+<h4 id="section-9">修改控制器</h4>
+
+<p>在本节中，您将通过执行以下任务来实现控制器功能：</p>
+
+<h5 id="section-10">创建操作方法</h5>
+
+<p>打开控制器文件，然后添加以下操作。</p>
+
+<pre><code class="language-java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="kd">extends</span> <span class="n">Controller</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">Result</span> <span class="nf">index</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="nf">tasks</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">Result</span> <span class="nf">tasks</span><span class="o">()</span> <span class="o">{</span>
+
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Task</span><span class="o">&gt;</span> <span class="n">getTaskList</span><span class="o">()</span> <span class="o">{</span>
+
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">Result</span> <span class="nf">newTask</span><span class="o">()</span> <span class="o">{</span>
+     
+  <span class="o">}</span>
+<span class="o">}</span></code></pre>
+
+<h5 id="mongodb--utility-">添加用来访问 MongoDB 的 Utility 方法</h5>
+
+<p>此方法返回 MongoDB 的本地或远程实例，具体取决于布尔</p>
+
+<p>参数 <code>local</code>。</p>
+
+<p>对于本地实例，请设置 <code>local=true</code>。
+当我们将它部署到 cloudfoundry.com 时，请设置 <code>local=false</code>。</p>
+
+<pre><code class="language-java"><span class="kd">private</span> <span class="kd">static</span> <span class="n">DB</span> <span class="nf">getDb</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">userName</span> <span class="o">=</span> <span class="n">play</span><span class="o">.</span><span class="na">Configuration</span><span class="o">.</span><span class="na">root</span><span class="o">().</span><span class="na">getString</span><span class="o">(</span><span class="s">"mongo.remote.username"</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">play</span><span class="o">.</span><span class="na">Configuration</span><span class="o">.</span><span class="na">root</span><span class="o">().</span><span class="na">getString</span><span class="o">(</span><span class="s">"mongo.remote.password"</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">langs</span> <span class="o">=</span> <span class="n">play</span><span class="o">.</span><span class="na">Configuration</span><span class="o">.</span><span class="na">root</span><span class="o">().</span><span class="na">getString</span><span class="o">(</span><span class="s">"application.langs"</span><span class="o">);</span>
+    <span class="kt">boolean</span> <span class="n">local</span>  <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+    <span class="n">String</span> <span class="n">localHostName</span> <span class="o">=</span> <span class="n">play</span><span class="o">.</span><span class="na">Configuration</span><span class="o">.</span><span class="na">root</span><span class="o">().</span><span class="na">getString</span><span class="o">(</span><span class="s">"mongo.local.hostname"</span><span class="o">);</span>
+    <span class="n">Integer</span>  <span class="n">localPort</span> <span class="o">=</span> <span class="n">play</span><span class="o">.</span><span class="na">Configuration</span><span class="o">.</span><span class="na">root</span><span class="o">().</span><span class="na">getInt</span><span class="o">(</span><span class="s">"mongo.local.port"</span><span class="o">);</span>
+
+    <span class="n">String</span> <span class="n">remoteHostName</span> <span class="o">=</span> <span class="n">play</span><span class="o">.</span><span class="na">Configuration</span><span class="o">.</span><span class="na">root</span><span class="o">().</span><span class="na">getString</span><span class="o">(</span><span class="s">"mongo.remote.hostname"</span><span class="o">);</span>
+    <span class="n">Integer</span> <span class="n">remotePort</span> <span class="o">=</span> <span class="n">play</span><span class="o">.</span><span class="na">Configuration</span><span class="o">.</span><span class="na">root</span><span class="o">().</span><span class="na">getInt</span><span class="o">(</span><span class="s">"mongo.remote.port"</span><span class="o">);</span>
+
+    <span class="n">Mongo</span> <span class="n">m</span><span class="o">;</span>
+    <span class="n">DB</span> <span class="n">db</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">local</span><span class="o">){</span>
+        <span class="n">String</span> <span class="n">hostname</span> <span class="o">=</span> <span class="n">localHostName</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">port</span> <span class="o">=</span> <span class="n">localPort</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mongo</span><span class="o">(</span> <span class="n">hostname</span><span class="o">,</span> <span class="n">port</span><span class="o">);</span>
+            <span class="n">db</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">getDB</span><span class="o">(</span> <span class="s">"db"</span> <span class="o">);</span>
+        <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Exception while intiating Local MongoDB"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">hostname</span> <span class="o">=</span> <span class="n">remoteHostName</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">port</span> <span class="o">=</span> <span class="n">remotePort</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mongo</span><span class="o">(</span> <span class="n">hostname</span> <span class="o">,</span> <span class="n">port</span><span class="o">);</span>
+            <span class="n">db</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">getDB</span><span class="o">(</span> <span class="s">"db"</span> <span class="o">);</span>
+            <span class="kt">boolean</span> <span class="n">auth</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="na">authenticate</span><span class="o">(</span><span class="n">userName</span><span class="o">,</span> <span class="n">password</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">());</span>
+        <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Exception while intiating Local MongoDB"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">db</span><span class="o">;</span>
+<span class="o">}</span></code></pre>
+
+<h4 id="applicationconfig-">向 application.config 添加参数</h4>
+
+<p>MongoDB 驱动程序使用以下参数来连接到位于本地计算机上</p>
+
+<p>或 cloudfoundry.com 内的 MongDB 服务器。</p>
+
+<pre><code class="language-javascript"><span class="nx">mongo</span><span class="p">.</span><span class="nx">local</span><span class="p">.</span><span class="nx">hostname</span><span class="o">=</span><span class="nx">localhost</span>
+<span class="nx">mongo</span><span class="p">.</span><span class="nx">local</span><span class="p">.</span><span class="nx">port</span><span class="o">=</span><span class="mi">27017</span>
+
+<span class="nx">mongo</span><span class="p">.</span><span class="nx">remote</span><span class="p">.</span><span class="nx">hostname</span><span class="o">=</span><span class="s2">"172.30.XX.XX"</span>
+<span class="nx">mongo</span><span class="p">.</span><span class="nx">remote</span><span class="p">.</span><span class="nx">port</span><span class="o">=</span><span class="mi">25189</span>
+<span class="nx">mongo</span><span class="p">.</span><span class="nx">remote</span><span class="p">.</span><span class="nx">username</span><span class="o">=&lt;</span><span class="nx">username</span> <span class="nx">obtained</span> <span class="nx">from</span> <span class="nx">caldecott</span><span class="o">&gt;</span>
+<span class="nx">mongo</span><span class="p">.</span><span class="nx">remote</span><span class="p">.</span><span class="nx">password</span><span class="o">=&lt;</span><span class="nx">password</span> <span class="nx">obtained</span> <span class="nx">from</span> <span class="nx">caldecott</span><span class="o">&gt;</span></code></pre>
+
+<h2 id="section-11">在本地构建和运行该应用程序</h2>
+
+<p>在本地运行该客户端前，请确保 MongoDB 在本地处于运行状态。</p>
+
+<pre class="terminal">
+$ ./mongod --dbpath=../../mongo/db/
+Thu Aug 30 18:24:09 [initandlisten] MongoDB starting : pid=45601 port=27017 dbpath=
+../../mongo/db/ 64-bit host=username.local
+Thu Aug 30 18:24:09 [initandlisten] db version v2.0.6, pdfile version 4.5
+Thu Aug 30 18:24:09 [initandlisten] git version: e1c0cbc25863f6356aa4e31375add7bb49fb05bc
+Thu Aug 30 18:24:09 [initandlisten] build info: Darwin erh2.10gen.cc 9.8.0 Darwin Kernel s
+Version 9.8.0: Wed Jul 15 16:55:01 PDT 2009; root:xnu-1228.15.4~1/
+RELEASE_I386 i386 BOOST_LIB_VERSION=1_40
+Thu Aug 30 18:24:09 [initandlisten] options: { dbpath: "../../mongo/db/" }
+Thu Aug 30 18:24:09 [initandlisten] journal dir=../../mongo/db/journal
+Thu Aug 30 18:24:09 [initandlisten] recover : no journal files present, no recovery needed
+Thu Aug 30 18:24:09 [websvr] admin web console waiting for connections on port 28017
+Thu Aug 30 18:24:09 [initandlisten] waiting for connections on port 27017
+
+</pre>
+
+<p>您可以从应用程序文件夹中使用标准命令在本地运行该应用程序。</p>
+
+<pre class="terminal">
+$play run
+</pre>
+
+<p>当您的浏览器指向 <code>http://localhost:9000</code> 时，您应该会看到下面的屏幕。</p>
+
+<p><img src="/images/screenshots/play/play-todolist-java-mongodb-local.png" alt="play-todolist-java-mongodb-local.png"></p>
+
+<p>您可以使用 <code>mongo</code> 命令行 shell 连接到本地 MongoDB 实例，然后查询该集合。</p>
+
+<p><code>mongo</code> 是 shell 二进制文件。
+确切位置可能会因安装方法和所用平台而异。</p>
+
+<pre class="terminal">
+$ ./mongo
+MongoDB shell version: 2.0.6
+connecting to: test
+&gt; use db;
+switched to db db
+&gt; db.tasklist.find();
+{ "_id" : ObjectId("50403ee86970ef63a14dea87"), "id" : NumberLong(0), "label" : "Drink Coffee" }
+{ "_id" : ObjectId("50403efc6970ef63a14dea88"), "id" : NumberLong(1), "label" : "Write Play tutorial" }
+{ "_id" : ObjectId("504044386970ef63a14dea89"), "id" : NumberLong(2), "label" : "" }
+&gt;
+</pre>
+
+<h2 id="cloud-foundry-">在 Cloud Foundry 上部署应用程序</h2>
+
+<p>在 Cloud Foundry 上部署可用两个简单的步骤完成：</p>
+
+<ul>
+<li>
+    <p>创建分发</p>
+  </li>
+  <li>
+    <p>使用 <code>vmc push</code> 推送该分发</p>
+  </li>
+</ul><p>以下命令提供了部署应用程序时的准确命令和输出。</p>
+
+<pre class="terminal">
+$ play dist
+[info] Loading project definition from /Users/&lt;username&gt;/vmware/play/mysamples/
+todolist-java-mongodb/project
+[info] Set current project to todolist-java-mongodb (in build file:/Users/&lt;username&gt;/
+vmware/play/mysamples/todolist-java-mongodb/)
+[info] Compiling 1 Java source to /Users/&lt;username&gt;/vmware/play/mysamples/
+todolist-java-mongodb/target/scala-2.9.1/classes...
+[info] Packaging /Users/&lt;username&gt;/vmware/play/mysamples/todolist-java-mongodb/target/
+scala-2.9.1/todolist-java-mongodb_2.9.1-1.0-SNAPSHOT.jar ...
+[info] Done packaging.
+
+Your application is now ready in /Users/&lt;username&gt;/vmware/play/mysamples/todolist-java-mongodb/dist/
+todolist-java-mongodb-1.0-SNAPSHOT.zip
+
+[success] Total time: 8 s, completed Aug 31, 2012 12:06:54 AM
+
+$ cd dist
+
+$ vmc push
+Would you like to deploy from the current directory? [Yn]: Y
+Application Name: todolist-java-mongodb
+Detected a Play Framework Application, is this correct? [Yn]: Y
+Application Deployed URL [todolist-java-mongodb.cloudfoundry.com]:
+Memory reservation (128M, 256M, 512M, 1G, 2G) [256M]:
+How many instances? [1]: 1
+Bind existing services to 'todolist-java-mongodb'? [yN]: y
+1: mongodb-a1c55
+2: mysql-2c653
+3: mysql-2ea2b
+4: mysql-c92b7
+5: mysql-eeb13
+6: mysql-first_app_ruby
+7: postgresql-9a20a
+8: rabbitmq-b25e8
+Which one?: 1
+Bind another? [yN]: N
+Create services to bind to 'todolist-java-mongodb'? [yN]: N
+Would you like to save this configuration? [yN]: y
+Manifest written to manifest.yml.
+Creating Application: OK
+Binding Service [mongodb-a1c55]: OK
+Uploading Application:
+  Checking for available resources: OK
+  Processing resources: OK
+  Packing application: OK
+  Uploading (84K): OK
+Push Status: OK
+Staging Application 'todolist-java-mongodb': OK
+Starting Application 'todolist-java-mongodb': OK
+
+
+</pre>
+
+<p>部署完成后，我们可以打开 URL <code>[app-name].cloudfoundry.com]</code> 看一下实际的应用程序</p>
+
+<p><img src="/images/screenshots/play/play-todolist-java-mongodb.png" alt="play-todolist-java-mongodb.png"></p>
+
+<h2 id="section-12">总结</h2>
+
+<p>在本教程中，我们学习了如何使用本机 MongoDB 驱动程序构建和部署以 MongoDB 作为后端的</p>
+
+<p>基本 Play Java 应用程序。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

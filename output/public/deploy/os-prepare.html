@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/deploy/os-prepare.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | 准备BOSH CLI虚拟机' property='og:title'>
+<meta content='在OpenStack上通过BOSH工具大规模部署Cloud Foundry' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | 准备BOSH CLI虚拟机</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Deploy</h1>
+<p class='sub-head'>准备BOSH CLI虚拟机</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>在OpenStack上通过BOSH工具大规模部署Cloud Foundry</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/OpenStack" rel="tag">OpenStack</a><a href="/tags/BOSH" rel="tag">BOSH</a><a href="/tags/Deploy" rel="tag">Deploy</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2013-01-30
+</span>
+</p>
+<div id='social-share'></div>
+<h3 id="cloud-foundry">Cloud Foundry安装概述</h3>
+
+<p>Cloud Foundry的安装过程可以概述如下：</p>
+
+<p>1.安装BOSH CLI(Command Line Interface)</p>
+
+<p>2.安装Micro BOSH</p>
+
+<p>3.安装 BOSH</p>
+
+<p>4.安装Cloud Foundry</p>
+
+<p>BOSH是一个分布式系统部署与管理工具，Cloud Foundry等分布式系统可通过BOSH进行部署。BOSH本身也是一个分布式的系统，最小的BOSH集合包含8台虚拟机，所以，理论上BOSH也可以通过它自身来进行部署，这是一个自我迭代的过程，用BOSH开发团队的术语讲，这叫Inception。部署BOSH它自身的系统称作Micro BOSH。从Micro BOSH的名称可以看出，它是一个小型的BOSH系统，实际上，Micro BOSH就是一台虚拟机，它包含了所有的BOSH组件，但是因为它只运行在一台虚拟机上，所以性能比较弱，只适合用来部署BOSH，理论上它也可以直接部署Cloud Foundry，但是性能会非常差。</p>
+
+<p>BOSH采用C-S架构，所以我们需要一台客户端，发送所有的BOSH命令，这台客户端称作BOSH CLI(Command Line Interface)。所以，综上所述，Cloud Foundry的安装过程为：准备好BOSH CLI，安装Micro BOSH，再通过Micro BOSH安装BOSH，最过通过BOSH安装Cloud Foundry。这些步骤中，所有的操作都在BOSH CLI上进行，所有的命令都通过BOSH CLI发送，所以，首先最重要的工作就是安装好BOSH CLI.</p>
+
+<h3 id="section">安装操作系统</h3>
+
+<p>BOSH的命令全部是通过一台BOSH CLI(Command Line Interface)的机器发送，这台机器可以是物理机，也可以是虚拟机。但是，必须保证这台BOSH CLI能顺利连接互联网。有一些包也需要通过国外的网站下载，所以，也需要保证它连接国外网站的稳定性与速度。此外，就是需要这台机器与floating ip这个网段能够直连。</p>
+
+<p>最简单的方法就是，通过在上述我们建立好的OpenStack环境中，创建一台BOSH CLI虚拟机。</p>
+
+<p>上面，我们已经创建了一个ubuntu 10.04的镜像，在Dashboard中启动一个它的实例即可：</p>
+
+<p><img src="/images/deploy/fig43.png" alt="fig43.png"></p>
+
+<p>找到我们刚刚上传的ubuntu 10.04 LTS，点击右侧的lauch:</p>
+
+<p><img src="/images/deploy/fig44.png" alt="fig44.png"></p>
+
+<p>在出现的选项卡中，输入自定义的虚拟机名字，在Flavor一栏选择我们刚刚创建的m1.inception，在Keypair一栏选择我们创建的mykey，然后点击Launch Instance，虚拟机即可启动。</p>
+
+<p>然后，从已经创建好的floating ip里挑选一个分配给此虚拟机，方便我们通过ssh接入：</p>
+
+<p><img src="/images/deploy/fig45.png" alt="fig45.png"></p>
+
+<p>现在可使用前面创建的密钥文件mykey.pem，通过ssh登录到这台虚拟机上，更新系统：</p>
+
+<p><code>$ ssh –i mykey.pem ubuntu@x.x.x.x （使用floating ip）</code></p>
+
+<p><code>$ sudo apt-get update</code></p>
+
+<p><code>$ sudo apt-get dist-upgrade</code></p>
+
+<p>下面，我们需要扩展/tmp和/var/vcap这两个目录的大小，因为此后的操作要占用这两个目录大量的空间，如果默认空间太小，则很多操作都会失败。如果您创建的BOSH CLI硬盘空间足够大，则可以忽略这一步操作。而我们通过上述公共镜像和Flavor创建的虚拟机，Root Disk空间很小。OpenStack创建虚拟机时，操作系统默认安装在/dev/vda(Root Disk)这个设备上，而这个硬盘的空间很小，我们需要用到第二块硬盘/dev/vdb(Ephemeral Disk)。</p>
+
+<p>首先，创建文件夹</p>
+
+<p><code>$ sudo mkdir /var/vcap</code></p>
+
+<p>OpenStack中创建的第二块硬盘默认名称为/dev/vdb，它默认挂载在/mnt目录，我们首先将它卸载，再通过fdisk和mkfs分2个区/dev/vdb1和/dev/vdb2，大小分别为40G和10G，将这两个分区分别挂载到/var/vcap和/tmp目录下即可。 </p>
+
+<h3 id="rubyrubygems">安装ruby和rubygems</h3>
+
+<p>BOSH CLI这台虚拟机安装好以后，只有裸的操作系统，我们还需要在上面安装必要的ruby环境，以及安装所需要的rubygems包，我们参考以下文档进行安装:</p>
+
+<p><a href="https://github.com/drnic/bosh-getting-started/blob/master/create-a-bosh/creating-a-micro-bosh-from-stemcell-openstack.md">https://github.com/drnic/bosh-getting-started/blob/master/create-a-bosh/creating-a-micro-bosh-from-stemcell-openstack.md</a></p>
+
+<p>这篇文档中提到了几个脚本，这几个脚本能帮助自动化地安装绝大部分的依赖环境。不过这篇文档有一些小错误，而且其部署步骤不完全。所以，在此我们修改了一些指令，增加了后续的部署步骤。</p>
+
+<p>前面部分里我们已经创建好了一台BOSH CLI虚拟机，所以对应这篇github的文档，我们从其”Preparation”这一部分继续，此后所有的命令均在root账户下执行。</p>
+
+<p><code>$ sudo su –</code></p>
+
+<p><code>$ export ORIGUSER=ubuntu</code></p>
+
+<p>在github中下载代码时，可能需要有配置密钥才能正常下载，所以先配置github账户：</p>
+
+<p><code>$ ssh-keygen</code></p>
+
+<p><code>$ git config --global user.name FirstnameLastname</code></p>
+
+<p><code>$ git config --global user.email your_email@youremail.com</code></p>
+
+<p><code>$ cat ~/.ssh/id_rsa.pub</code></p>
+
+<p>将上述命令得到的公钥复制出来，通过网页登录https://github.com, 将此公钥配置到您的账户中。</p>
+
+<p>再执行以下脚本：</p>
+
+<p><code>$ curl -s https://raw.github.com/drnic/bosh-getting-started/master/scripts/prepare_inception_openstack.sh | bash</code></p>
+
+<p><code>$ source /etc/profile</code></p>
+
+<p>上面的脚本运行完成以后，还差一个bosh_deployer gem没有安装，安装这个gem包：</p>
+
+<p><code>$ gem install bosh_deployer</code></p>
+
+<p>然后再更新所有的gem，使所有gem保持最新版本:</p>
+
+<p><code>$ gem update</code></p>
+
+<p>这时，运行以下命令，出现以下的结果，就说明环境已经准备好了。</p>
+
+<p><code>$ bosh help micro</code></p>
+
+<pre><code>micro 
+    show micro bosh sub-commands 
+
+micro agent &lt;args&gt; 
+    Send agent messages 
+
+micro apply &lt;spec&gt; 
+    Apply spec 
+
+micro delete 
+    Delete micro BOSH instance (including persistent disk) 
+
+micro deploy [&lt;stemcell&gt;] [--update] 
+    Deploy a micro BOSH instance to the currently selected deployment 
+    --update update existing instance 
+
+micro deployment [&lt;name&gt;] 
+    Choose micro deployment to work with, or display current deployment 
+
+micro deployments 
+    Show the list of deployments 
+
+micro status 
+    Display micro BOSH deployment status
+</code></pre>
+
+<p>注：以上脚本默认安装的是最新版ruby，当前版本为1.9.3，Cloud Foundry官方目前推荐使用1.9.2，少数情况下会出现某些gem包信赖版本冲突的情况。如果以上脚本执行完以后，某些gem包不能正常工作，请使用rvm安装ruby-1.9.2版，安装步骤也请参照以下文档（“使用rvm安装Ruby和bosh cli”这一部分）：
+<a href="vSphere-IaaS.html">准备IaaS环境</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

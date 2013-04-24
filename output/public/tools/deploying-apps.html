@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/tools/deploying-apps.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | 部署和管理应用程序' property='og:title'>
+<meta content='在 Cloud Foundry 上管理应用程序' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | 部署和管理应用程序</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Tools</h1>
+<p class='sub-head'>部署和管理应用程序</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>在 Cloud Foundry 上管理应用程序</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/概述" rel="tag">概述</a><a href="/tags/vmc" rel="tag">vmc</a><a href="/tags/sts" rel="tag">sts</a><a href="/tags/maven" rel="tag">maven</a><a href="/tags/roo" rel="tag">roo</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-09-29
+</span>
+</p>
+<div id='social-share'></div>
+<p>在 Cloud Foundry 环境中，部署应用程序简单来说就是为用户提供可以使用的应用程序。部署应用程序时，您会将实际的应用程序位（如 Spring Java 中的 WAR 文件）推送到目标云、指定所需的应用程序配置，如部署 URL 和所需的内存，并绑定任何所需的服务，例如 MySQL。然后 Cloud Foundry 会暂存应用程序，启动并将其放到指定的 URL，以供用户使用。</p>
+
+<p><strong>副标题</strong></p>
+
+<ul>
+<li><a href="#using-vmc">使用 VMC</a></li>
+  <li><a href="#using-sts">使用 STS</a></li>
+  <li><a href="#using-maven">使用 Maven</a></li>
+  <li><a href="#using-roo">使用 Roo</a></li>
+</ul><h2 id="vmc">使用 VMC</h2>
+
+<p>本文档中描述了以下用户场景：</p>
+
+<ul>
+<li><a href="#deploying-an-application-that-does-not-require-a-service">部署不需要服务的应用程序</a></li>
+  <li><a href="#deploying-an-application-that-requires-one-service">部署需要一种服务的应用程序</a></li>
+  <li><a href="#deploying-an-application-that-requires-multiple-services">部署需要多种服务的应用程序</a></li>
+  <li><a href="#deploying-in-non-interactive-mode">在非交互模式下部署</a></li>
+  <li><a href="#managing-the-application-lifecycle-stop-start-restart-delete-rename">管理应用程序生命周期（停止、启动、重新启动、删除、重命名）</a></li>
+  <li><a href="#updating-the-deployment-bits">更新部署位</a></li>
+  <li><a href="#avoiding-downtime-when-updating-the-deployment-bits">避免在更新部署位时发生停机</a></li>
+  <li><a href="#monitoring-and-configuring-a-deployment-scaling-and-memory-management">监控和配置部署（扩展和内存管理） </a></li>
+</ul><h2 id="section">部署不需要服务的应用程序</h2>
+
+<p>您可以使用 <code>vmc push</code> 命令部署使用 VMC 的应用程序。默认情况下，<code>vmc</code> 会以交互方式提示所需的部署信息，您也可以指定参数来覆盖默认值或在非交互模式下运行。</p>
+
+<p>最简单的部署示例是不使用任何参数来运行 <code>vmc push</code>，以部署不需要绑定任何服务的应用程序。<code>vmc push</code> 命令会提示您输入所需的全部信息。下例显示部署一个非常简单的 Spring 应用程序的输出内容，该应用程序被打包成一个名为 <code>hello.war</code> 的 WAR 文件； 有关详细信息，请参见示例后的文本：</p>
+
+<pre class="terminal">
+    prompt$ vmc push
+
+    Would you like to deploy from the current directory? [Yn]:
+    Application Name: hello
+    Application Deployed URL: 'hello.cloudfoundry.com'? hello-js.cloudfoundry.com
+    Detected a Java SpringSource Spring Application, is this correct? [Yn]:
+    Memory Reservation [Default:512M] (64M, 128M, 256M, 512M or 1G)
+    Creating Application: OK
+    Would you like to bind any services to 'hello'? [yN]:
+    Uploading Application:
+      Checking for available resources: OK
+      Processing resources: OK
+      Packing application: OK
+      Uploading (4K): OK
+    Push Status: OK
+
+    Staging Application: OK
+    Starting Application: OK
+
+</pre>
+
+<p>转到浏览器中指定的部署 URL 以开始使用应用程序。在上例中，应为：</p>
+
+<pre><code>    http://hello-js.cloudfoundry.com
+</code></pre>
+
+<p>请注意以下有关上述 <code>vmc push</code> 示例的信息：</p>
+
+<ul>
+<li>是/否提示的默认值在提示的最后部分以大写字母表示，例如，如果默认答案是“否”，则提示以 <code>[yN]</code> 结束。</li>
+  <li>您可以从当前正在运行 VMC 的目录部署，或指定不同的目录。此目录是实际应用程序位（如 <code>hello.war</code> 文件）的所在位置。<strong>注意：</strong> <code>vmc push</code> 会部署指定目录中的所有项目，因此，请确保您要部署的文件确实位于此目录中。</li>
+  <li>应用程序的名称是您在管理生命周期（如停止应用程序、向应用程序添加内存等）时用于识别应用程序的名称。该名称的作用域是您的 Cloud Foundry 帐户，这意味着在使用您的帐户时，名称应保持唯一，但不需要在整个 Cloud Foundry 目标内保持唯一。</li>
+  <li>默认情况下，部署 URL 是应用程序名称以及目标（例如，<code>cloudfoundry.com</code>）。但是，您必须指定一个在整个 Cloud Foundry 目标内保持<em>唯一</em> 的部署 URL，即使应用程序的名称只需在 Cloud Foundry 帐户作用域内保持唯一也如此。这就是为什么上例中的部署 URL 包括一个标识符，该标识符可使其在整个 cloudfoundry.com 网站中保持唯一。</li>
+</ul><h2 id="section-1">部署需要一种服务的应用程序</h2>
+
+<p>下例显示如何部署需要一种服务的应用程序（本例中为 MySQL 服务）。这种应用程序称为 <code>hotels.war</code>。</p>
+
+<p>在本例中，我们将首先使用 <code>vmc create-service</code> 命令创建一个 MySQL 服务实例，然后在使用 <code>vmc push</code> 部署该服务实例时，将其绑定到此应用程序。</p>
+
+<p>一定要注意，您不需要以任何方式更改现有的应用程序，它便能“找到” Cloud Foundry 创建的 MySQL 实例以及应用程序绑定到的服务实例。这是因为 Cloud Foundry 使用自动重新配置机制，使典型的 Spring 应用程序无需在应用程序中进行任何更改即可使用服务。</p>
+
+<ul>
+<li>通过运行 <code>vmc services</code> 查找 MySQL 服务的名称，并注意第一列：</li>
+</ul><pre class="terminal">
+        prompt$ vmc services
+
+        ============== System Services ==============
+
+        +------------+---------+---------------------------------------+
+        | Service    | Version | Description                           |
+        +------------+---------+---------------------------------------+
+        | mongodb    | 2.0     | MongoDB NoSQL store                   |
+        | mysql      | 5.1     | MySQL database service                |
+        | postgresql | 9.0     | vFabric Postgres database service     |
+        | rabbitmq   | 2.4     | RabbitMQ messaging service            |
+        | redis      | 2.2     | Redis key-value store service         |
+        +------------+---------+---------------------------------------+
+
+        =========== Provisioned Services ============
+
+</pre>
+
+<ul>
+<li>创建 <code>mysql</code> 服务的新实例并将其称为 <code>mysql-js</code>：</li>
+</ul><pre class="terminal">
+prompt$ vmc create-service mysql mysql-js
+</pre>
+
+<ul>
+<li>部署 <code>hotels.war</code> 应用程序，但是这次将其绑定到 <code>mysql-js</code> 服务实例：</li>
+</ul><pre class="terminal">
+        prompt$ vmc push
+
+        Would you like to deploy from the current directory? [Yn]: y
+        Application Name: hotels
+        Application Deployed URL: 'hotels.cloudfoundry.com'? hotels-js.cloudfoundry.com
+        Detected a Java Web Application, is this correct? [Yn]:
+        Memory Reservation [Default:512M] (64M, 128M, 256M, 512M or 1G)
+        Creating Application: OK
+        Would you like to bind any services to 'hotels'? [yN]: y
+        Would you like to use an existing provisioned service [yN]? y
+        The following provisioned services are available:
+        1. mysql-js
+        Please select one you wish to provision: 1
+        Binding Service: OK
+        Uploading Application:
+          Checking for available resources: OK
+          Packing application: OK
+          Uploading (12K): OK
+        Push Status: OK
+
+        Staging Application: OK
+
+        Starting Application: OK
+
+</pre>
+
+<p>您也可以在执行 <code>vmc push</code> 命令期间，通过在出现有关使用所置备的服务提示时回答 <code>N</code> 创建一个新的服务实例；在这种情况下，<code>vmc push</code> 命令会提示有关新服务实例的信息。</p>
+
+<h2 id="section-2">部署需要多种服务的应用程序</h2>
+
+<p><a href="#deploying-an-application-that-requires-one-service">上一节</a>介绍了如何使用 <code>vmc push</code> 命令部署应用程序，同时将服务 (MySQL) 绑定到该应用程序。但是，您只能绑定<em>一种</em> 服务，如果您的应用程序需要多种服务，又该怎么办呢？本节将介绍如何执行此任务。</p>
+
+<p>本例扩展了<a href="#deploying-an-application-that-requires-one-service">前面的示例</a>，因此除了将 <code>mysql-js</code> 服务绑定到 <code>hotels</code> 应用程序以外，还将创建和绑定 MongoDB 和 RabbitMQ 服务。</p>
+
+<ul>
+<li>创建 <code>mysql</code>、<code>mongodb</code> 和 <code>rabbitmq</code> 服务的新实例：</li>
+</ul><pre class="terminal">
+        prompt$ vmc create-service mysql mysql-js
+        prompt$ vmc create-service mongodb mongodb-js
+        prompt$ vmc create-service rabbitmq rabbitmq-js
+
+</pre>
+
+<ul>
+<li>部署 <code>hotels.war</code> 应用程序并将 <code>mysql-js</code> 服务实例绑定到该应用程序。但是，这次一定要指定 <code>--no-start</code> 选项，以便 Cloud Foundry 不会暂存或启动该应用程序：</li>
+</ul><pre class="terminal">
+        prompt$ vmc push --no-start
+
+        Would you like to deploy from the current directory? [Yn]: y
+        Application Name: hotels
+        ...
+        Uploading Application:
+        ...
+        Push Status: OK
+
+</pre>
+
+<ul>
+<li>使用 <code>vmc bind-service</code> 将其余两种服务绑定到 <code>hotels</code> 应用程序：</li>
+</ul><pre class="terminal">
+        prompt$ vmc bind-service mongodb-js hotels
+        prompt$ vmc bind-service rabbitmq-js hotels
+
+</pre>
+
+<ul>
+<li>启动应用程序：</li>
+</ul><pre class="terminal">
+        prompt$ vmc start hotels
+
+        Staging Application: OK
+        Starting Application: OK
+
+</pre>
+
+<h2 id="section-3">在非交互模式下部署</h2>
+
+<p>使用 <code>vmc push</code> 的 <code>-n</code> 选项在非交互模式下部署应用程序。唯一的其他要求是您指定该应用程序的名称。</p>
+
+<p>如果您没有指定任何其他选项，则 Cloud Foundry 会在部署应用程序时使用所有默认值。例如，如果您执行以下命令：</p>
+
+<pre class="terminal">
+    prompt$ vmc push hotels -n
+
+</pre>
+
+<p>则 Cloud Foundry 会执行以下操作：</p>
+
+<ul>
+<li>将当前目录中的所有项目部署为 <code>hotels</code> 应用程序的一部分。</li>
+  <li>使用部署 URL<code>hotels.cloudfoundry.com</code>（假定您的目标是公开托管的 Cloud Foundry。）</li>
+  <li>为部署的应用程序创建一个实例。</li>
+  <li>不将任何服务绑定到应用程序。</li>
+  <li>自动检测编程框架（如 Spring 或 Ruby）</li>
+  <li>为应用程序预留 512 MB​​ 的内存</li>
+  <li>暂存后自动启动应用程序​​。</li>
+</ul><p>您可以使用其他选项来改变部署的默认值，并仍在非交互模式下部署。例如，您可以使用 <code>--url</code> 选项更改部署 URL、使用 <code>--mem</code> 选项更改预留的内存，并指定使用下面的命令不会启动应用程序：</p>
+
+<pre class="terminal">
+    prompt$ vmc push hotels -n --url hotels-js.cloudfoundry.com --mem 256 --no-start
+
+</pre>
+
+<p>有关可以为 <code>vmc push</code> 命令指定的完整参数列表，请参见 <a href="/tools/vmc/vmc-quick-ref.html#deploying-applications">VMC 快速参考指南</a>。</p>
+
+<h2 id="section-4">管理应用程序生命周期（停止、启动、重新启动、删除、重命名）</h2>
+
+<p>管理已完成部署的应用程序的生命周期很容易，只需使用相应的 VMC 命令停止、启动并重新启动应用程序即可。例如，停止然后启动应用程序：</p>
+
+<pre class="terminal">
+    prompt$ vmc stop hotels
+    prompt$ vmc start hotels
+
+</pre>
+
+<p>或者使用一个命令执行相同的任务：</p>
+
+<pre class="terminal">
+    prompt$ vmc restart hotels
+
+</pre>
+
+<p>一定要注意，当 Cloud Foundry 重新启动某个应用程序时，它会为该应用程序创建一个全新的虚拟基础架构。虽然这个过程对于应用程序而言通常是透明的，但是有一种情况关系重大，即以前应用程序运行时是否在磁盘上创建本地文件。重新启动时，这些文件将全部丢失，因为 Cloud Foundry 会创建一个新的虚拟磁盘。如果应用程序要求确保这些文件可用，即使在重新启动后也可用，那么您的应用程序应该使用一种数据服务，如 MongoDB，该服务将确保这些文件始终可用。</p>
+
+<p>要对应用程序进行重命名，请使用 <code>vmc rename</code> 命令，指定现有的名称，然后指定新名称。例如：</p>
+
+<pre class="terminal">
+prompt$ vmc rename hotels hotels-new-name
+</pre>
+
+<p><code>vmc rename</code> 命令会更改应用程序的内部名称；它不会更改您用于运行该应用程序的部署 URL。为此，您可以使用 <code>vmc map</code>。参见<a href="#changing-the-deployment-url">更改部署 URL</a>。</p>
+
+<p>要删除某应用程序，并释放所有与该应用程序相关联的资源，请使用 <code>vmc delete</code> 命令：</p>
+
+<pre class="terminal">
+prompt$ vmc delete hotels
+</pre>
+
+<h2 id="section-5">更新部署位</h2>
+
+<p>使用 <code>vmc update &lt;appname&gt;</code> 命令更新构成应用程序的“位”，如适用于 Java Spring 应用程序的 WAR 文件包。</p>
+
+<p>Cloud Foundry 更新某应用程序时，它会先停止该应用程序，进行更改，然后再次启动该应用程序。这意味着该应用程序将在短时间内不可用，现有用户会话将被删除。在应用程序迭代开发周期中，这可能不是问题，但在生产中这可能是无法接受的。请参阅<a href="#avoiding-downtime-when-updating-the-deployment-bits">避免在更新部署位时发生停机</a>获取一个有用的操作程序，以避免这一短暂停机事件。</p>
+
+<p>按照下面的步骤更新您的应用程序：</p>
+
+<ul>
+<li>使用 <code>vmc apps</code> 获取确切的应用程序名称；输出内容的第一列会列出此名称。例如：</li>
+</ul><pre class="terminal">
+        prompt$ vmc apps
+
+        +-------------+----+---------+----------------------------+----------+
+        | Application | #  | Health  | URLS                       | Services |
+        +-------------+----+---------+----------------------------+----------+
+        | hello       | 1  | RUNNING | hello-js.cloudfoundry.com  |          |
+        | hotels      | 1  | RUNNING | hotels-js.cloudfoundry.com |          |
+        +-------------+----+---------+----------------------------+----------+
+
+</pre>
+
+<ul>
+<li>在命令提示符 (Windows) 或终端窗口 (Linux) 中，更改为包含已更新的应用程序位的目录。确保该目录<em>只</em> 包含要部署的文件和项目，因为 VMC 会推送目录中的所有文件。</li>
+</ul><pre class="terminal">
+prompt$ cd /usr/bob/sample-apps/hotels
+</pre>
+
+<ul>
+<li>使用 <code>vmc update</code> 更新您的应用程序：</li>
+</ul><pre class="terminal">
+prompt$ vmc update hotels
+</pre>
+
+<p>检查命令的输出内容，以确保应用程序启动时未出错，然后开始使用更新的应用程序。</p>
+
+<h2 id="section-6">避免在更新部署位时发生停机</h2>
+
+<p>更新应用程序而不会发生任何停机事件的方法利用了这样一种实际情况：在 Cloud Foundry 中，您可以将单个应用程序映射到多个部署 URL，同样，您也可以将多个应用程序映射到同一部署 URL。因此，我们不会直接更新应用程序，而是创建一个新的应用程序，将其与现有的 URL 相关联，<em>取消旧应用程序与 URL 的映射关联，</em>然后删除旧应用程序。</p>
+
+<p>在下例中，现有的应用程序被称为 <code>hotels</code>，其部署 URL 是 <code>hotels.cloudfoundry.com</code>，您希望创建新的用户会话，以开始无缝使用新的应用程序，同时现有用户不会断开连接。</p>
+
+<p>具体步骤如下：</p>
+
+<ul>
+<li>在命令提示符或终端窗口中，更改为包含已更新的应用程序“位”的目录。例如：</li>
+</ul><pre class="terminal">
+prompt$ cd /usr/bob/sample-apps/hotels
+</pre>
+
+<ul>
+<li>使用 <code>vmc push</code> 命令创建新的应用程序，起一个不同于现有应用程序的名称，如 <code>hotels-new</code>，同时指定不同的部署 URL，如 <code>hotels-new.cloudfoundry.com</code>：</li>
+</ul><pre class="terminal">
+prompt$ vmc push hotels-new
+</pre>
+
+<pre><code>确保绑定任何所需的服务，如 MySQL 或 RabbitMQ。使用现有应用程序当前使用的同一服务实例。
+</code></pre>
+
+<ul>
+<li>
+    <p>在浏览器中，转到新的部署 URL，测试新部署的应用程序是否正常工作，以及是否确实是更新的版本。</p>
+
+    <p>在本例中，新应用程序的部署 URL 为 <code>http://hotels-new.cloudfoundry.com</code>。</p>
+  </li>
+  <li>
+    <p>使用 <code>vmc map</code> 命令将新的应用程序与<em>现有的</em> 部署 URL 关联起来。例如：</p>
+  </li>
+</ul><pre class="terminal">
+prompt$ vmc map hotels-new hotels.cloudfoundry.com
+</pre>
+
+<pre><code>此时，由于相同的部署 URL 映射到两个不同的应用程序，新的用户会话可能会转到*任一* 旧应用程序或新应用程序。
+
+您可以通过不断刷新 `http://hotels.cloudfoundry.com` URL 进行测试；有时您会被引导到旧应用程序，但有时您又会被引导到新应用程序。但是，请确保*有时* 您会被引导到新应用程序。
+
+您也可以通过执行 `vmc apps` 查看这种多 URL 关联：
+</code></pre>
+
+<pre class="terminal">
+    prompt$ vmc apps
+
+    +-------------+----+---------+-----------------------------------------+--------------+
+    | Application | #  | Health  | URLS                                    | Services     |
+    +-------------+----+---------+-----------------------------------------+--------------+
+    | hotels      | 1  | RUNNING | hotels.cloudfoundry.com                 | mysql-hotels |
+    | hotels-new  | 1  | RUNNING | hotels-new.cloudfoundry.com,            |              |
+    |             |    |         |    hotels.cloudfoundry.com              | mysql-hotels |
+    +-------------+----+---------+-----------------------------------------+--------------+
+
+</pre>
+
+<ul>
+<li>使用 <code>vmc unmap</code> 命令解除旧应用程序与原始部署 URL 的关联：</li>
+</ul><pre class="terminal">
+prompt$ vmc unmap hotels hotels.cloudfoundry.com
+</pre>
+
+<pre><code>注意，这种取消映射操作*不* 会将现有用户会话放入旧应用程序；它只会停止向旧应用程序输入新的流量，以便新用户会话开始使用新应用程序。
+</code></pre>
+
+<ul>
+<li>
+    <p>测试原始部署 URL (本例中为 <code>http://hotels.cloudfoundry.com</code>）现在是否始终将用户会话引导到新应用程序。</p>
+  </li>
+  <li>
+    <p>解除新应用程序与新部署 URL 的关联：</p>
+  </li>
+</ul><pre class="terminal">
+prompt$ vmc unmap hotels-new hotels-new.cloudfoundry.com
+</pre>
+
+<ul>
+<li>当确定不再有任何用户会话连接到旧应用程序时，您便可以将其删除：</li>
+</ul><pre class="terminal">
+prompt$ vmc delete hotels
+</pre>
+
+<pre><code>确保您**不**会删除新应用程序当前正在使用的任何共享服务实例。
+
+现在，您的应用程序将有一个新的内部名称，但是它仍映射到用户已经熟悉的现有部署 URL。您可以使用 `vmc apps` 查看这一新的映射：
+</code></pre>
+
+<pre class="terminal">
+        prompt$ vmc apps
+
+        +-------------+----+---------+-------------------------+-------------+
+        | Application | #  | Health  | URLS                    | Services    |
+        +-------------+----+---------+-------------------------+-------------+
+        | hotels-new  | 1  | RUNNING | hotels.cloudfoundry.com | mysql-hotels|
+        +-------------+----+---------+-------------------------+-------------+
+
+</pre>
+
+<h2 id="section-7">监控和配置部署（扩展和内存管理）</h2>
+
+<p>许多 VMC 命令可用于配置已部署的应用程序，如通过添加或删除实例、增加更多内存，并更改其部署 URL 来扩展或缩减应用程序。</p>
+
+<p>使用 <code>vmc apps</code> 命令可获得所有已部署的应用程序的列表，您将使用应用程序的名称获得更多相关信息，并且可以对其进行配置：</p>
+
+<pre class="terminal">
+    prompt$ vmc apps
+
+    +-------------+----+---------+----------------------------+----------+
+    | Application | #  | Health  | URLS                       | Services |
+    +-------------+----+---------+----------------------------+----------+
+    | hello       | 1  | RUNNING | hello-js.cloudfoundry.com  |          |
+    | hotels      | 1  | RUNNING | hotels-js.cloudfoundry.com | mysql-js |
+    +-------------+----+---------+----------------------------+----------+
+
+</pre>
+
+<h2 id="section-8">扩展应用程序</h2>
+
+<p>使用 <code>vmc stats &lt;appname&gt;</code> 命令显示应用程序的当前配置和资源利用率​​。例如：</p>
+
+<pre class="terminal">
+    prompt$ vmc stats hotels
+
+    +----------+-------------+----------------+--------------+---------------+
+    | Instance | CPU (Cores) | Memory (limit) | Disk (limit) | Uptime        |
+    +----------+-------------+----------------+--------------+---------------+
+    | 0        | 0.0% (4)    | 61.7M (512M)   | 8.4M (2G)    | 0d:0h:39m:42s |
+    | 1        | 7.5% (4)    | 63.8M (512M)   | 8.4M (2G)    | 0d:0h:0m:22s  |
+    +----------+-------------+----------------+--------------+---------------+
+
+</pre>
+
+<p>此表为应用程序的每个实例显示一行数据，在上表中，有两个 <code>hotels</code> 实例。每行显示实例的 CPU 利用率、内存使用情况和允许的最大值、磁盘使用情况和最大值，以及实例已经运行多长时间。</p>
+
+<p>要更改允许的最大内存，请使用 <code>vmc mem</code> 命令，向其传递应用程序的名称和最大内存 (MB)。这将更改所有应用程序实例的最大值。例如，将 <code>hotels</code> 应用程序的最大内存减小到 128 MB：</p>
+
+<pre class="terminal">
+prompt$ vmc mem hotels 128
+</pre>
+
+<p>注意，Cloud Foundry 必须重新启动应用程序，此更改才会生效。</p>
+
+<p>扩展应用程序的另一种方式是您可以添加更多实例，以便更多用户会话可以立即成功快速地建立连接。相反，如果您想节约与 Cloud Foundry 帐户有关的资源，并<em>缩减</em> 目前运行多个实例的应用程序，则可以删除实例。例如，要指定应用程序同时运行四个实例，请执行以下操作：</p>
+
+<pre class="terminal">
+prompt$ vmc instances hotels 4
+</pre>
+
+<p>使用 <code>vmc stats</code> 确保应用程序确实正在运行四个实例：</p>
+
+<pre class="terminal">
+    prompt$ vmc stats hotels
+
+    +----------+-------------+----------------+--------------+--------------+
+    | Instance | CPU (Cores) | Memory (limit) | Disk (limit) | Uptime       |
+    +----------+-------------+----------------+--------------+--------------+
+    | 0        | 0.5% (4)    | 64.6M (128M)   | 8.4M (2G)    | 0d:0h:5m:4s  |
+    | 1        | 0.5% (4)    | 62.4M (128M)   | 8.4M (2G)    | 0d:0h:5m:4s  |
+    | 2        | 7.0% (4)    | 61.0M (128M)   | 8.4M (2G)    | 0d:0h:0m:22s |
+    | 3        | 6.7% (4)    | 59.6M (128M)   | 8.4M (2G)    | 0d:0h:0m:22s |
+    +----------+-------------+----------------+--------------+--------------+
+
+</pre>
+
+<p>请注意，为已部署应用程序增加更多实例会占用更多内存和磁盘空间配额。</p>
+
+<h2 id="url">更改部署 URL</h2>
+
+<p>使用 <code>vmc map</code> 和 <code>vmc unmap</code> 命令更改应用程序关联的部署 URL。</p>
+
+<p>例如，将新部署 URL 关联到现有应用程序：</p>
+
+<pre class="terminal">
+prompt$ vmc map hotels hotels-new.cloudfoundry.com
+</pre>
+
+<p>要取消现有 URL 的映射，请使用 <code>vmc unmap</code> 命令：</p>
+
+<pre class="terminal">
+prompt$ vmc unmap hotels hotels-new.cloudfoundry.com
+</pre>
+
+<p>有关在现实生活中使用这些命令的更多示例，请参见<a href="#updating-a-deployment-without-any-downtime">更新部署，而不会发生任何停机事件</a>。</p>
+
+<h2 id="section-9">获取应用程序的相关日志和崩溃信息</h2>
+
+<p>要查看应用程序的 stderr.log 和 stdout.log 文件中最近发生的活动，请使用 <code>vmc logs &lt;appname&gt;</code> 命令：</p>
+
+<pre class="terminal">
+prompt$ vmc logs hotels
+</pre>
+
+<p>如果您怀疑您的应用程序最近已经崩溃，则运行 <code>vmc crashes &lt;appname&gt;</code>，它将为您提供更多信息：</p>
+
+<pre class="terminal">
+prompt$ vmc crashes hotels
+</pre>
+
+<p>使用 <code>vmc crashlogs</code> 获取更详细的崩溃信息：</p>
+
+<pre class="terminal">
+prompt$ vmc crashlogs hotels
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

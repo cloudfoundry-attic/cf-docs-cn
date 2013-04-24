@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/frameworks/ruby/sinatra.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | Sinatra' property='og:title'>
+<meta content='利用 Cloud Foundry 开发 Sinatra' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | Sinatra</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Frameworks</h1>
+<p class='sub-head'>Sinatra</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>利用 Cloud Foundry 开发 Sinatra</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/ruby" rel="tag">ruby</a><a href="/tags/sinatra" rel="tag">sinatra</a><a href="/tags/mysql" rel="tag">mysql</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-10-26
+</span>
+</p>
+<div id='social-share'></div>
+<p>本文为从事 Cloud Foundry 部署的 Sinatra 开发人员提供指导，</p>
+
+<p>有关 Ruby 和 Cloud Foundry 的详细信息，请参见：</p>
+
+<ul>
+<li><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
+  <li><a href="/getting-started.html">Cloud Foundry 入门</a></li>
+  <li><a href="ruby.html">利用 Cloud Foundry 开发 Ruby 应用程序</a></li>
+</ul><p>要将 Cloud Foundry 服务与 Sinatra 搭配使用，您可以访问</p>
+
+<p><code>VCAP_SERVICES</code> 环境变量，具体方法请参照</p>
+
+<p><a href="/frameworks/ruby/ruby.html#using-cloud-foundry-services">利用 Cloud Foundry 开发 Ruby 应用程序</a>；也可使用 <code>cf-runtime</code> gem。</p>
+
+<h2 id="sinatra-">Sinatra 和捆绑程序</h2>
+
+<p>目前，在执行 <code>vmc push</code> 时，vmc gem 会在 <code>*.rb</code> 文件中查找 <code>require "sinatra"</code> 和 <code>require "sinatra/base"</code>，以便</p>
+
+<p>检测它所属于的 Ruby 应用程序类型。</p>
+
+<h3 id="sinatra--1">传统的 Sinatra 应用程序</h3>
+
+<p>传统的 Sinatra 应用程序都有 <code>require "sinatra"</code> 加以标识。
+如果您用</p>
+
+<p>捆绑程序加载 Sinatra，Cloud Foundry 可能不会识别您的应用程序。</p>
+
+<p>您可以在应用程序主文件中加入下面这样的注释：</p>
+
+<pre><code class="language-ruby">  <span class="c1"># require 'sinatra'   # required for sinatra classic detection in cloud foundry...</span>
+  <span class="nb">require</span> <span class="s1">'rubygems'</span>
+  <span class="nb">require</span> <span class="s1">'bundler'</span>
+  <span class="no">Bundler</span><span class="o">.</span><span class="n">require</span>
+  <span class="o">.</span><span class="n">.</span><span class="o">.</span></code></pre>
+
+<h3 id="sinatra--2">模块化 Sinatra 应用程序</h3>
+
+<p>Cloud Foundry 假定，如果您的 Sinatra 应用程序在</p>
+
+<p>需要“sinatra/base”的单个文件中，则该应用程序属于模块化 Sinatra 应用程序，因此它将对</p>
+
+<p><code>run!</code> 进行调用，如下面的文件中所示</p>
+
+<p>如果您部署一个带有 <code>website.rb</code>、<code>Gemfile</code> 和 <code>Gemfile.lock</code> 的应用程序并且您使用的 <code>vmc</code> gem 版本 &gt;= <code>0.3.21</code></p>
+
+<pre><code class="language-ruby"><span class="c1"># website.rb</span>
+<span class="nb">require</span> <span class="s2">"rubygems"</span>
+<span class="nb">require</span> <span class="s2">"sinatra/base"</span>
+<span class="nb">require</span> <span class="s2">"haml"</span>
+<span class="nb">require</span> <span class="s2">"cloudfoundry/environment"</span>
+
+<span class="k">class</span> <span class="nc">WebsiteApp</span> <span class="o">&lt;</span> <span class="no">Sinatra</span><span class="o">::</span><span class="no">Base</span>
+
+  <span class="n">configure</span> <span class="k">do</span>
+    <span class="n">set</span><span class="p">(</span><span class="ss">:port</span><span class="p">,</span> <span class="no">CloudFoundry</span><span class="o">::</span><span class="no">Environment</span><span class="o">.</span><span class="n">port</span> <span class="o">||</span> <span class="mi">4567</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="s2">"/"</span> <span class="k">do</span>
+    <span class="k">return</span> <span class="s2">"Hello World"</span>
+  <span class="k">end</span>
+
+  <span class="n">run!</span> <span class="k">if</span> <span class="bp">__FILE__</span> <span class="o">==</span> <span class="vg">$0</span>
+
+<span class="k">end</span></code></pre>
+
+<p>那么您将看到该应用程序被检测出来：</p>
+
+<pre class="terminal">
+Would you like to deploy from the current directory? [Yn]:
+Application Name: www-mon-mon
+Detected a Sinatra Application, is this correct? [Yn]:
+Application Deployed URL [www-mon-mon.cloudfoundry.com]:
+Memory reservation (128M, 256M, 512M, 1G, 2G) [128M]:
+How many instances? [1]:
+Bind existing services to 'www-mon-mon'? [yN]:
+Create services to bind to 'www-mon-mon'? [yN]:
+Would you like to save this configuration? [yN]:
+Creating Application: OK
+Uploading Application:
+  Checking for available resources: OK
+  Processing resources: OK
+  Packing application: OK
+  Uploading (6K): OK
+Push Status: OK
+Staging Application 'www-mon-mon': OK
+Starting Application 'www-mon-mon': OK
+
+</pre>
+
+<p>如果您有多个文件包含派生自 Sinatra 基类的类，您需要</p>
+
+<p>添加一个 <code>config.ru</code> 并以 <code>rack</code> 应用程序身份运行，以便您可以指定要</p>
+
+<p>运行哪些类。</p>
+
+<p>下面的示例说明了要想在单个 Cloud Foundry 应用程序中运行 Sinatra 应用程序 OpenTour 和 Events，<code>config.ru</code> 需要</p>
+
+<p>是什么样的</p>
+
+<pre><code class="language-ruby"><span class="c1">#config.ru</span>
+
+<span class="nb">require</span> <span class="s1">'./opentour'</span>
+<span class="nb">require</span> <span class="s1">'./events'</span>
+
+<span class="n">map</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span> <span class="p">{</span> <span class="n">run</span> <span class="no">OpenTour</span> <span class="p">}</span>
+<span class="n">map</span><span class="p">(</span><span class="s1">'/events'</span><span class="p">)</span> <span class="p">{</span> <span class="n">run</span> <span class="no">Events</span> <span class="p">}</span></code></pre>
+
+<p>有关传统和模块化 Sinatra 应用程序的更多详情，请查看</p>
+
+<p><a href="http://www.sinatrarb.com/intro#Modular%20vs.%20Classic%20Style">Sinatra 自述文件</a></p>
+
+<h2 id="datamapper--sinatra-">使用 DataMapper 和捆绑程序的 Sinatra 传统应用程序示例</h2>
+
+<h3 id="gemfile">Gemfile</h3>
+
+<pre><code class="language-ruby">   <span class="n">source</span> <span class="s1">'http://rubygems.org'</span>
+
+   <span class="n">gem</span> <span class="s1">'sinatra'</span>
+   <span class="n">gem</span> <span class="s1">'data_mapper'</span>
+
+   <span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
+     <span class="n">gem</span> <span class="s1">'dm-sqlite-adapter'</span>
+   <span class="k">end</span>
+
+   <span class="n">group</span> <span class="ss">:production</span> <span class="k">do</span>
+     <span class="n">gem</span> <span class="s1">'dm-mysql-adapter'</span>
+   <span class="k">end</span></code></pre>
+
+<h3 id="sinatradmrb">sinatra_dm.rb</h3>
+
+<p>此 Sinatra 应用程序的名称为 <code>sinatra_dm.rb</code>。</p>
+
+<p>请注意 Sinatra 的注释删除要求，它是可靠检测应用程序主文件所必需的。</p>
+
+<pre><code class="language-ruby">   <span class="c1"># Sample Sinatra app with DataMapper</span>
+   <span class="c1"># Based on http://sinatra-book.gittr.com/ DataMapper example</span>
+
+   <span class="c1"># require 'sinatra'   # required for framework detection in cloud foundry.</span>
+   <span class="nb">require</span> <span class="s1">'rubygems'</span>
+   <span class="nb">require</span> <span class="s1">'bundler'</span>
+   <span class="no">Bundler</span><span class="o">.</span><span class="n">require</span>
+
+   <span class="k">if</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">'VCAP_SERVICES'</span><span class="o">].</span><span class="n">nil?</span>
+     <span class="no">DataMapper</span><span class="o">::</span><span class="n">setup</span><span class="p">(</span><span class="ss">:default</span><span class="p">,</span> <span class="s2">"sqlite3://</span><span class="si">#{</span><span class="no">Dir</span><span class="o">.</span><span class="n">pwd</span><span class="si">}</span><span class="s2">/blog.db"</span><span class="p">)</span>
+   <span class="k">else</span>
+     <span class="nb">require</span> <span class="s1">'json'</span>
+     <span class="n">svcs</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">'VCAP_SERVICES'</span><span class="o">]</span>
+     <span class="n">mysql</span> <span class="o">=</span> <span class="n">svcs</span><span class="o">.</span><span class="n">detect</span> <span class="p">{</span> <span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span> <span class="n">k</span> <span class="o">=~</span> <span class="sr">/^mysql/</span> <span class="p">}</span><span class="o">.</span><span class="n">last</span><span class="o">.</span><span class="n">first</span>
+     <span class="n">creds</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">[</span><span class="s1">'credentials'</span><span class="o">]</span>
+     <span class="n">user</span><span class="p">,</span> <span class="n">pass</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="nb">name</span> <span class="o">=</span> <span class="sx">%w(user password host name)</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">key</span><span class="o">|</span> <span class="n">creds</span><span class="o">[</span><span class="n">key</span><span class="o">]</span> <span class="p">}</span>
+     <span class="no">DataMapper</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="ss">:default</span><span class="p">,</span> <span class="s2">"mysql://</span><span class="si">#{</span><span class="n">user</span><span class="si">}</span><span class="s2">:</span><span class="si">#{</span><span class="n">pass</span><span class="si">}</span><span class="s2">@</span><span class="si">#{</span><span class="n">host</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+   <span class="k">end</span>
+
+   <span class="k">class</span> <span class="nc">Post</span>
+     <span class="kp">include</span> <span class="no">DataMapper</span><span class="o">::</span><span class="no">Resource</span>
+     <span class="n">property</span> <span class="ss">:id</span><span class="p">,</span> <span class="no">Serial</span>
+     <span class="n">property</span> <span class="ss">:title</span><span class="p">,</span> <span class="nb">String</span>
+     <span class="n">property</span> <span class="ss">:body</span><span class="p">,</span> <span class="no">Text</span>
+     <span class="n">property</span> <span class="ss">:created_at</span><span class="p">,</span> <span class="no">DateTime</span>
+   <span class="k">end</span>
+
+   <span class="no">DataMapper</span><span class="o">.</span><span class="n">finalize</span>
+   <span class="no">Post</span><span class="o">.</span><span class="n">auto_upgrade!</span>
+
+   <span class="n">get</span> <span class="s1">'/'</span> <span class="k">do</span>
+     <span class="vi">@posts</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="ss">:order</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:id</span><span class="o">.</span><span class="n">desc</span><span class="o">]</span><span class="p">,</span> <span class="ss">:limit</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">)</span>
+     <span class="n">erb</span> <span class="ss">:index</span>
+   <span class="k">end</span>
+
+   <span class="n">get</span> <span class="s1">'/post/new'</span> <span class="k">do</span>
+     <span class="n">erb</span> <span class="ss">:new</span>
+   <span class="k">end</span>
+
+   <span class="n">get</span> <span class="s1">'/post/:id'</span> <span class="k">do</span>
+     <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+     <span class="n">erb</span> <span class="ss">:post</span>
+   <span class="k">end</span>
+
+   <span class="n">post</span> <span class="s1">'/post/create'</span> <span class="k">do</span>
+     <span class="n">post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="p">,</span> <span class="ss">:body</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:body</span><span class="o">]</span><span class="p">)</span>
+     <span class="k">if</span> <span class="n">post</span><span class="o">.</span><span class="n">save</span>
+       <span class="n">status</span> <span class="mi">201</span>
+       <span class="n">redirect</span> <span class="s2">"/post/</span><span class="si">#{</span><span class="n">post</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span>
+     <span class="k">else</span>
+       <span class="n">status</span> <span class="mi">412</span>
+       <span class="n">redirect</span> <span class="s1">'/'</span>
+     <span class="k">end</span>
+   <span class="k">end</span></code></pre>
+
+<h3 id="section">视图</h3>
+
+<h4 id="section-1">索引</h4>
+
+<pre><code class="language-erb"><span class="x">    &lt;!-- views/index.erb --&gt;</span>
+
+<span class="x">    &lt;h1&gt;All Blog Posts&lt;/h1&gt;</span>
+<span class="x">    &lt;ul&gt;</span>
+<span class="x">      </span><span class="cp">&lt;%</span> <span class="vi">@posts</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">post</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">        &lt;li&gt;&lt;a href="/post/</span><span class="cp">&lt;%=</span> <span class="n">post</span><span class="o">.</span><span class="n">id</span> <span class="cp">%&gt;</span><span class="x">"&gt;</span><span class="cp">&lt;%=</span> <span class="n">post</span><span class="o">.</span><span class="n">title</span> <span class="cp">%&gt;</span><span class="x">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">      </span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">    &lt;br /&gt;</span>
+<span class="x">    &lt;a href="/post/new"&gt;Create new post&lt;/a&gt;</span></code></pre>
+
+<h4 id="section-2">新建</h4>
+
+<pre><code class="language-erb"><span class="x">    &lt;!-- views/new.erb --&gt;</span>
+
+<span class="x">    &lt;h1&gt;Create a new blog post&lt;/h1&gt;</span>
+<span class="x">    &lt;form action="/post/create" method="POST"&gt;</span>
+<span class="x">     &lt;p&gt;Title: &lt;input type="text" name="title"&gt;&lt;/input&gt;&lt;/p&gt;</span>
+<span class="x">     &lt;p&gt;Text: &lt;textarea name="body" rows="10" cols="40"&gt;&lt;/textarea&gt;&lt;/p&gt;</span>
+<span class="x">     &lt;input type="submit" name="Publish" /&gt;</span>
+<span class="x">    &lt;/form&gt;</span></code></pre>
+
+<h4 id="section-3">发布</h4>
+
+<pre><code class="language-erb"><span class="x">    &lt;!-- views/post.erb --&gt;</span>
+
+<span class="x">    &lt;h1&gt;</span><span class="cp">&lt;%=</span> <span class="vi">@post</span><span class="o">.</span><span class="n">title</span> <span class="cp">%&gt;</span><span class="x">&lt;/h1&gt;</span>
+<span class="x">    &lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="vi">@post</span><span class="o">.</span><span class="n">body</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
+<span class="x">    &lt;a href="/"&gt;All Posts&lt;/a&gt;</span></code></pre>
+
+<h3 id="section-4">捆绑后推送。</h3>
+
+<pre class="terminal">
+   $ bundle package
+   $ vmc push --runtime ruby19
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

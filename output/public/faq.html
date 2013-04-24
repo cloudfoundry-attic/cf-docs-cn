@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/faq.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | 常见问题解答' property='og:title'>
+<meta content='常见问题解答' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | 常见问题解答</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Documentation</h1>
+<p class='sub-head'>常见问题解答</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>常见问题解答</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/常见问题解答" rel="tag">常见问题解答</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-10-26
+</span>
+</p>
+<div id='social-share'></div>
+<ul>
+<li><a href="#getstarted">如何上手使用 Cloud Foundry？</a></li>
+  <li><a href="#changepwd">如何更改我的 CloudFoundry.com 密码？</a></li>
+  <li><a href="#login">我的登录凭据有问题。</a></li>
+  <li><a href="#appname">为何不能注册我想要的应用程序名称？</a></li>
+  <li><a href="#filesys">应用程序能否将本地文件系统用于存储？</a></li>
+  <li><a href="#sessionsupport">是否有会话支持？</a></li>
+  <li><a href="#capacity">服务对资源的使用超限时会如何？</a></li>
+  <li><a href="#email">能否通过应用程序收发电子邮件？</a></li>
+  <li><a href="#firewall">是否有防火墙阻止应用程序访问外部服务？</a></li>
+  <li><a href="#504">应用程序为何返回“504 Gateway Time-out”错误？</a></li>
+  <li><a href="#http_proxy">我在使用 HTTP_proxy 时遇到问题。</a></li>
+  <li><a href="#supportedruntimes">CloudFoundry.com（测试版）支持哪些运行时？</a></li>
+  <li><a href="#limits">CloudFoundry.com（测试版）帐户在帐户、应用程序和服务方面有何限制？</a></li>
+  <li><a href="#stoppedapp">应用程序停止运行。</a></li>
+  <li><a href="#streamexhausted">出现 VMC 错误：“The input stream is exhausted”</a></li>
+  <li><a href="#hypericmonitoring">能否使用 Hyperic 监视 Cloud Foundry 上的应用程序？</a></li>
+  <li><a href="#startfail">Ruby/Sinatra/Rails 应用程序启动失败。</a></li>
+  <li><a href="#japanesestart">是否有日语版入门指南？</a></li>
+  <li><a href="#updateapp">如何更新应用程序才不会终止用户通信？</a></li>
+  <li><a href="#runafterexit">应用程序即使退出仍报告正在运行。</a></li>
+</ul><h4 id="a-idgetstarteda-cloud-foundry">
+<a id="getstarted"></a>如何上手使用 Cloud Foundry？</h4>
+
+<p>有关 Cloud Foundry 入门方面的资源，请参考我们的 <a href="/getting-started.html">入门指南</a>。</p>
+
+<h4 id="a-idchangepwda-cloudfoundrycom-">
+<a id="changepwd"></a>如何更改我的 CloudFoundry.com 密码？</h4>
+
+<p>请用以下链接重置您的 CloudFoundry.com 密码：<a href="https://my.cloudfoundry.com/passwd">https://my.cloudfoundry.com/passwd</a></p>
+
+<h4 id="a-idlogina">
+<a id="login"></a>我的登录凭据有问题。</h4>
+
+<p>下面是为确保正确使用凭据而可以执行的操作：</p>
+
+<ul>
+<li>
+    <p>验证目标设置是否正确 ($vmc target api.cloudfoundry.com)</p>
+  </li>
+  <li>
+    <p>检查目标（$vmc target 和 $vmc info）</p>
+  </li>
+  <li>
+    <p>验证使用的是 vmc 客户端（$vmc login [电子邮件] [密码]）</p>
+  </li>
+</ul><p>注册后请尝试使用 Cloud Foundry 欢迎电子邮件中提供的临时密码。如果后来用“vmc passwd”命令更改过密码，也请尝试使用更改过的密码。</p>
+
+<p>如果仍然无法使用 vmc，请单击“提交请求”选项卡打开问题单。请确保向我们提供详细信息，支持团队会进行详查。</p>
+
+<h4 id="a-idappnamea">
+<a id="appname"></a>为何不能注册我想要的应用程序名称？</h4>
+
+<p>应用程序名称长度必须在 3 个字符以上。另请注意，有些名称是系统预留名称，故即使够长也不允许使用。</p>
+
+<p>如果收到此消息：“The URI:’fo.cloudfoundry.com’ has already been taken or reserved”，请更改应用程序名称。</p>
+
+<h4 id="a-idfilesysa">
+<a id="filesys"></a>应用程序能否使用本地文件系统进行存储？</h4>
+
+<p>应用程序需要将本地文件存储用作短暂存储，而当应用程序停止、崩溃或移动时该短暂存储会消失。对于用户上传的文件之类的内容，不应将本地文件存储用于持久存储。此外，如果应用程序有多个实例在运行，则本地存储仅对其中某一特定实例可见，而不是对所有实例可见或为所有实例所共享。如需永久存储，可以使用 <a href="http://www.mongodb.org/display/DOCS/GridFS">MongoDB GridFS</a> 之类的本地服务或 <a href="http://developers.blog.box.com/2011/12/14/deploying-to-cloud-foundry-and-heroku-from-box/">Box.net</a>、<a href="http://aws.amazon.com/s3/">Amazon S3</a> 之类的外部 blob 存储。</p>
+
+<h4 id="a-idsessionsupporta">
+<a id="sessionsupport"></a>是否提供了会话支持？</h4>
+
+<p>应用程序扩展到多个实例时会出现会话管理主题。Cloud Foundry 使用会话亲缘性，亦称粘性会话：当用户登录请求由某一特定应用程序实例处理时，来自该用户/会话的未来请求都将路由到该应用程序实例。粘性会话可用于所有应用程序，且不必配置，但 node.js 除外。Node.js 应用程序需要针对每个用户/会话为名为 JSESSIONID 的 cookie 分别设置一个独一无二的值。</p>
+
+<p>Cloud Foundry 不提供会话复制：如果上述特定实例崩溃，用户将被路由到当前会话中无身份验证数据的另一个实例，并且需要重新登录。</p>
+
+<h4 id="a-idcapacitya">
+<a id="capacity"></a>服务对容量的使用超限时会如何？</h4>
+
+<p>服务对资源的使用超限（例如 MySQL 达到 128MB 大小限制）时，服务会切换到只读/删除模式。例如，SQL 服务允许删除和读取数据，但不允许写入更多数据：</p>
+
+<pre class="terminal">
+delete from table where ... # allowed
+drop table ... # allowed
+select ... from ... # allowed
+insert into ... # not allowed
+update ... # not allowed
+</pre>
+
+<p>如果某服务对资源的使用超限，则绑定到该服务的应用程序可能会出现“INSERT is disabled”之类的错误。其他服务（redis、MongoDB）也将表现出类似的行为。</p>
+
+<h4 id="a-idemaila">
+<a id="email"></a>能否通过我的应用程序收发电子邮件？</h4>
+
+<p>应用程序不能通过 TCP 端口 25 发送电子邮件。应用程序可以使用其他端口提供的外部电子邮件服务（例如，端口 587 可提供 SMTP-AUTH 服务）。应用程序也无法通过侦听端口 25 来接收电子邮件。我们建议使用 <a href="http://sendgrid.com/">SendGrid</a> 或 <a href="http://mailgun.net/">Mailgun</a> 之类的外部邮件服务。</p>
+
+<h4 id="a-idfirewalla">
+<a id="firewall"></a>是否有防火墙阻止我的应用程序访问外部服务？</h4>
+
+<p>没有，应用程序可以直接访问 Internet，但连接到 TCP 端口 25（用于发送电子邮件）受限。</p>
+
+<h4 id="a-id504a504-gateway-time-out">
+<a id="504"></a>我的应用程序为何返回“504 Gateway Time-out”错误？</h4>
+
+<p>该错误页面源自 CloudFoundry.com HTTP 路由器，而非应用程序。路由器会终止持续 30 秒以上的应用程序请求。30 秒超时规定无法调整，且适用于 CloudFoundry.com 上运行的所有应用程序。但路由器支持周期为 30 秒的长时间轮询和流媒体传输：如果应用程序在 30 秒内将数据发送到客户端，则超时计数器复位，并在 30 秒时再次启动。为解决 504 错误，请调查是何原因造成应用程序响应延迟，并确保数据每 30 秒返回一次。</p>
+
+<h4 id="a-idhttpproxya-httpproxy-">
+<a id="http_proxy"></a>我在使用 HTTP_proxy 时遇到问题。</h4>
+
+<p>2011 年 4 月推出 CloudFoundry.com 时，应用程序发出出站请求必须使用 HTTP 代理（对于运行的前 10 天左右）。在不需要使用代理后，我们并未去除 HTTP_PROXY、http_proxy 等环境变量。应用程序过去常常要用到这些变量，不过现在我们正在去除 HTTP_PROXY、HTTPS_PROXY、http_proxy、https_proxy、no_proxy、NO_PROXY。对于绝大多数应用程序，这种变化不会有任何影响。因为所有合理编写的应用程序不是其使用的 HTTP 客户端类能够正确处理和使用代理相关环境变量，就是其编写者编写的算法能够正确使用代理环境变量（当它们存在时）。</p>
+
+<p>不过，有些应用程序可能是通过硬编码来查找以下代理相关环境变量的，同时还存在以下情况：不是用值不当，就是对缺少环境变量的情况处理不当。这些变量是：</p>
+
+<pre class="terminal">
+- http_proxy
+
+- HTTP_PROXY
+
+- https_proxy
+
+- HTTPS_PROXY
+
+- no_proxy
+
+- NO_PROXY
+</pre>
+
+<p>自 2012 年 5 月 14 日起，对于 CloudFoundry.com 上的应用程序将不再定义这些环境变量。如果应用程序出现异常，请检查并删除代码中对上述变量的引用。最安全的方法是在应用程序根目录中搜索代理引用：</p>
+
+<pre class="terminal">
+$ cd myapp
+$ grep -i -r proxy .
+</pre>
+
+<h4 id="a-idsupportedruntimesa-cloudfoundrycom">
+<a id="supportedruntimes"></a> CloudFoundry.com（测试版）支持哪些运行时？</h4>
+
+<p>使用 vmc runtimes 命令可以查看支持的运行时的完整列表 ($vmc runtimes)</p>
+
+<h4 id="a-idlimitsa-cloudfoundrycom">
+<a id="limits"></a> CloudFoundry.com（测试版）帐户在帐户、应用程序和服务方面有何限制？</h4>
+
+<p><strong>帐户限制</strong></p>
+
+<p>与 CloudFoundry.com（测试版）用户帐户相关联的限制信息可用以下命令获得。</p>
+
+<pre class="terminal">
+$ vmc info
+
+VMware's Cloud Application Platform
+For support visit support@cloudfoundry.com
+
+Target:   http://api.cloudfoundry.com (v0.999)
+Client:   v0.3.10
+
+User:     user@email.com
+Usage:    Memory   (256.0M of 2.0G total)
+          Services (1 of 16 total)
+          Apps     (2 of 20 total)
+</pre>
+
+<p>对于帐户：</p>
+
+<p>应用程序最多 20 个。</p>
+
+<p>服务实例最多 16 个。</p>
+
+<p>内存最多 2GB。</p>
+
+<p><strong>应用程序限制</strong></p>
+
+<p>对于各个应用程序：</p>
+
+<p>内存最多 2GB。</p>
+
+<p>磁盘空间最多 2GB。</p>
+
+<p>CPU	限于 4 个核的公平份额。</p>
+
+<p>网络	限于您的公平份额。</p>
+
+<p>文件描述符最多	256.
+URI 最多 4 个。</p>
+
+<p>实例总数：受 2 GB 预留内存量限制。例如，如为应用程序预留 128M，则最多可有 16 个实例，相应的，预留 256M 最多可有 8 个实例，预留 512M 最多可有 4 个实例。（假定只有一个应用程序）。</p>
+
+<p>此外，使用以下命令可以查看每个应用程序的使用情况统计信息：</p>
+
+<pre class="terminal">
+$ vmc stats &lt;appname&gt;
+
++----------+-------------+----------------+--------------+--------------+
+| Instance | CPU (Cores) | Memory (limit) | Disk (limit) | Uptime       |
++----------+-------------+----------------+--------------+--------------+
+| 0        | 0.0% (1)    | 19.4M (128M)   | 14.5M (2G)   | 0d:2h:13m:6s |
++----------+-------------+----------------+--------------+--------------+
+</pre>
+
+<p>内存：已用 19.4M，预留 128M。（$ mem appname 命令可用于更新内存预留量，请注意，这将重新启动应用程序）</p>
+
+<p>磁盘：已用 14M，最多 2G</p>
+
+<p><strong>服务限制</strong></p>
+
+<p>对于服务：</p>
+
+<p>MySQL 数据库大小最大为	128MB。</p>
+
+<p>Redis 内存最大为 16MB。</p>
+
+<p>MongoDB 内存最大为 240MB。</p>
+
+<h4 id="a-idstoppedappa">
+<a id="stoppedapp"></a>我的应用程序停止运行。</h4>
+
+<p>任何应用程序在最终用户没有启动停止运行操作时停止运行，我们都视其为崩溃。</p>
+
+<p>应用程序崩溃时，vcloudlabs 会让崩溃状态保持一段时间以进行自检。</p>
+
+<p>可通过 **vmc crashlogs <appname>** 查看此状态</appname></p>
+
+<p>应用程序正常运行过程中出现崩溃可能是应用程序本身的问题，也可能是因应用程序使用的资源超限所致。</p>
+
+<p><strong>vmc info</strong></p>
+
+<p>这将显示用于内存、服务和应用程序实例的帐户范围资源。应先在此查看有关信息。</p>
+
+<p><strong>vmc stats &lt;appname&gt;</strong></p>
+
+<p>这将显示应用程序资源使用情况的详细信息。例如，运行 <a href="http://www.cloudfoundry.com/">http://www.cloudfoundry.com</a> 的应用程序，名为 <strong>www</strong>，会输出如下内容：</p>
+
+<p><strong>~&gt; vmc stats www</strong></p>
+
+<p>Instance   CPU (Cores)     Memory (limit)  Disk (limit)    Uptime</p>
+
+<hr><p>0          0.0% (8)        29.2M (64M)     824.0K (2G)     60d:19h:53m:58s</p>
+
+<p>1          0.0% (8)        29.3M (64M)     816.0K (2G)     60d:19h:50m:3s</p>
+
+<p>这里显示了各种资源的使用情况及其当前限制。</p>
+
+<p>通常，CloudFoundry.com 会终止内存或磁盘使用超限的应用程序。这些信息将通过上文所述的 crashlogs 命令呈现给 vmc。</p>
+
+<p>如果应用程序运行一段时间后意外停止，并且坚信应用程序没问题，则请使用此核对表查看是否出现了资源限制问题。</p>
+
+<h4 id="a-idstreamexhausteda-vmc-the-input-stream-is-exhausted">
+<a id="streamexhausted"></a>出现 VMC 错误：“The input stream is exhausted”</h4>
+
+<p><strong>问题</strong></p>
+
+<p>在某些 Mac OSX 版本上，安装的 Stock Ruby 会导致 vmc 客户端工具无法正常运行并显示以下错误。这是因为 vmc 使用的库与 OSX 附带的 ruby 软件包不兼容。</p>
+
+<p>例如，在 Mac OSX Lion 中，Stock Ruby 版本为 1.8.7，修补程序级别是 249</p>
+
+<pre class="terminal">
+$ ruby --version
+ruby 1.8.7 (2010-01-10 patchlevel 249) [universal-darwin11.0]
+</pre>
+
+<p>错误在 vmc 事务过程中显示为</p>
+
+<p><code>bash
+$ vmc push
+Would you like to deploy from the current directory? [Yn]: The input stream is exhausted.
+/Library/Ruby/Gems/1.8/gems/highline-1.6.2/lib/highline.rb:608:in `get_line'
+/Library/Ruby/Gems/1.8/gems/highline-1.6.2/lib/highline.rb:629:in `get_response'
+/Library/Ruby/Gems/1.8/gems/highline-1.6.2/lib/highline.rb:216:in `ask'
+/Library/Ruby/Gems/1.8/gems/vmc-0.3.12/lib/cli/commands/apps.rb:370:in `push'
+/Library/Ruby/Gems/1.8/gems/vmc-0.3.12/lib/cli/runner.rb:428:in `send'
+/Library/Ruby/Gems/1.8/gems/vmc-0.3.12/lib/cli/runner.rb:428:in `run'
+/Library/Ruby/Gems/1.8/gems/vmc-0.3.12/lib/cli/runner.rb:14:in `run'
+/Library/Ruby/Gems/1.8/gems/vmc-0.3.12/bin/vmc:5
+/usr/bin/vmc:19:in `load'
+/usr/bin/vmc:19
+</code></p>
+
+<p><strong>解决方法</strong></p>
+
+<p>此问题的解决方法是安装 <a href="https://rvm.beginrescueend.com/">RVM</a> (Ruby Version Manager) 并且要安装和使用 1.8.7（或 1.9.2）版本。通常是安装较高的修补程序级别。但请注意，即使安装与 Stock Ruby 相同的修补程序级别，也能解决问题。</p>
+
+<p>RVM 安装快速指南：</p>
+
+<ol>
+<li>
+    <p>安装 rvm (<a href="http://beginrescueend.com/rvm/install/">http://beginrescueend.com/rvm/install/</a>)</p>
+  </li>
+  <li>
+    <p>添加以下行到 ~/.bash_profile 文件</p>
+  </li>
+</ol><pre class="terminal">
+# Ruby Version Manager
+[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm"
+</pre>
+
+<ol>
+<li>
+    <p>打开新终端</p>
+  </li>
+  <li>
+    <p>使用 rvm 重新安装 Ruby 1.9.2，并在安装了 Ruby 的 rvm 下重新安装 vmc gem</p>
+  </li>
+</ol><pre class="terminal">
+$ rvm install 1.9.2
+$ rvm use 1.9.2
+$ gem install vmc
+</pre>
+
+<p><strong>使用示例</strong></p>
+
+<p>这是使用安装了 Ruby 的 rvm 的脚本。</p>
+
+<pre class="terminal">
+$ rvm use 1.8.7-p249
+Using /Users/Alex/.rvm/gems/ruby-1.8.7-p249
+</pre>
+
+<pre class="terminal">
+$ ruby --version
+ruby 1.8.7 (2010-01-10 patchlevel 249) [i686-darwin11.0.0]
+</pre>
+
+<pre class="terminal">
+$ vmc push
+Would you like to deploy from the current directory? [Yn]:
+Application Name: hello-sinatra
+Application Deployed URL: 'hello-sinatra.cloudfoundry.com'? hello-sinatra-alexsuraci.cloudfoundry.com
+Detected a Sinatra Application, is this correct? [Yn]:
+Memory Reservation [Default:128M] (64M, 128M, 256M, 512M or 1G)
+Creating Application: OK
+Would you like to bind any services to 'hello-sinatra'? [yN]:
+Uploading Application:
+  Checking for available resources: OK
+  Packing application: OK
+  Uploading (2K): OK
+Push Status: OK
+Staging Application: OK
+Starting Application: OK
+</pre>
+
+<h4 id="a-idhypericmonitoringa-hyperic--cloud-foundry-">
+<a id="hypericmonitoring"></a>能否使用 Hyperic 监视 Cloud Foundry 上的应用程序？</h4>
+
+<p><a href="http://blog.cloudfoundry.com/2011/06/29/hyperic-brings-application-monitoring-to-cloud-foundry/">有</a></p>
+
+<h4 id="a-idstartfaila-rubysinatrarails-">
+<a id="startfail"></a>我的 Ruby/Sinatra/Rails 应用程序启动失败。</h4>
+
+<p>对 Ruby/Sinatra/Rails 应用程序执行 vmc push 并答完所有提问后，可能出现此错误：</p>
+
+<p>Starting Application:…………Error:Application [APP]’s state</p>
+
+<p>is undetermined, not enough information available.</p>
+
+<p>出现此错误的原因可能是缺少一个或多个 gem。根据问题发生位置，更多详细信息通常包含在这 4 个日志之一中：staging.log、migration.log、stderr.log 和 stdout.log</p>
+
+<p>诊断：先用“vmc files app-name logs”查看日志文件，再用“vmc files app-name logs/stderr.log”查看日志。</p>
+
+<p>在 Cloud Foundry 中，我们要求正式调用所有 gem 依赖项。对于简单的 Sinatra 应用程序，通常使用如下所示的简单 Gemfile（根目录中）即可解决问题：</p>
+
+<p>Gemfile 包含：</p>
+
+<pre class="terminal">
+source "http://rubygems.org"
+gem 'bundler'
+gem 'sinatra'
+gem 'json'
+gem 'httpclient'
+gem 'redis'
+</pre>
+
+<p>然后运行“bundle package; bundle install”即可纠正问题</p>
+
+<p>如果找不到供上传的缺失元素，请看看能否在论坛里找到答案或创建自己的问题线程。也可向我们发送电子邮件（电子邮件地址为 support.cloudfoundry.com），我们会尽力提供帮助。</p>
+
+<p>演示中所示的演示示例应用程序 (hello.rb) 启动失败的常见原因之一是复制/粘贴，即复制时使用了智能引号，结果导致应用程序无法运行。请手动键入演示应用程序。另请确保源文件中不要有任何多余的制表 (\t) 字符，如果有，请用空格将其替换。</p>
+
+<h4 id="a-idjapanesestarta">
+<a id="japanesestart"></a>是否有日语版入门指南？</h4>
+
+<p><a href="/getting-started-japanese.html">有</a></p>
+
+<h4 id="a-idupdateappa">
+<a id="updateapp"></a>如何更新应用程序才不会中断用户通信？</h4>
+
+<p>通常，利用 Cloud Foundry 开发和测试应用程序时，<strong>vmc update</strong> 很符合要求。</p>
+
+<p>然而，如果应用程序是要“提供实时支持”的，就像我们自己的 www 站点，应遵循以下步骤，以确保更新转换期间不终止用户请求。</p>
+
+<p>新应用程序将继用原应用程序的 URL 空间，我们采用这样的概念。</p>
+
+<p>下面是不会出现任何停机状况的应用程序更新方法：</p>
+
+<p>注意：“vmc update”将会中断通信。</p>
+
+<ul>
+<li>vmc push [app]NEW（绑定任何共享服务，如数据库、缓存等）</li>
+</ul><p>测试 [app]NEW.cloufoundry.com</p>
+
+<ul>
+<li>vmc map [app]NEW [app].cloudfoundry.com</li>
+</ul><p>测试 [app].cloudfoundry.com 若干次，现在在新旧应用程序之间循环…</p>
+
+<ul>
+<li>vmc unmap [app]OLD [app].cloudfoundry.com # 不会中断通信，只是切断所有新的通信</li>
+</ul><p>测试</p>
+
+<ul>
+<li>vmc delete [app]OLD</li>
+</ul><h4 id="a-idrunafterexita">
+<a id="runafterexit"></a>我的应用程序即使在退出后仍然报告正在运行。</h4>
+
+<p>如用 System.exit() 退出应用程序，则 Tomcat 的安全管理器会阻止进程终止。这会导致系统报告应用程序正在运行。我们将会添加一个自定义的运行状况检查项，以便系统能检测到以这种方式终止的应用程序。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/tools/spring-insight.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | Spring Insight' property='og:title'>
+<meta content='使用 Spring Insight 跟踪 Java 应用程序' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | Spring Insight</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Tools</h1>
+<p class='sub-head'>Spring Insight</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>使用 Spring Insight 跟踪 Java 应用程序</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/spring" rel="tag">spring</a><a href="/tags/performance-monitoring" rel="tag">performance-monitoring</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-09-29
+</span>
+</p>
+<div id='social-share'></div>
+<p>Spring Insight 是一种 Cloud Foundry 服务，可您能够实时查看部署的应用程序。Spring Insight 可以按时间绘制应用程序的运行状况图，使您能够立即看到您的应用程序中所发生的任何性能问题。</p>
+
+<p>Spring Insight 可以捕获 Web 应用程序事件，我们将之称为<em>跟踪</em>。跟踪表示一系列执行过程。它通常从 HTTP 请求开始，但也可以从后台作业开始。跟踪包含各种操作，表示跟踪执行过程中的重要时刻，例如，JDBC 查询或事务提交。Insight 使用跟踪数据计算汇总信息，并向您解释为什么您的应用程序无法运行以及应该如何运行的详细情况。</p>
+
+<p>有关使用 Spring Insight 以及如何解释和过滤所显示的性能信息的详细信息，请参阅<a href="http://pubs.vmware.com:8080/vfabric5/topic/com.vmware.vfabric.tc-server.2.6/operations/using-browsing-resources.html">使用 Spring Insight</a>。虽然该文件特别适用于运行在非 Cloud Foundry 环境中的 Spring Insight（如一个独立的 TC 运行时实例），但是 <strong>Browse Resources</strong>、<strong>Recent Activity</strong> 和 <strong>Administration</strong> 选项卡的用法却很相似。</p>
+
+<p><strong>副标题</strong></p>
+
+<ul>
+<li><a href="#installing-spring-insight-in-your-cloud-foundry-account-and-enabling-your-applications">在您的 Cloud Foundry 帐户中安装 Spring Insight 并启用您的应用程序</a></li>
+  <li><a href="#how-spring-insight-works-with-cloud-foundry">Spring Insight 如何配合 Cloud Foundry 一起工作</a></li>
+  <li><a href="#spring-insights-impact-on-cloud-foundry-quotas">Spring Insight 对 Cloud Foundry 配额的影响</a></li>
+  <li><a href="#configuring-application-and-insight-memory-settings">配置应用程序和 Insight 内存设置</a></li>
+</ul><h2 id="cloud-foundry--spring-insight-">在您的 Cloud Foundry 帐户中安装 Spring Insight 并启用您的应用程序</h2>
+
+<ul>
+<li>
+    <p>在您的浏览器中，访问 <a href="http://insight.cloudfoundry.com/">Spring Insight for Cloud Foundry</a> 网站并使用您的 Cloud Foundry 凭据登录。</p>
+
+    <p>首次登录时，Spring Insight 会自动将自己安装到您的 Cloud Foundry 帐户，然后创建并绑定到一个 RabbitMQ 服务实例。这需要几秒钟时间。当安装完成后，您将被重定向到自己的个人 Spring Insight 仪表板，其中列出了已经部署到 Cloud Foundry 的所有的应用程序：</p>
+
+    <p><img src="/images/screenshots/spring-insight/insight-cf-app.png%20%E2%80%9Cinsight%20%E4%BB%AA%E8%A1%A8%E6%9D%BF%E2%80%9D" alt="insight-cf-app.png"></p>
+
+    <p>当您随后浏览并登录到 <a href="http://insight.cloudfoundry.com/">Spring Insight for Cloud Foundry</a> 网站，您将被自动重定向到您的仪表板。</p>
+
+    <p><strong>Cloud Foundry &gt; Applications</strong> 屏幕上列出已部署的应用程序；默认情况下，每一个应用程序均已禁用 Spring Insight。</p>
+  </li>
+  <li>
+    <p>要为应用程序启用 Insight，请在左侧列表单击其名称，然后在右框中单击 <code>enable</code>（参见上图中的 ＃2）。在后台，Insight 将安装一个代理并将其关联到您的应用程序。</p>
+
+    <p>目前，只能为 Spring Insight 启用 Java、Spring 和 Grails Web 应用程序。您将知道是否可以为 Spring Insight 启用已部署的应用程序，因为在列表中它的旁边会有一个叶子图标（参见上图中的 ＃1）。</p>
+  </li>
+  <li>
+    <p>单击 <strong>Cloud Foundry &gt; Environment</strong> 选项卡以查看有关您的 Cloud Foundry 帐户中可用和已置备的服务实例的信息。Spring Insight 本身已绑定到已置备的 RabbitMQ 服务实例，如下图所示：</p>
+
+    <p><img src="/images/screenshots/spring-insight/insight-cf-env.png%20%E2%80%9Cinsight%20%E4%BB%AA%E8%A1%A8%E6%9D%BF%E7%8E%AF%E5%A2%83%E2%80%9D" alt="insight-cf-env.png"></p>
+  </li>
+  <li>
+    <p>要真正开始使用 Spring Insight，以监控应用程序的性能，请单击 <strong>Browse Resources</strong> 选项卡。该屏幕显示您的应用程序的整体运行状况。注意，只有已为 Insight 启用并且近期已经发生一些活动的应用程序才会显示在左侧列表中。</p>
+
+    <p>单击 <strong>Recent Activity</strong> 选项卡可查看与您的应用程序关联的近期跟踪记录，以便对这些记录进行进一步的分析。</p>
+  </li>
+</ul><p>有关使用 Spring Insight 以及如何解释和过滤所显示的性能信息的详细信息，请参阅<a href="http://pubs.vmware.com:8080/vfabric5/topic/com.vmware.vfabric.tc-server.2.6/operations/using-browsing-resources.html">使用 Spring Insight</a>。</p>
+
+<h2 id="spring-insight--cloud-foundry-">Spring Insight 如何配合 Cloud Foundry 一起工作</h2>
+
+<p>当您在 Cloud Foundry 帐户中安装 Spring Insight 时，Insight 会显示已​​部署的应用程序，就像您以前部署的任何其他应用程序一样。它的名称是 <code>Insight-&lt;id&gt;</code>，其中 <code>id</code> 是唯一标识符。您可以像其他任何应用程序一样管理 Insight 应用程序，包括用 <code>vmc delete</code> 命令将其删除。这样做的结果就是会删除仪表板；您可以使用上述步骤重新创建仪表板。</p>
+
+<p>当您为 Spring Insight 启用其中一个部署的应用程序时，Insight 会像服务一样将自身绑定到您的应用程序，并在您执行 <code>vmc apps</code> 时进行相应的显示。例如：</p>
+
+<pre class="terminal">
+$prompt vmc apps
+
++----------------+----+---------+---------------------------------+-----------------+
+| Application    | #  | Health  | URLS                            | Services        |
++----------------+----+---------+---------------------------------+-----------------+
+| Insight-18fe44 | 1  | RUNNING | insight-18fe44.cloudfoundry.com | Insight-18fe441 |
+| hello          | 1  | RUNNING | hello-js.cloudfoundry.com       |                 |
+| hotels         | 1  | RUNNING | hotels-js.cloudfoundry.com      | Insight-18fe441 |
++----------------+----+---------+---------------------------------+-----------------+
+
+</pre>
+
+<p>Insight 应用程序会使用 RabbitMQ 服务实例，您也可以通过执行 <code>vmc services</code> 查看此实例。例如：</p>
+
+<pre class="terminal">
+$prompt vmc services
+
+============== System Services ==============
+
++------------+---------+---------------------------------------+
+| Service    | Version | Description                           |
++------------+---------+---------------------------------------+
+| mongodb    | 2.0     | MongoDB NoSQL store                   |
+| mysql      | 5.1     | MySQL database service                |
+| postgresql | 9.0     | vFabric Postgres database service     |
+| rabbitmq   | 2.4     | RabbitMQ messaging service            |
+| redis      | 2.2     | Redis key-value store service         |
++------------+---------+---------------------------------------+
+
+=========== Provisioned Services ============
+
++-----------------+----------+
+| Name            | Service  |
++-----------------+----------+
+| Insight-18fe441 | rabbitmq |
++-----------------+----------+
+
+</pre>
+
+<h2 id="spring-insight--cloud-foundry--1">Spring Insight 对 Cloud Foundry 配额的影响</h2>
+
+<p>Insight 仪表板是一种安装在您的 Cloud Foundry 帐户上的 Web 应用程序。从配额方面考虑，可以将其视作一个应用程序，并使用 512 MB 内存。</p>
+
+<p>Spring Insight 还置备一个 RabbitMQ 服务实例，Insight 代理可使用该实例与 Insight 仪表板进行通信。RabbitMQ 服务可以充当 Cloud Foundry 配额的一种服务。</p>
+
+<p>最后，您已为 Insight 启用的每个应用程序将需要额外的内存。虽然这会因负载和使用方法而异，但 Cloud Foundry 建议，当您部署一个要使用 Insight 监控的应用程序时，您应至少使用 256 MB 内存配额。</p>
+
+<h2 id="insight-">配置应用程序和 Insight 内存设置</h2>
+
+<p>在确定您的应用程序使用多少内存时，Cloud Foundry 会使用相应进程的 RSS（驻留集大小）。如果 RSS 增长量超过您的应用程序配置的内存阈值，Cloud Foundry 将会停止或取消该应用程序。这在 Java 中具有特殊的意义，因为应用程序的最大堆使用量通常远低于 RSS。</p>
+
+<p>为避免出现超过 RSS 但未达到最大堆使用量的情况，请增加为您的应用程序分配的内存，或减小其堆大小。</p>
+
+<p>例如，如果您的应用程序运行时会占用约 256 MB 内存，但未达到此限制，请使用下面的 <code>vmc</code> 命令来更改内存设置：</p>
+
+<pre class="terminal">
+prompt$ vmc mem my-application 300m
+prompt$ vmc env-add my-application INSIGHT_OVERRIDES="-Xmx200m"
+</pre>
+
+<p>请注意，这种内存设置修改不是 Insight 所特有的；Cloud Foundry 会取消未达到其最大堆限制的常用 Java 应用程序。但是，由于依赖于堆以外、PermGen 上和代码缓存中的 JVM 数据结构，Insight 支持的应用程序更容易达到这些限制。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

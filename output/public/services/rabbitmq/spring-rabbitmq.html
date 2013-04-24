@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/services/rabbitmq/spring-rabbitmq.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | RabbitMQ 与 Spring 一起使用' property='og:title'>
+<meta content='从一个 Spring 应用程序入门使用 RabbitMQ 服务' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | RabbitMQ 与 Spring 一起使用</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Services</h1>
+<p class='sub-head'>RabbitMQ 与 Spring 一起使用</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>从一个 Spring 应用程序入门使用 RabbitMQ 服务</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/spring" rel="tag">spring</a><a href="/tags/rabbitmq" rel="tag">rabbitmq</a><a href="/tags/教程" rel="tag">教程</a><a href="/tags/附代码" rel="tag">附代码</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-09-29
+</span>
+</p>
+<div id='social-share'></div>
+<p>此教程讲解了如何在 Java 和 Spring 应用程序中使用用于 Cloud Foundry 的 RabbitMQ 服务。</p>
+
+<p>消息传递在 Spring Web 应用程序的上下文中具有不同方式的用途。参见 RabbitMQ 主站点上<a href="http://www.rabbitmq.com/getstarted.html">入门</a>区域，以获得一些思路。在教程中，我们将构建一个使用 RabbitMQ 的非常简单的应用程序，以将注意力集中于连接 RabbitMQ 服务的基础知识。当您理解这个教程后，您将能够将更实用的服务应用整合进您的 Cloud Foundry 上的 Spring 应用程序中。</p>
+
+<p>此教程包括在 Cloud Foundry 上创建简单 Spring 应用程序以及将其与 RabbitMQ 服务挂钩的整个过程。如果您已经在 Cloud Foundry 上拥有自己的应用程序，您应该已经熟悉此处的大部分内容。如果是这样，您可直接跳到最后一部分内容，即讨论如何从您的应用程序访问 RabbitMQ 服务的部分。您还可以在 <a href="https://github.com/rabbitmq/rabbitmq-coudfoundry-samples/tree/master/spring">on GitHub</a> 上找到已完成的应用程序的完整代码。</p>
+
+<p>我们将构建的应用程序将由一个单个页面组成，它看上去像这样：</p>
+
+<p><img src="http://support.cloudfoundry.com/attachments/token/kx0fcgzrgasd4eq/?name=page.png" alt="page.png"></p>
+
+<p>此应用程序能够发布消息至单个 RabbitMQ 队列和从单个 RabbitMQ 队列获取消息。我们可以在输入框中键入消息，单击“发布”按钮将其发布至队列。另外，我们可以单击获取按钮从队列得到消息，下一条消息将被显示，或者将会告诉您队列为空。</p>
+
+<h2 id="section">先决条件</h2>
+
+<p>在开始之前,您的开发计算机上须已经安装一些新程序。此指南假定您已经安装 <a href="http://www.oracle.com/technetwork/java/javase/downloads/">JDK 6</a> 和 <a href="http://maven.apache.org/">Maven</a>。</p>
+
+<p>此教程将使用与 Cloud Foundry 进行交互的 vmc 命令行工具。如果您尚未安装 vmc，请遵循<a href="/tools/vmc/vmc.html">此处</a> 的说明。请注意 vmc 会不断被增强，因此即使您已经安装了它，您也需要定期通过以下方法对其进行更新：</p>
+
+<pre class="terminal">
+$ gem update vmc
+</pre>
+
+<p>vmc 不是与 Cloud Foundry 一起开发的唯一方法：<a href="http://www.springsource.org/sts">Spring 工具套件</a>在 Eclipse 开发环境中支持 Clound Foundry。参见<a href="http://www.springsource.org/sts">此部分</a>，查看如何在 STS 中使用 Cloud Foundry。</p>
+
+<p>创建一个 Spring MVC 初始应用程序
+现在我们将按照文章 <a href="http://blog.springsource.org/2011/01/04/green-beans-getting-started-with-spring-mvc/">Green Beans: Spring MVC 入门</a> 所述创建一个最小的 Spring MVC 应用程序，并将其推送至 Cloud Foundry。应用程序源由五个文件组成。文件位置将遵循 Maven 常规项目布局。</p>
+
+<p>src/main/webapp/WEB-INF/web.xml 直接交给 Spring 框架：</p>
+
+<pre><code class="language-xml"><span class="cp">&lt;!DOCTYPE web-app PUBLIC</span>
+<span class="cp"> "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"</span>
+<span class="cp"> "http://java.sun.com/dtd/web-app_2_3.dtd" &gt;</span>
+
+<span class="nt">&lt;web-app</span> <span class="na">version=</span><span class="s">"2.5"</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span>
+         <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+         <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;servlet&gt;</span>
+        <span class="nt">&lt;servlet-name&gt;</span>appServlet<span class="nt">&lt;/servlet-name&gt;</span>
+        <span class="nt">&lt;servlet-class&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="nt">&lt;/servlet-class&gt;</span>
+        <span class="nt">&lt;init-param&gt;</span>
+            <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>
+            <span class="nt">&lt;param-value&gt;</span>/WEB-INF/spring/servlet-context.xml<span class="nt">&lt;/param-value&gt;</span>
+        <span class="nt">&lt;/init-param&gt;</span>
+        <span class="nt">&lt;load-on-startup&gt;</span>1<span class="nt">&lt;/load-on-startup&gt;</span>
+    <span class="nt">&lt;/servlet&gt;</span>
+
+    <span class="nt">&lt;servlet-mapping&gt;</span>
+        <span class="nt">&lt;servlet-name&gt;</span>appServlet<span class="nt">&lt;/servlet-name&gt;</span>
+        <span class="nt">&lt;url-pattern&gt;</span>/<span class="nt">&lt;/url-pattern&gt;</span>
+    <span class="nt">&lt;/servlet-mapping&gt;</span>
+<span class="nt">&lt;/web-app&gt;</span></code></pre>
+
+<p>Spring 应用程序上下文 XML 文件 src/main/webapp/WEB-INF/spring/servlet-context.xml 是最小的 Spring MVC 应用程序，它直接声明将对 MVC 使用基于注释的配置，而且将打包并扫描：</p>
+
+<pre><code class="language-xml"><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
+       <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+       <span class="na">xmlns:mvc=</span><span class="s">"http://www.springframework.org/schema/mvc"</span>
+       <span class="na">xmlns:context=</span><span class="s">"http://www.springframework.org/schema/context"</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd</span>
+<span class="s">                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span>
+<span class="s">                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">"com.rabbitmq.cftutorial.simple"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;mvc:annotation-driven/&gt;</span>
+<span class="nt">&lt;/beans&gt;</span></code></pre>
+
+<p>控制器类 src/main/java/com/rabbitmq/cftutorial/simple/HomeController.java 直接交给 JSP 模板：</p>
+
+<pre><code class="language-java"><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">rabbitmq</span><span class="o">.</span><span class="na">cftutorial</span><span class="o">.</span><span class="na">simple</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HomeController</span> <span class="o">{</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">home</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"WEB-INF/views/home.jsp"</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+
+<p>而 JSP 模板 src/main/webapp/WEB-INF/views/home.jsp 将显示一个简单的静态页面。</p>
+
+<pre><code class="language-jsp"><span class="k">&lt;%@</span> <span class="n">taglib</span> <span class="n">uri</span><span class="o">=</span><span class="s">"http://java.sun.com/jsp/jstl/core"</span> <span class="n">prefix</span><span class="o">=</span><span class="s">"c"</span> <span class="k">%&gt;</span>
+<span class="k">&lt;%@</span> <span class="n">page</span> <span class="n">session</span><span class="o">=</span><span class="s">"false"</span> <span class="k">%&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Simple RabbitMQ Application<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Simple RabbitMQ Application<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre>
+
+<p>最后，pom.xml 文件向 Maven 描述该项目：</p>
+
+<pre><code class="language-xml"> <span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>com.rabbitmq.cftutorial<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>simple<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;packaging&gt;</span>war<span class="nt">&lt;/packaging&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;name&gt;</span>cftutorial-simple<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;description&gt;</span>Simple RabbitMQ Application<span class="nt">&lt;/description&gt;</span>
+
+  <span class="nt">&lt;properties&gt;</span>
+      <span class="nt">&lt;java-version&gt;</span>1.6<span class="nt">&lt;/java-version&gt;</span>
+      <span class="nt">&lt;org.springframework-version&gt;</span>3.0.5.RELEASE<span class="nt">&lt;/org.springframework-version&gt;</span>
+  <span class="nt">&lt;/properties&gt;</span>
+
+  <span class="nt">&lt;dependencies&gt;</span>
+      <span class="nt">&lt;dependency&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>spring-context<span class="nt">&lt;/artifactId&gt;</span>
+          <span class="nt">&lt;version&gt;</span>${org.springframework-version}<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;/dependency&gt;</span>
+      <span class="nt">&lt;dependency&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>spring-webmvc<span class="nt">&lt;/artifactId&gt;</span>
+          <span class="nt">&lt;version&gt;</span>${org.springframework-version}<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;/dependency&gt;</span>
+
+      <span class="nt">&lt;dependency&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>javax.servlet<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>jstl<span class="nt">&lt;/artifactId&gt;</span>
+          <span class="nt">&lt;version&gt;</span>1.2<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+
+  <span class="nt">&lt;build&gt;</span>
+      <span class="nt">&lt;plugins&gt;</span>
+          <span class="nt">&lt;plugin&gt;</span>
+              <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+              <span class="nt">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="nt">&lt;/artifactId&gt;</span>
+              <span class="nt">&lt;configuration&gt;</span>
+                  <span class="nt">&lt;source&gt;</span>${java-version}<span class="nt">&lt;/source&gt;</span>
+                  <span class="nt">&lt;target&gt;</span>${java-version}<span class="nt">&lt;/target&gt;</span>
+              <span class="nt">&lt;/configuration&gt;</span>
+          <span class="nt">&lt;/plugin&gt;</span>
+      <span class="nt">&lt;/plugins&gt;</span>
+  <span class="nt">&lt;/build&gt;</span>
+<span class="nt">&lt;/project&gt;</span></code></pre>
+
+<p>下一步我们构建项目：</p>
+
+<pre class="terminal">
+$ mvn package
+[...]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2 seconds
+[INFO] Finished at: Tue Aug 02 14:04:59 BST 2011
+[INFO] Final Memory: 17M/321M
+[INFO] ------------------------------------------------------------------------
+</pre>
+
+<p>现在我们已准备好向 Cloud Foundry 推送应用程序。在进行 vmc 推送前更改为目标目录。这里，我将把我的应用程序称为“rabbit-simple”，但是您应该选择您自己的应用程序名称。</p>
+
+<p>我们还可以在此时将服务与我们的应用程序捆绑。但是此时我们将不添加 rabbitmq 服务 — 我们将在初始应用程序运行后再这样做。</p>
+
+<pre class="terminal">
+$ cd target
+$ vmc push
+Would you like to deploy from the current directory? [Yn]: y
+Application Name: rabbit-simple
+Application Deployed URL: 'rabbit-simple.cloudfoundry.com'?
+Detected a Java SpringSource Spring Application, is this correct? [Yn]: y
+Memory Reservation [Default:512M] (64M, 128M, 256M or 512M)
+Creating Application: OK
+Would you like to bind any services to 'rabbit-simple'? [yN]: n
+Uploading Application:
+  Checking for available resources: OK
+  Processing resources: OK
+  Packing application: OK
+  Uploading (3K): OK
+Push Status: OK
+Staging Application: OK
+Starting Application: OK
+</pre>
+
+<p>如果操作成功，您应该能够访问应用程序的 URL 和查看主页：</p>
+
+<p><img src="http://support.cloudfoundry.com/attachments/token/119cuj9gvkhnzs4/?name=home.png" alt="home.png"></p>
+
+<h2 id="section-1">扩展应用程序</h2>
+
+<p>我们已有在 Cloud Foundry 上运行的最小的 Spring MVC 应用程序，现在我们将添加演示 RabbitMQ 服务用途的所需部件。</p>
+
+<p>我们使用页面元素扩展在 src/main/webapp/WEB-INF/views/home.jsp 处的 JSP 模板，以构建介绍部分中所示的页面：</p>
+
+<pre><code class="language-jsp"><span class="k">&lt;%@</span> <span class="n">taglib</span> <span class="n">uri</span><span class="o">=</span><span class="s">"http://java.sun.com/jsp/jstl/core"</span> <span class="n">prefix</span><span class="o">=</span><span class="s">"c"</span> <span class="k">%&gt;</span>
+<span class="k">&lt;%@</span> <span class="n">taglib</span> <span class="n">prefix</span><span class="o">=</span><span class="s">"form"</span> <span class="n">uri</span><span class="o">=</span><span class="s">"http://www.springframework.org/tags/form"</span> <span class="k">%&gt;</span>
+<span class="k">&lt;%@</span> <span class="n">page</span> <span class="n">session</span><span class="o">=</span><span class="s">"false"</span> <span class="k">%&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Simple RabbitMQ Application<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Simple RabbitMQ Application<span class="nt">&lt;/h1&gt;</span>
+
+    <span class="nt">&lt;h2&gt;</span>Publish a message<span class="nt">&lt;/h2&gt;</span>
+
+    <span class="nt">&lt;form:form</span> <span class="na">modelAttribute=</span><span class="s">"message"</span> <span class="na">action=</span><span class="s">"/publish"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;form:label</span> <span class="na">for=</span><span class="s">"value"</span> <span class="na">path=</span><span class="s">"value"</span><span class="nt">&gt;</span>Message to publish:<span class="nt">&lt;/form:label&gt;</span>
+      <span class="nt">&lt;form:input</span> <span class="na">path=</span><span class="s">"value"</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">/&gt;</span>
+
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Publish"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/form:form&gt;</span>
+
+    <span class="nt">&lt;c:if</span> <span class="na">test=</span><span class="s">"${published}"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;p&gt;</span>Published a message!<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/c:if&gt;</span>
+
+    <span class="nt">&lt;h2&gt;</span>Get a message<span class="nt">&lt;/h2&gt;</span>
+
+    <span class="nt">&lt;form:form</span> <span class="na">action=</span><span class="s">"/get"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Get one"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/form:form&gt;</span>
+
+    <span class="nt">&lt;c:choose&gt;</span>
+      <span class="nt">&lt;c:when</span> <span class="na">test=</span><span class="s">"${got_queue_empty}"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Queue empty<span class="nt">&lt;/p&gt;</span>
+      <span class="nt">&lt;/c:when&gt;</span>
+      <span class="nt">&lt;c:when</span> <span class="na">test=</span><span class="s">"${got != null}"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Got message: <span class="nt">&lt;c:out</span> <span class="na">value=</span><span class="s">"${got}"</span><span class="nt">/&gt;&lt;/p&gt;</span>
+      <span class="nt">&lt;/c:when&gt;</span>
+    <span class="nt">&lt;/c:choose&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre>
+
+<p>我们需要对控制器类添加操作，以支持发布和获取表单：</p>
+
+<pre><code class="language-java"><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">rabbitmq</span><span class="o">.</span><span class="na">cftutorial</span><span class="o">.</span><span class="na">simple</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMethod</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.ui.Model</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HomeController</span> <span class="o">{</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">home</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="k">new</span> <span class="n">Message</span><span class="o">());</span>
+        <span class="k">return</span> <span class="s">"WEB-INF/views/home.jsp"</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/publish"</span><span class="o">,</span> <span class="n">method</span><span class="o">=</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">publish</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">home</span><span class="o">(</span><span class="n">model</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/get"</span><span class="o">,</span> <span class="n">method</span><span class="o">=</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">get</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">home</span><span class="o">(</span><span class="n">model</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+
+<p>我们还需添加一个消息类，以支持发布表单。它仅为消息保存字符串值。</p>
+
+<pre><code class="language-java"><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">rabbitmq</span><span class="o">.</span><span class="na">cftutorial</span><span class="o">.</span><span class="na">simple</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Message</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">value</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getValue</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setValue</span><span class="o">(</span><span class="n">String</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+
+<p>通过这些添加项，我们可在 Cloud Foundry 上更新应用程序，并可查看：</p>
+
+<pre class="terminal">
+$ mvn package
+[...]
+$ cd target
+$ vmc update rabbit-simple
+Uploading Application:
+  Checking for available resources: OK
+  Processing resources: OK
+  Packing application: OK
+  Uploading (3K): OK
+Push Status: OK
+Stopping Application: OK
+Staging Application: OK
+Starting Application: OK
+</pre>
+
+<p>您应可查看上文介绍部分中所示的页面。在下一部分中，我们将在控制器中填写操作的代码以使应用程序可完全正常运作。</p>
+
+<h2 id="rabbitmq-">使用 RabbitMQ 服务</h2>
+
+<p>在此部分中，我们将使用先前部分中已创建的简单应用程序，并让其使用 RabbitMQ 服务。</p>
+
+<p>首选，我们将在 Cloud Foundry 上创建 RabbitMQ 服务的一个实例：</p>
+
+<pre class="terminal">
+$ vmc create-service
+1. rabbitmq
+2. mysql
+3. mongodb
+4. redis
+Please select one you wish to provision: 1
+Creating Service [rabbitmq-aaaad]: OK
+</pre>
+
+<p>在此时，服务实例已被成功创建。为了使其对我们的应用程序可用，我们还需要捆绑它：</p>
+
+<pre class="terminal">
+$ vmc bind-service rabbitmq-aaaad rabbit-simple
+Binding Service: OK
+Stopping Application: OK
+Staging Application: OK
+Starting Application: OK
+</pre>
+
+<p>vmc 应用程序命令确认服务已与我们的应用程序捆绑：</p>
+
+<pre class="terminal">
+$ vmc apps
+
++-----------------+----+---------+----------------------------------+-----------------------------+
+| Application     | #  | Health  | URLS                             | Services                    |
++-----------------+----+---------+----------------------------------+-----------------------------+
+| rabbit-simple   | 1  | RUNNING | rabbit-simple.cloudfoundry.com   | rabbitmq-aaaad              |
++-----------------+----+---------+----------------------------------+-----------------------------+
+</pre>
+
+<p>可通过 <a href="http://www.amqp.org/">AMQP</a> 协议（RabbitMQ 支持 AMQP 版本 0.8 和 0.9.1）访问 RabbitMQ 服务。因此我们需要使用 AMQP 客户端库。幸运的是，已有一个 Spring AMQP 项目允许 AMQP 应用程序使用 Spring 概念。我们还将使用 cloudfoundry-runtime jar 以便从 Spring 应用程序对 Cloud Foundry 服务的访问，包括 RabbitMQ。因此我们将添加相应的依赖项至 pom.xml 文件：</p>
+
+<pre><code class="language-xml">[...]
+   <span class="nt">&lt;properties&gt;</span>
+       [...]
+   <span class="nt">&lt;/properties&gt;</span>
+
+  <span class="nt">&lt;repositories&gt;</span>
+      <span class="nt">&lt;repository&gt;</span>
+          <span class="nt">&lt;id&gt;</span>spring-milestone<span class="nt">&lt;/id&gt;</span>
+          <span class="nt">&lt;name&gt;</span>Spring Maven MILESTONE Repository<span class="nt">&lt;/name&gt;</span>
+          <span class="nt">&lt;url&gt;</span>http://maven.springframework.org/milestone<span class="nt">&lt;/url&gt;</span>
+      <span class="nt">&lt;/repository&gt;</span>
+  <span class="nt">&lt;/repositories&gt;</span>
+
+  <span class="nt">&lt;dependencies&gt;</span>
+      [...]
+      <span class="nt">&lt;dependency&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>cglib<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>cglib-nodep<span class="nt">&lt;/artifactId&gt;</span>
+          <span class="nt">&lt;version&gt;</span>2.2<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;/dependency&gt;</span>
+      <span class="nt">&lt;dependency&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>org.springframework.amqp<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>spring-rabbit<span class="nt">&lt;/artifactId&gt;</span>
+          <span class="nt">&lt;version&gt;</span>1.0.0.RC2<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;/dependency&gt;</span>
+      <span class="nt">&lt;dependency&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>org.cloudfoundry<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>cloudfoundry-runtime<span class="nt">&lt;/artifactId&gt;</span>
+          <span class="nt">&lt;version&gt;</span>0.7.1<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;/dependency&gt;</span>
+      [...]
+  <span class="nt">&lt;/dependencies&gt;</span>
+[...]</code></pre>
+
+<p>然后我们将扩展 Spring 应用程序上下文 XML。添加项：</p>
+
+<ul>
+<li>使用 cloudfoundry-runtime 取得与 RabbitMQ 服务的一个连接。</li>
+  <li>配置作为 Spring AMQP 主要入口点的 RabbitTemplate 和 RabbitAdmin。</li>
+  <li>在 RabbitMQ 代理中声明一个队列调用的消息。</li>
+  <li>有关更多详细信息，请查看 <a href="http://static.springsource.org/spring-amqp/docs/1.0.x/reference/html/">Spring AMQP 文档</a>。</li>
+</ul><pre><code class="language-xml"><span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
+       <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+       <span class="na">xmlns:mvc=</span><span class="s">"http://www.springframework.org/schema/mvc"</span>
+       <span class="na">xmlns:context=</span><span class="s">"http://www.springframework.org/schema/context"</span>
+       <span class="na">xmlns:rabbit=</span><span class="s">"http://www.springframework.org/schema/rabbit"</span>
+       <span class="na">xmlns:cloud=</span><span class="s">"http://schema.cloudfoundry.org/spring"</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd</span>
+<span class="s">                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span>
+<span class="s">                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd</span>
+<span class="s">                           http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd</span>
+<span class="s">                           http://schema.cloudfoundry.org/spring http://schema.cloudfoundry.org/spring/cloudfoundry-spring-0.7.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">"com.rabbitmq.cftutorial.simple"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;mvc:annotation-driven/&gt;</span>
+
+    <span class="c">&lt;!-- Obtain a connection to the RabbitMQ via cloudfoundry-runtime: --&gt;</span>
+    <span class="nt">&lt;cloud:rabbit-connection-factory</span> <span class="na">id=</span><span class="s">"connectionFactory"</span><span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- Set up the AmqpTemplate/RabbitTemplate: --&gt;</span>
+    <span class="nt">&lt;rabbit:template</span> <span class="na">connection-factory=</span><span class="s">"connectionFactory"</span><span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- Request that queues, exchanges and bindings be automatically</span>
+<span class="c">         declared on the broker: --&gt;</span>
+    <span class="nt">&lt;rabbit:admin</span> <span class="na">connection-factory=</span><span class="s">"connectionFactory"</span><span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- Declare the "messages" queue: --&gt;</span>
+    <span class="nt">&lt;rabbit:queue</span> <span class="na">name=</span><span class="s">"messages"</span> <span class="na">durable=</span><span class="s">"true"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/beans&gt;</span></code></pre>
+
+<p>最后，实际发布和获取消息的 HomeController 变更是十分简单的：</p>
+
+<pre><code class="language-java"><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">rabbitmq</span><span class="o">.</span><span class="na">cftutorial</span><span class="o">.</span><span class="na">simple</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMethod</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.ui.Model</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.amqp.core.AmqpTemplate</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HomeController</span> <span class="o">{</span>
+    <span class="nd">@Autowired</span> <span class="n">AmqpTemplate</span> <span class="n">amqpTemplate</span><span class="o">;</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">home</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="k">new</span> <span class="n">Message</span><span class="o">());</span>
+        <span class="k">return</span> <span class="s">"WEB-INF/views/home.jsp"</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/publish"</span><span class="o">,</span> <span class="n">method</span><span class="o">=</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">publish</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">,</span> <span class="n">Message</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Send a message to the "messages" queue</span>
+        <span class="n">amqpTemplate</span><span class="o">.</span><span class="na">convertAndSend</span><span class="o">(</span><span class="s">"messages"</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"published"</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nf">home</span><span class="o">(</span><span class="n">model</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/get"</span><span class="o">,</span> <span class="n">method</span><span class="o">=</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">get</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Receive a message from the "messages" queue</span>
+        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span><span class="n">amqpTemplate</span><span class="o">.</span><span class="na">receiveAndConvert</span><span class="o">(</span><span class="s">"messages"</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">message</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"got"</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+        <span class="k">else</span>
+            <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"got_queue_empty"</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="nf">home</span><span class="o">(</span><span class="n">model</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+
+<p>现在一切就绪，最后的 vmc 更新将使应用程序完全正常运作。我们可以发布一条消息：</p>
+
+<p><img src="http://support.cloudfoundry.com/attachments/token/6btegldivmhssve/?name=publish1.png" alt="publish1.png"><img src="http://support.cloudfoundry.com/attachments/token/y4ls3aqh00thzen/?name=publish2.png" alt="publish2.png"></p>
+
+<p>并收回这条消息：</p>
+
+<p><img src="http://support.cloudfoundry.com/attachments/token/e5ojjwwhs6ljjwd/?name=get1.png" alt="get1.png"><img src="http://support.cloudfoundry.com/attachments/token/lejqlsjmiu75lc7/?name=get2.png" alt="get2.png"></p>
+
+<p>教程的内容就此结束。您可在 <a href="http://www.rabbitmq.com/">RabbitMQ Web 站点</a>找到关于 RabbitMQ 和 AMQP 的更多资源。您可在 <a href="http://www.springsource.org/spring-amqp">Spring AMQP</a> 网站找到关于在 Spring 应用程序中使用 RabbitMQ 的更多信息。如果您对此教程或 RabbitMQ 服务存在任何疑问或反馈，请使用 <a href="http://support.cloudfoundry.com/">support.cloudfoundry.com</a> 的论坛与我们联系。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

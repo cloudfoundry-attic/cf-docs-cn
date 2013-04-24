@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/infrastructure/micro/using-mcf.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | 使用 Micro Cloud Foundry' property='og:title'>
+<meta content='使用 Micro Cloud Foundry 控制台' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | 使用 Micro Cloud Foundry</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Infrastructure</h1>
+<p class='sub-head'>使用 Micro Cloud Foundry</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>使用 Micro Cloud Foundry 控制台</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/概述" rel="tag">概述</a><a href="/tags/mcf" rel="tag">mcf</a><a href="/tags/mongodb" rel="tag">mongodb</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-09-28
+</span>
+</p>
+<div id='social-share'></div>
+<p><strong>副标题</strong></p>
+
+<ul>
+<li><a href="#micro-cloud-foundry-default-configuration">Micro Cloud Foundry 默认配置</a></li>
+  <li><a href="#using-the-micro-cloud-foundry-console">使用 Micro Cloud Foundry 控制台</a></li>
+  <li><a href="#micro-cloud-foundry-resource-limits">Micro Cloud Foundry 资源限制</a></li>
+  <li><a href="#increasing-micro-cloud-foundry-virtual-machine-memory">增加 Micro Cloud Foundry 虚拟机内存</a></li>
+  <li><a href="#logging-in-to-micro-cloud-foundry">登录到 Micro Cloud Foundry</a></li>
+  <li><a href="#configuring-micro-cloud-foundry-networking">配置 Micro Cloud Foundry 网络</a></li>
+  <li><a href="#working-offline-with-micro-cloud-foundry">离线使用 Micro Cloud Foundry</a></li>
+  <li><a href="#troubleshooting-micro-cloud-foundry">排除 Micro Cloud Foundry 故障</a></li>
+</ul><h2 id="micro-cloud-foundry-">Micro Cloud Foundry 默认配置</h2>
+
+<p>本节介绍 Micro Cloud Foundry 版本 1.2 的默认配置。</p>
+
+<h3 id="section">虚拟机配置</h3>
+
+<ul>
+<li>内存：1GB</li>
+  <li>磁盘：16GB</li>
+  <li>虚拟 CPU 数： 2</li>
+</ul><h3 id="section-1">服务限制</h3>
+
+<ul>
+<li>MySQL：2GB 存储，每个实例最多 256MB 存储</li>
+  <li>Postgres：2GB 存储，每个实例最多 256MB 存储</li>
+  <li>Mongo DB：每个实例 256MB</li>
+  <li>Redis：每个实例 256MB</li>
+</ul><h3 id="section-2">运行时版本</h3>
+
+<ul>
+<li>ruby18：Ruby 1.8，版本 1.8.7</li>
+  <li>ruby19：Ruby 1.9，版本 1.9.2p180</li>
+  <li>java：Java 6，版本 1.6</li>
+  <li>node：Node.js，版本 0.4.12</li>
+  <li>node06：Node.js，版本 6.0.8</li>
+</ul><h3 id="section-3">框架</h3>
+
+<ul>
+<li>rails3</li>
+  <li>sinatra</li>
+  <li>grails</li>
+  <li>node</li>
+  <li>java_web</li>
+  <li>lift</li>
+  <li>spring</li>
+</ul><h3 id="section-4">服务版本</h3>
+
+<ul>
+<li>mongodb：MongoDB NoSQL 存储，版本 2.0</li>
+  <li>mysql：MySQL 数据库服务，版本 5.1</li>
+  <li>postgresql：vFabric PostgreSQL 数据库服务，版本 9.0</li>
+  <li>rabbitmq：RabbitMQ 消息传送服务，版本 2.4</li>
+  <li>redis：Redis 键值存储服务，版本 2.2</li>
+</ul><h2 id="micro-cloud-foundry--1">使用 Micro Cloud Foundry 控制台</h2>
+
+<p>当您启动 Micro Cloud Foundry 虚拟机时，Linux 将引导并
+显示控制台文本菜单。控制台菜单是 micro cloud 的
+主要管理界面。</p>
+
+<p>控制台会在顶部显示状态信息，包括 Micro Cloud
+Foundry 版本、主机名（标识）、Cloud Foundry 帐户电子邮件地址（管理）
+和分配给虚拟机的 IP 地址。</p>
+
+<p>通过输入编号并按 <enter> 可从菜单中选择选项。该
+控制台会提示您输入执行任务所需的任何信息。</enter></p>
+
+<ol>
+<li>
+    <p><strong>刷新控制台</strong>。选择此选项将重绘控制台显示，例
+如，当消息显示需要让菜单滚屏时。</p>
+  </li>
+  <li>
+    <p><strong>刷新 DNS</strong>。更新 DNS 记录中的 Micro Cloud Foundry IP
+地址。</p>
+  </li>
+  <li>
+    <p><strong>重新配置 vcap 密码</strong>。选择此选项可更改 <code>root</code> 和 <code>vcap</code> 用户的密码。</p>
+  </li>
+  <li>
+    <p><strong>重新配置域</strong>。当您创建新域或
+为您的 Micro Cloud Foundry 域生成新令牌时，请选择此选项。登录到 <a href="https://my.cloudfoundry.com/micro">Micro
+Cloud Foundry 网站</a> 以管理域并
+提示时检索要输入的令牌。</p>
+  </li>
+  <li>
+    <p><strong>重新配置网络</strong>。使用此选项可在 DHCP 和静态
+网络配置之间进行选择。如果选择 <strong>静态</strong>，则控制台会提示输入 IP
+地址、网关、网络掩码和 DNS 服务器。</p>
+  </li>
+  <li>
+    <p><strong>启用脱机模式</strong>。选择此选项可在联机和脱机模式之间切换虚拟机。</p>
+  </li>
+  <li>
+    <p><strong>重新配置代理</strong>。如果处于需要代理的网络上，请选择
+此选项并输入代理的地址和端口，例如： <code>192.168.1.128:4000</code>.</p>
+  </li>
+  <li>
+    <p><strong>服务</strong>。显示 micro cloud 上服务的状态。</p>
+  </li>
+  <li>
+    <p><strong>重新启动网络</strong>。重新启动虚拟机上的网络服务。</p>
+  </li>
+  <li>
+    <p><strong>还原默认值</strong>。</p>
+  </li>
+  <li>
+    <p><strong>专家菜单</strong>。显示“专家”菜单，您可以从此菜单设置调试级别、显示日志以及在 Micro Cloud Foundry 执行其他高级配置。</p>
+  </li>
+  <li>
+    <p><strong>帮助</strong>。显示联机安装和设置文档的 URL 以及
+虚拟机和服务的默认配置限制。</p>
+  </li>
+  <li>
+    <p><strong>关闭 VM</strong>。关闭 Micro Cloud Foundry 虚拟机。</p>
+  </li>
+</ol><h2 id="micro-cloud-foundry--2">Micro Cloud Foundry 资源限制</h2>
+
+<p>Micro Cloud Foundry 具有以下默认资源限制：</p>
+
+<ul>
+<li>VM：1 GB RAM，16 GB 磁盘</li>
+  <li>MySQL：2 GB 磁盘，每个实例最多 256 MB</li>
+  <li>MongoDB：每个实例 256 MB</li>
+  <li>Redis：每个实例 256 MB</li>
+</ul><p>管理用户具有以下限制：</p>
+
+<ul>
+<li>1.0 G 内存</li>
+  <li>最多置备 16 项服务</li>
+  <li>最多 16 个应用程序</li>
+</ul><h2 id="micro-cloud-foundry--3">增加 Micro Cloud Foundry 虚拟机内存</h2>
+
+<p>Micro Cloud Foundry 虚拟机初始配置 1GB 内存。
+如果您的应用程序需要更多内存，请按以下步骤操作：</p>
+
+<ol>
+<li>
+    <p>关闭 Micro Cloud Foundry 虚拟机。</p>
+  </li>
+  <li>
+    <p>在 VMware Workstation for VMware Player 中，右键单击 Micro Cloud Foundry 虚拟机，然后选择“设置”。</p>
+  </li>
+  <li>
+    <p>单击“内存”并在右面板中指定新的内存大小。</p>
+  </li>
+  <li>
+    <p>单击“确定”。</p>
+  </li>
+  <li>
+    <p>启动虚拟机。</p>
+  </li>
+  <li>
+    <p>从控制台菜单中选择新的突出显示项 <strong>重新配置内存</strong>。</p>
+  </li>
+</ol><p>Micro Cloud Foundry 即会为新内存大小重新配置虚拟机和服务。</p>
+
+<h2 id="section-5">在网络之间切换</h2>
+
+<p>如果您经常在网络之间切换，而且不需要让 Micro Cloud Foundry VM 可供其他用户使用，将 VM 网络配置为使用 NAT 而不是桥接模式更方便。从版本 1.2 开始，NAT 是 Micro Cloud Foundry VM 的默认模式。如果要将您的云与其他用户共享，则必须启用桥接模式。</p>
+
+<h2 id="micro-cloud-foundry">登录到 Micro Cloud Foundry</h2>
+
+<p>Micro Cloud Foundry 是具有 Ubuntu Linux 操作系统
+和 Cloud Foundry 软件层以及应用程序服务的虚拟机。没有
+安装图形桌面环境，但您可以登录到该虚拟
+机并使用 <code>ssh</code> 获取一个 bash shell。</p>
+
+<p>以任何方式自定义 Cloud Foundry 服务均为不妥做法，因为
+这样会引入一个依赖项，在您将应用程序
+移到另一个 Cloud Foundry 时不能满足该依赖项。</p>
+
+<p>可能登录到 Micro Cloud Foundry 的部分原因如下：</p>
+
+<ul>
+<li>查看服务器日志文件</li>
+  <li>检查进程状态或负载，例如使用 <code>top</code>
+</li>
+  <li>排除本地网络的 DNS 故障</li>
+</ul><p>您可以以 <code>root</code> 或 <code>vcap</code> 用户身份登录，使用初次
+启动和配置 Micro Cloud Foundry 虚拟机时设置的密码。</p>
+
+<p>从安装了 <code>ssh</code> 的计算机上，使用类似下面这样的命令
+登录到 Micro Cloud foundry：</p>
+
+<pre><code>    $ssh root@domain.cloudfoundry.me
+</code></pre>
+
+<p>其中，<em>domain</em> 是您为 Micro Cloud Foundry 注册的域名。
+也可以使用为该虚拟机分配的 IP 地址，该地址
+显示在控制台上。</p>
+
+<h2 id="micro-cloud-foundry--4">配置 Micro Cloud Foundry 网络</h2>
+
+<p>Micro Cloud Foundry 提供了类似于 Cloud Foundry 的网络环境。
+使用 DNS 解析 URL 以定位运行您应用程序的
+主机，即 Micro Cloud Foundry 虚拟机。应用程序
+将处理该请求，包括分析该 URL 和 HTTP 请求的
+余下部分并返回一个响应给客户端。客户端浏览器和
+应用程序将与网络交互，其方式与在生产中的方式完全
+相同，只不过云运行于相同主机上。</p>
+
+<p>开发和部署工具（<code>vmc</code> 和 STS）与 Micro Cloud
+Foundry 作用的方式也与它们和 CloudFoundry.com 或者任何本地或托管 Cloud
+Foundry 实例作用的方式相同。</p>
+
+<p>为了提供类似于生产的网络环境，Micro Cloud Foundry 在 DNS 中将
+虚拟机的 IP 地址与<em>domain</em>.cloudfoundry.me 相关联。这
+要求有 Internet 连接，以便 Micro Cloud Foundry 能在您使用
+浏览器访问应用程序时在 <code>cloudfoundry.me</code> 中更新其地址，并且可以
+解析该 URL。当虚拟机被分配新的 IP
+地址时，例如，如果您移到其他位置，它会更新 DNS
+记录。</p>
+
+<p>如果您的浏览器使用代理而且 DNS 查找不工作，您可能必须
+从代理中排除 <code>.cloudfoundry.me</code>。</p>
+
+<p>您在 Micro Cloud Foundry 虚拟机中配置网络适配器的
+方式决定了谁可以访问您的 micro cloud：</p>
+
+<ul>
+<li>
+    <p>如果您选择“桥接网络连接”选项，则您的 micro cloud 将从
+LAN 上的 DHCP 服务器中获取 LAN 上的一个地址。这样就可以从 LAN 上的其他
+主机访问它。</p>
+  </li>
+  <li>
+    <p>如果您选择“NAT 网络连接”选项，则您的 micro cloud 将获取
+网络上仅存在于运行该虚拟机的主机上的地址。
+这样就只能从运行该虚拟机的主机上的浏览器访问您的
+云。</p>
+  </li>
+</ul><p>与桥接网络选项不同的是，使用 NAT 连接选项，当您改变
+位置时，您不会获得新地址。如果您不与其他人共享您的
+micro cloud，而且经常四处移动，请使用 NAT 选项以避免
+可能出现的 DNS 更新滞后。</p>
+
+<h2 id="micro-cloud-foundry-1">离线使用 Micro Cloud Foundry</h2>
+
+<p>当您使用从 Cloud Foundry 网站获得的令牌安装 Micro Cloud Foundry 时，它会使用动态 DNS 功能，以便与该 VM 处于同一网络的任何连接 Internet 的计算机可以与其连接。也就是说，为该 VM 获取本地网络地址需要访问 Internet，即使您从运行该 VM 的相同计算机上对其进行访问也是如此。这种方式称之为联机模式，它要求能访问 Internet。</p>
+
+<p>如果您不得不在没有 Internet 连接的情况下工作，则必须将 Micro Cloud Foundry 置为脱机模式，并将您的主机配置为将您的 DNS 请求发送到 Micro Cloud Foundry VM。而且，如果您最初是用域名而非配置令牌配置的 Micro Cloud Foundry，则必须<em>始终</em> 使用脱机模式。</p>
+
+<p>只有设置为 NAT 的 VM 网络适配器才支持脱机模式。这意味着只能从运行它的主机对其进行访问。要与其他用户共享您的 Micro Cloud Foundry，必须将网络适配器设置为桥接模式，并以联机模式运行 Micro Cloud Foundry。</p>
+
+<p>如果以脱机模式使用 Micro Cloud Foundry，而且仍然有活动的 Internet 连接，那么在访问 Internet 上的站点时可能会遇到问题。</p>
+
+<h3 id="micro-cloud-foundry--5">将 Micro Cloud Foundry 配置为脱机模式</h3>
+
+<p>您可以手动或使用 <code>vmc micro</code> 命令配置脱机模式。使用 <code>vmc micro</code> 命令需要 VMC 版本 0.3.16.beta4 或更高版本。相关说明请参见<a href="#using-the-vmc-micro-command">使用 VMC micro 命令</a>。</p>
+
+<p>本节剩余部分将介绍如何手动配置脱机模式。</p>
+
+<p>将 Cloud Foundry 置为脱机模式需要完成三项任务。</p>
+
+<p><strong>第 1 步</strong>.在该 VM 的“虚拟机设置”中，选择“网络适配器”并确保选中 NAT。如果必须更改设置，请重新启动虚拟机。</p>
+
+<p><strong>第 2 步</strong>.在 Micro Cloud Foundry 控制台菜单中，选择选项 6 以切换到脱机模式。</p>
+
+<p><strong>第 3 步</strong>.将您的主机配置为将 DNS 请求路由到 Micro Cloud Foundry VM。其实现方式有所不同，具体取决于操作系统以及您是使用 DHCP 还是使用静态 IP 地址。在后面的指令中，请将 IP 号 172.16.52.136 替换为 Micro Cloud Foundry 控制台上显示的 IP 号。将 mydomain.micro 替换为您的脱机域名。</p>
+
+<h3 id="linux">Linux</h3>
+
+<p>如果您使用的是 DHCP，请编辑文件 <code>/etc/dhcp3/dhclient.conf</code> 并添加此行：</p>
+
+<pre class="terminal">
+prepend domain-name-servers 172.16.52.136
+</pre>
+
+<p>如果用静态 IP 配置 VM，请编辑文件 <code>/etc/resolv.conf</code> 并在剩余的名称服务器之前添加下面这一行：</p>
+
+<pre class="terminal">
+nameserver 172.16.52.136
+</pre>
+
+<h3 id="mac-os-x">Mac OS X</h3>
+
+<p>如果您使用的是 DHCP，请创建目录 <code>/etc/resolver</code>，然后用您的脱机域名创建一个文件，例如 <code>mydomain.micro</code>。将下面这一行添加到此文件：</p>
+
+<pre class="terminal">
+nameserver 172.16.52.136
+</pre>
+
+<p>如果您使用静态 IP 配置了 Micro Cloud Foundry，请打开“网络首选项”并在 DNS 服务器列表中首先添加 172.16.52.136。</p>
+
+<h3 id="windows">Windows</h3>
+
+<p>无论是用 DHCP 还是静态 IP 地址配置的 Micro Cloud Foundry，都请按照下述步骤操作：</p>
+
+<ul>
+<li>打开“网络和共享”控制面板。</li>
+  <li>选择“更改适配器设置”。</li>
+  <li>右键单击 VMware Virtual Ethernet Adapter for VMnet8 并选择“属性”。</li>
+  <li>将首选 DNS 服务器设置为 172.16.52.136。</li>
+</ul><h2 id="vmc-micro-">使用 VMC Micro 命令</h2>
+
+<p><code>vmc micro</code> 命令可自动执行上一节介绍的步骤。回顾上一节了解该命令如何更改您的配置。</p>
+
+<p>安装 vmc gem，或者在需要时将它升级。您需要版本 0.3.16.beta4 或更高版本。相关说明请参见 <a href="/tools/vmc/installing-vmc.html">VMC 安装</a>。</p>
+
+<p>下面是 <code>vmc micro</code> 命令的语法：</p>
+
+<pre class="terminal">
+Usage: vmc micro [options] command
+
+Options
+  --password          VCAP user password
+  --vmrun             /path/to/vmrun
+  --vmx               /path/to/micro.vmx
+  --save              Save VCAP password
+
+Commands
+  offline             Run Micro Cloud in offline mode
+  online              Run Micro Cloud in online mode
+  status              Display current status
+</pre>
+
+<p>要重新配置并控制虚拟机，vmc 需要有到 .vmx 文件和 vmrun 命令的路径。它可能会在您提供的路径中查找 vmrun 命令，但当您第一次运行它时，必须使用 –vmx 选项提供到 micro.vmx 文件的路径。这些路径保存在您主目录中的 .vmc_micro 文件中，因此将来运行时您不必再次指定这些选项。</p>
+
+<p>在下面的示例中，指定了到 micro.vmx 文件的路径。vmc 会发现该 VM 未运行并提供机会让您启动它。它将报告状态并询问是否保存密码以供将来运行时使用。</p>
+
+<pre class="terminal">
+$ vmc micro --vmx /home/mcf/micro.vmx status
+Please enter your Micro Cloud Foundry VM password (vcap user)
+Password: ********
+Confirmation: ********
+Micro Cloud Foundry is not running. Do you want to start it? y
+Micro Cloud Foundry currently in online mode
+VMX Path: /home/mcf/micro.vmx
+Domain: mydomain.cloudfoundry.me
+IP Address: 192.168.255.134
+Do you want to save your password? n
+</pre>
+
+<p>执行 <code>vmc micro offline</code> 以脱机工作。</p>
+
+<pre class="terminal">
+$ vmc micro offline
+</pre>
+
+<p>此命令会将 VM 置为脱机模式（与从菜单中选择选项 6 的作用相同），并将您主机上的 DNS 设置为查询 VM。对于需要管理或根权限的操作，可能会提示您进行身份验证。</p>
+
+<p>执行 <code>vmc micro online</code> 以联机工作。</p>
+
+<pre class="terminal">
+$ vmc micro online
+</pre>
+
+<p>此命令会将 VM 置为联机模式，并对您主机上的 DNS 配置进行相反更改。对于需要管理或根权限的操作，可能会提示您进行身份验证。</p>
+
+<h2 id="micro-cloud-foundry--6">排除 Micro Cloud Foundry 故障</h2>
+
+<h3 id="section-6">收集调试信息</h3>
+
+<p>如果遇到问题并且需要调试帮助，请执行以下操作：</p>
+
+<ol>
+<li>
+    <p>在 Micro Cloud Foundry 控制台菜单中，输入 11 以显示 Expert 菜单。</p>
+  </li>
+  <li>
+    <p>输入 1 以将调试级别设置为 DEBUG。</p>
+  </li>
+  <li>
+    <p>从 VM 中检索 <code>/var/vcap/sys/log/micro/micro.log</code> 文件并将它附加到支持票证。要检索该文件，请以 vcap 用户身份用配置 VM 时设置的密码登录到 VM。例如，使用 scp 和控制台中显示的 IP 地址：</p>
+  </li>
+</ol><pre class="terminal">
+$ scp vcap@92.168.1.215:/var/vcap/sys/log/micro/micro.log .
+</pre>
+
+<h3 id="section-7">代理问题</h3>
+
+<p>如果使用代理，请记住，代理可能无法访问您的 Micro Cloud Foundry VM。例如，如果您将 VM 的网络适配器设置为使用 NAT，则代理无法发现该 VM，因此您必须排除您的域系统的代理设置。</p>
+
+<p>如果 VM 的网络适配器使用桥接模式而且您的主机上有 VPN，则会发生另一个与代理相关的问题。Micro Cloud Foundry VM 流量不会进入通道，因此无法到达代理。</p>
+
+<h3 id="section-8">访问实例时的问题</h3>
+
+<p>如果您的 Micro Cloud Foundry VM 的 DNS 条目不是最新的，则访问您的实例可能失败。例如：</p>
+
+<pre class="terminal">
+$ vmc target api.martin.cloudfoundry.me
+Host is not valid: 'http://api.martin.cloudfoundry.me'
+Would you like see the response [yN]? y
+HTTP exception: Errno::ETIMEDOUT:Operation timed out - connect(2)
+</pre>
+
+<p>检查 Micro Cloud Foundry 控制台。选择“1”以刷新屏幕。如果看见类似下面这样的“DNS 不同步”消息：</p>
+
+<pre class="terminal">
+Current Configuration:
+ Identity:   martin.cloudfoundry.me (DNS out of sync)
+ Admin:      martin@englund.nu
+ IP Address: 10.21.164.29 (network up)
+</pre>
+
+<p>请选择“2”强制进行 DNS 更新。</p>
+
+<p>如果控制台的 DNS 状态为“ok”，则表示 VM 的 IP 地址与 DNS 中的 IP 匹配。使用主机命令验证您的本地系统上没有缓存的条目。</p>
+
+<pre class="terminal">
+$ host api.martin.cloudfoundry.me
+api.martin.cloudfoundry.me is an alias for martin.cloudfoundry.me.
+martin.cloudfoundry.me has address 10.21.165.53
+
+</pre>
+
+<p>如果两者不同，则需要刷新 DNS 缓存：</p>
+
+<p><strong>Mac OS X</strong></p>
+
+<pre class="terminal">
+dscacheutil -flushcache
+</pre>
+
+<p><strong>Linux (Ubuntu)</strong></p>
+
+<pre class="terminal">
+sudo /etc/init.d/nscd restart
+</pre>
+
+<p><strong>Windows</strong></p>
+
+<pre class="terminal">
+ipconfig /flushdns
+</pre>
+
+<h3 id="micro-cloud-vm--cloudfoundrycom">配置 Micro Cloud VM 时显示“无法连接到 cloudfoundry.com”消息</h3>
+
+<p>当您将 Micro Cloud VM 配置为使用 DHCP 时，会从网络的 DHCP 池中为其分配一个地址。如果您不断地创建/销毁 VMs，例如在测试环境中，而且您的 DHCP 地址有 12 到 24 小时的租用寿命，则有可能耗尽 DHCP 池。因此，在配置过程中，尽管您能使用浏览器访问 cloudfoundry.com，但您会看到无法连接到 cloudfoundry.com 的消息。重新启动 DHCP 服务器应该能将未使用的租用地址退回地址池，这样您就能在租用期到期前重新使用它们。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

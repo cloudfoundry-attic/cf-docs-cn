@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/frameworks/java/spring/grails.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | Grails' property='og:title'>
+<meta content='使用 Cloud Foundry 开发 Grails 应用程序' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | Grails</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Frameworks</h1>
+<p class='sub-head'>Grails</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>使用 Cloud Foundry 开发 Grails 应用程序</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/grails" rel="tag">grails</a><a href="/tags/groovy" rel="tag">groovy</a><a href="/tags/mongodb" rel="tag">mongodb</a><a href="/tags/redis" rel="tag">redis</a><a href="/tags/附代码" rel="tag">附代码</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-09-28
+</span>
+</p>
+<div id='social-share'></div>
+<p><a href="http://grails.org">Grails</a> 是一款可用于快速开发 Web 应用程序的框架，使用 Grails 开发的 Web 应用程序可部署到 Tomcat 之类的所有 Java servlet 容器中。它基于 <a href="http://groovy.codehaus.org/">Groovy</a> 动态编程语言和 <a href="http://www.springframework.org/">Spring</a> 框架，使用表达丰富的类似 Java 的动态编程语言为 Java 平台带来了“约定优于配置”的典型范例。</p>
+
+<p>本指南假设您已经<a href="http://grails.org/Installation">安装了 Grails</a> 和 Java，并了解如何构建一个简单的 Grails 应用程序。这就是您在开始使用 Cloud Foundry 之前所需要具备的一切。</p>
+
+<p>（如果您使用 Spring、Roo 或 Grails，且希望阅读一些代码示例，请点击下面的有用链接：<a href="https://github.com/SpringSource/cloudfoundry-samples/wiki">https://github.com/SpringSource/cloudfoundry-samples/wiki</a>）</p>
+
+<h2 id="grails-cloud-foundry-">Grails Cloud Foundry 插件</h2>
+
+<p>让我们假设，您的标准 Grails 应用程序仅使用 MySQL 数据库，且您希望将此应用程序部署到 Cloud Foundry。第一步是安装 <a href="http://grails.org/plugin/cloud-foundry">Cloud Foundry 插件</a>。此插件会为 Grails 增加一些命令，使它能够方便地部署并管理您的应用程序。</p>
+
+<p>在您的 Grails 项目中，执行以下命令：</p>
+
+<pre class="terminal">
+$ grails install-plugin cloud-foundry
+</pre>
+
+<p>安装完插件后，您可以使用以下命令查看可以使用哪些 Cloud Foundry 命令：</p>
+
+<pre class="terminal">
+$ grails cf-help
+</pre>
+
+<p>其中大多数命令都与 <a href="/tools/vmc/vmc-quick-ref.html">vmc tool</a> 命令等效。</p>
+
+<p>接下来，您需要指定您的用户名和密码。放置这些数据的最佳位置为 ~/.grails/settings.groovy 文件：</p>
+
+<pre><code class="language-java">    <span class="n">grails</span><span class="o">.</span><span class="na">plugin</span><span class="o">.</span><span class="na">cloudfoundry</span><span class="o">.</span><span class="na">username</span> <span class="o">=</span> <span class="s">"yourusername"</span>
+    <span class="n">grails</span><span class="o">.</span><span class="na">plugin</span><span class="o">.</span><span class="na">cloudfoundry</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="s">"yourpassword"</span></code></pre>
+
+<p>请切记，将此文件设置为只有您能够读写！现在，您就可以部署您的应用程序了：</p>
+
+<pre class="terminal">
+$ grails prod cf-push
+</pre>
+
+<p>此命令将首先询问您要使用什么 URL。只要应用程序的名称在 cloudfoundry.com 上是唯一的，就可以根据应用程序的名称，使用默认 URL。如果应用程序的名称在 cloudfoundry.com 上不是唯一的，那么请输入一个唯一的名称，而不要接受默认 URL。</p>
+
+<p>接下来，系统会询问您是否希望创建并绑定 MySQL 服务（如果愿意，则请回复“Y”），以及您是否希望创建并绑定 PostgreSQL 数据库（请回复“N”，因为此应用程序是为 MySQL 配置的）。之后，您将会看到您的应用程序已经完成部署并在 cloudfoundry.com 上启动。</p>
+
+<p>有关使用 Cloud Foundry 插件的详细信息，请参见其<a href="http://grails-plugins.github.com/grails-cloud-foundry/">用户指南</a>。</p>
+
+<h2 id="section">服务</h2>
+
+<p>Cloud Foundry 可提供丰富的服务，所有服务都可用于 Grails 应用程序：MySQL、PostgreSQL、MongoDB、Redis 和 RabbitMQ。每个服务都有对应的 Grails 插件。安装这些插件后，您无需为相关的 Cloud Foundry 服务配置任何连接设置，因为在您部署应用程序的时候，将自动完成所有设置。如果您是第一次使用 <code>cf-push</code> 部署应用程序，Grails 将询问您是否希望根据安装的插件来创建并绑定相关服务。</p>
+
+<h3 id="sql-">SQL 服务</h3>
+
+<p>目前，如果您想要您的应用程序使用一个关系数据库，您可以在 Cloud Foundry 上使用 MySQL 或 PostgreSQL。要访问这些数据库，您所需要的就是 <a href="http://grails.org/plugin/hibernate">Hibernate 插件</a>，这个插件默认安装在所有新的 Grails 应用程序中。另外，您还需要确保您的应用程序具有可用的相关驱动程序，例如，在 <code>BuildConfig.groovy</code> 中声明某个驱动程序：</p>
+
+<pre><code class="language-java">  <span class="n">grails</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">dependency</span><span class="o">.</span><span class="na">resolution</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="o">...</span>
+      <span class="n">dependencies</span> <span class="o">{</span>
+          <span class="n">runtime</span> <span class="s">"mysql:mysql-connector-java:5.1.18"</span>
+          <span class="o">...</span>
+      <span class="o">}</span>
+  <span class="o">}</span></code></pre>
+
+<p>并确认在 <code>DataSource.groovy</code> 中已设置 JDBC 驱动程序类：</p>
+
+<pre><code class="language-java">  <span class="n">environments</span> <span class="o">{</span>
+      <span class="n">production</span> <span class="o">{</span>
+          <span class="n">dataSource</span> <span class="o">{</span>
+              <span class="n">driverClassName</span> <span class="o">=</span> <span class="s">"com.mysql.jdbc.Driver"</span>
+              <span class="o">...</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+  <span class="o">}</span></code></pre>
+
+<p>这样，我们就可以为标准生产环境部署应用程序，您也可以轻松设置一个“云”或类似环境。
+另外，您还可以轻松为生产环境配置 JDBC URL、用户名和密码，使其指向本地 MySQL 数据库，因为在向 Cloud Foundry 部署应用程序时，这些设置将被覆盖。</p>
+
+<h3 id="redis">Redis</h3>
+
+<p>要使用键-值存储 <a href="http://redis.io">Redis</a>，您需要安装 <a href="http://grails.org/plugin/redis">Redis 插件</a>或 <a href="http://grails.org/plugin/redis-gorm">Redis for GORM</a>。与使用 SQL 存储一样，当您在 Cloud Foundry 中部署应用程序时，它将自动使用绑定到其上的任何 Redis 服务。</p>
+
+<p>前一个插件可通过 <code>redis</code> Bean 提供对 Redis 的低级访问，而后一个插件则允许您将 GORM 域类映射到 Redis。有关详细信息，请参见<a href="http://grails.github.com/inconsequential/redis/manual/index.html">插件文档</a>。</p>
+
+<h3 id="mongodb">MongoDB</h3>
+
+<p>要使用文档存储 <a href="http://www.mongodb.org/">MongoDB</a>，只需安装 <a href="http://grails.org/plugin/mongodb">MongoDB 插件</a>。</p>
+
+<p>适用于 Grails 的 MongoDB 插件允许您将 GORM 实体映射到 MongoDB 集合。它也可以提供低级 API，以直接访问 Java 的 MongoDB 驱动程序。有关详细信息，请参见<a href="http://grails.github.com/inconsequential/mongo/manual/index.html">插件文档</a>。</p>
+
+<h2 id="section-1">使用指南</h2>
+
+<p>可在博客帖子<a href="http://blog.springsource.com/2011/04/12/one-step-deployment-with-grails-and-cloud-foundry/">“使用 Grails 和 Cloud Foundry 的一站式部署”</a>中找到常见教程。</p>
+
+<p>实际上，若要迅速开始进行部署，您可以尝试使用下面任一示例应用程序：</p>
+
+<ul>
+<li>
+<a href="https://github.com/SpringSource/cloudfoundry-samples/tree/master/petclinic-grails">Pet Clinic</a> - 展示如何使用 SQL 服务</li>
+  <li>
+<a href="https://github.com/SpringSource/cloudfoundry-samples/tree/master/grailstwitter">Grails Twitter</a> - <a href="http://grailstwitter.cloudfoundry.com/">在此运行</a> - 展示如何使用 MongoDB 和 Redis 服务</li>
+</ul><p><em>警告</em> 如果您自行部署任意应用程序，请务必使用另一个应用程序名称来部署这些应用程序。</p>
+
+<h2 id="section-2">常见问题解答</h2>
+
+<p>有关常见问题，请参见 <a href="http://www.cloudfoundry.com/faq">Cloud Foundry 常见问题解答</a>。</p>
+
+<h3 id="grails--spring-">我能通过 Grails 使用 Spring 云命名空间吗？</h3>
+
+<p>是的，可以！请参见有关 <a href="http://www.springsource.org/documentation">Spring</a> 的文档，获取有关如何通过云命名空间配置附加 MySQL、Mongo 或 Redis 实例的示例。此配置可以使用 BeanBuilder DSL 进入 <code>grails-app/conf/spring/resources.xml</code> 或 <code>grails-app/conf/spring/resources.groovy</code>。</p>
+
+<h3 id="section-3">我如何获取云环境变量的访问权？</h3>
+
+<p>此机制与 Spring 和 Grails 相同。有关详细信息，请参见 <a href="https://github.com/SpringSource/cloudfoundry-samples/wiki/Cloud-foundry-environment-variables">Cloud Foundry 环境变量</a>。</p>
+
+<h3 id="section-4">我能否通过我的应用程序发送电子邮件？</h3>
+
+<p>可以，但不能通过 SMTP 发送电子邮件，您只能收发 HTTP 或 HTTPS 请求。但是，您可以使用基于 HTTP 的服务，如 <a href="http://sendgrid.com/">SendGrid</a>、<a href="http://aws.amazon.com/ses/">Amazon SES</a> 或 <a href="http://mailgun.net/">Mailgun</a>。有关详细信息，请参见<a href="http://support.cloudfoundry.com/entries/20023841">支持论坛</a>。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

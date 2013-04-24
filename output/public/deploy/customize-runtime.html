@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/deploy/customize-runtime.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | 向开源软件 Cloud Foundry 添加运行时' property='og:title'>
+<meta content='向开源软件 Cloud Foundry 添加运行时' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | 向开源软件 Cloud Foundry 添加运行时</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Deploy</h1>
+<p class='sub-head'>向开源软件 Cloud Foundry 添加运行时</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>向开源软件 Cloud Foundry 添加运行时</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/runtimes" rel="tag">runtimes</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-10-26
+</span>
+</p>
+<div id='social-share'></div>
+<p><em>作者：<strong>Jennifer Hickey</strong></em></p>
+
+<p>本文档说明如何在使用 <a href="https://github.com/cloudfoundry/oss-docs/tree/master/vcap/single_and_multi_node_deployments_with_dev_setup">dev_setup 安装</a>的 Cloud
+Foundry 中添加运行时来供现有框架使用。有关如何添加框架的说明，请查看<a href="https://github.com/cloudfoundry/oss-docs/tree/master/vcap/adding_a_framework">此处</a>。</p>
+
+<p>本文档将以添加 Ruby 1.9.3 为例说明添加新运行时所需的步骤。</p>
+
+<p>下文所述的所有修改都应在 <a href="https://github.com/cloudfoundry/vcap">vcap repo</a> 中进行。</p>
+
+<h2 id="cookbook">添加或修改用来安装运行时的 Cookbook</h2>
+<p>由于我们是要添加现有运行时的一个新版本，因此我们需要修改位于 dev_setup/cookbooks/ruby 中的 Ruby cookbook。</p>
+
+<ol>
+<li>
+    <p>添加一个 recipe</p>
+
+    <p>在实际情况中，您可能会安装诸如 Rubygem、Bundler 和 Rake 等其他工具。对于本示例，我们将仅安装 Ruby 1.9.3。</p>
+
+    <p>Ruby cookbook 中的现有 recipe 使用存储在 Cloud Foundry blobstore 中的二进制文件。由于大众无法向此 blobstore 上传内容，因此我们建议编写您自己的 recipe 来使用 Chef 的<a href="http://wiki.opscode.com/display/chef/Resources#Resources-RemoteFile">远程文件</a>提供程序从 URL 下载二进制文件。当您向 Cloud Foundry 贡献代码时，必要时我们会将代码修改为使用 blobstore。</p>
+
+    <p>dev_setup/cookbooks/ruby/recipes/ruby193.rb：
+```
+ruby_path = node[:ruby193][:path]
+ruby_version = node[:ruby193][:version]
+ruby_tarball_path = File.join(node[:deployment][:setup_cache], “ruby-#{ruby_version}.tar.gz”)</p>
+
+    <p>remote_file ruby_tarball_path do
+  owner node[:deployment][:user]
+  source node[:ruby193][:source]
+  checksum node[:ruby193][:checksums][node[:ruby193][:version]]
+end</p>
+
+    <p>directory ruby_path do
+  owner node[:deployment][:user]
+  group node[:deployment][:group]
+  mode “0755”
+  recursive true
+  action :create
+end</p>
+
+    <p>bash “Install Ruby #{ruby_path}” do
+  cwd File.join(“”, “tmp”)
+  user node[:deployment][:user]
+  code «-EOH
+  # work around chef’s decompression of source tarball before a more elegant
+  # solution is found
+  tar xzf #{ruby_tarball_path}</p>
+
+    <p>cd ruby-#{ruby_version}
+  # See http://deadmemes.net/2011/10/28/rvm-install-fails-on-ubuntu-11-10/
+  sed -i ‘s/\(OSSL_SSL_METHOD_ENTRY(SSLv2[^3]\)/\/\/\1/g’ ./ext/openssl/ossl_ssl.c
+  ./configure –disable-pthread –prefix=#{ruby_path}
+  make
+  make install
+  EOH
+end
+<code>
+上述 recipe 引用应在 dev_setup/cookbooks/ruby/attributes/ruby193.rb 中定义的属性：
+</code>
+include_attribute “deployment”</p>
+
+    <p>default[:ruby193][:version] = “1.9.3-p194”
+default[:ruby193][:source]  = “http://ftp.ruby-lang.org//pub/ruby/1.9/ruby-#{ruby193[:version]}.tar.gz”
+default[:ruby193][:path]    = File.join(node[:deployment][:home], “deploy”, “rubies”, “ruby-#{ruby193[:version]}”)
+default[:ruby193][:checksums][“1.9.3-p194”] = “46e2fa80be7efed51bd9cdc529d1fe22ebc7567ee0f91db4ab855438cf4bd8bb”
+```
+此二进制文件的校验和可以使用“sha256sum”命令加以计算。</p>
+  </li>
+</ol><h2 id="section">添加运行时元数据</h2>
+
+<ol>
+<li>
+    <p>向 dev_setup/cookbooks/cloud_controller/templates/default/runtimes.yml.erb 中添加一个条目</p>
+
+    <p><code>
+ruby193:
+  version: "1.9.3p194"
+  description: "Ruby 1.9.3"
+  executable: "&lt; %= File.join(node[:ruby193][:path], "bin", "ruby") %&gt;"
+  version_flag: "-e 'puts RUBY_VERSION'"
+  additional_checks: "-e 'puts RUBY_PATCHLEVEL &gt;= 194'"
+  version_output: 1.9.3
+  environment:
+    PATH: &lt; %= File.join(node[:ruby193][:path], "bin") %&gt;:$PATH
+</code>
+必需的属性：version、description、executable、version_output</p>
+
+    <p>可选属性：version_flag（默认为 -v）、additional_checks、environment</p>
+
+    <p>我们选择的键（“ruby193”）将是用户在选择该运行时之时必须指定的名称。此名称以及版本和说明用于供“vmc   runtimes”显示。</p>
+
+    <p>其余属性由 DEA 使用，Stager 可能也会使用它们。DEA 将使用指定的 version_flag 来运行指定的可执行文件来验证它是否具有所需的运行时版本（输出应包含指定的 version_output）。可选的 additional_checks 字段用于执行其他验证。最后，指定的环境将以环境变量的形式传递给使用此运行时的应用程序。</p>
+
+    <p>如果您要编写或修改插件来提供<a href="https://github.com/cloudfoundry/oss-docs/tree/master/vcap/adding_a_framework">框架支持</a>，您可以选择添加其他属性供 Stager 使用。</p>
+  </li>
+  <li>
+    <p>向框架添加运行时</p>
+
+    <p>运行时必须添加到框架的暂存清单中才能使用。在本例中，我们将通过修改 dev_setup/cookbooks/cloud_controller/templates/default/standalone.yml.erb 来使 Ruby 1.9.3 可供独立应用程序使用：
+```
+runtimes:
+  - “ruby193”
+  default: false</p>
+  </li>
+</ol><h2 id="dea-">将运行时添加到 DEA 中</h2>
+
+<ol>
+<li>
+    <p>将运行时添加到 DEA 属性中</p>
+
+    <p>在 dev_setup/cookbooks/dea/attributes/default.rb 中：
+<code>
+default[:dea][:runtimes] = ["ruby18", "ruby19", "ruby193", "node04", "node06", "node08", "java", "java7", "erlang", "php", "python2"]
+</code></p>
+  </li>
+  <li>
+    <p>启用方法</p>
+
+    <p>将新方法添加到 dev_setup/cookbooks/dea/recipes/default.rb 中
+<code>
+node[:dea][:runtimes].each do |runtime|
+  case runtime
+  when "ruby193"
+    include_recipe "ruby::ruby193"
+</code></p>
+  </li>
+  <li>
+    <p>将运行时添加到 DEA 配置中</p>
+
+    <p>DEA 仅允许将应用程序与 dea.yml 中列出的运行时一起部署。</p>
+
+    <p>修改 dev_setup/cookbooks/dea/templates/default/dea.yml.erb：
+<code>
+runtimes:
+&lt; % if node[:dea][:runtimes].include?("ruby193") %&gt;
+  - ruby193
+&lt; % end %&gt;
+</code></p>
+  </li>
+</ol><h2 id="section-1">试一下</h2>
+<p>一旦成功运行 dev_setup，就可以使用 vmc 验证已经添加了运行时。“vmc runtimes”应该会列出运行时信息。请注意，目前稳定版本的 vmc 要求运行时至少要添加到一个框架中，这样运行时才能在上述文件中列出。</p>
+
+<p>我们使用 vmc 应该可以推送简单的独立 Ruby 应用程序。下面这个应用程序可以轻松地输出 Ruby 版本，然后一直休眠：</p>
+
+<p>```
+$ more simple.rb
+puts “Running Ruby #{RUBY_VERSION}”
+sleep</p>
+
+<p>$ vmc push
+Would you like to deploy from the current directory? [Yn]:
+Application Name: simple
+Detected a Standalone Application, is this correct? [Yn]:
+…
+11: ruby193
+Select Runtime [ruby18]: 11
+Selected ruby193
+Start Command: ruby simple.rb
+Application Deployed URL [None]:
+Memory reservation (128M, 256M, 512M, 1G, 2G) [128M]:
+How many instances? [1]:
+Bind existing services to ‘simple’? [yN]:
+Create services to bind to ‘simple’? [yN]:
+Would you like to save this configuration? [yN]:
+Creating Application: OK
+Uploading Application:
+  Checking for available resources: OK
+  Packing application: OK
+  Uploading (0K): OK
+Push Status: OK
+Staging Application ‘simple’: OK
+Starting Application ‘simple’: OK</p>
+
+<p>$ vmc logs simple
+====&gt; /logs/stdout.log &lt;====</p>
+
+<p>Running Ruby 1.9.3
+```</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

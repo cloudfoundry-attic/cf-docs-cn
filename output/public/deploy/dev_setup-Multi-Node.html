@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/deploy/dev_setup-Multi-Node.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | 使用dev_setup进行多节点Cloud Foundry安装' property='og:title'>
+<meta content='使用dev_setup进行多节点Cloud Foundry安装' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | 使用dev_setup进行多节点Cloud Foundry安装</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Deploy</h1>
+<p class='sub-head'>使用dev_setup进行多节点Cloud Foundry安装</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>使用dev_setup进行多节点Cloud Foundry安装</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/dev_setup" rel="tag">dev_setup</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-10-26
+</span>
+</p>
+<div id='social-share'></div>
+<p><em>作者：<strong>Mahesh Patil</strong></em></p>
+
+<h2 id="section">背景信息</h2>
+
+<p>Cloud Foundry 由多个系统组件（云控制器、
+运行状况管理器、DEA、路由器等）组成。这些组件可以共置于
+单个虚拟机/单个操作系统中运行，也可以分散在多个计算机/虚拟机上。</p>
+
+<p>出于开发需要，首选的环境是在单个虚拟机中
+运行所有核心组件，然后从该虚拟机外部
+通过 SSL 隧道与此系统进行交互。预定义的域 <code>*.vcap.me</code> 映射到本地主机，
+因此当您使用这种设置时最终结果是，可以
+在 <a href="http://api.vcap.me">http://api.vcap.me</a> 使用您的开发环境。</p>
+
+<p>对于大规模或多虚拟机部署，此系统十分灵活，允许
+您将这些系统组件置于多个虚拟机上，运行指定类型的多个
+节点（例如 8 个路由器、4 个云控制器，等等）</p>
+
+<p>在 <a href="http://github.com/cloudfoundry/vcap">github.com/cloudfoundry/vcap</a> 资源库中，我们已经发布了一个名为_dev_setup_ 的 VCAP 安装架构，此架构采用 <a href="https://github.com/opscode/chef">Chef</a>。请查看 <a href="https://github.com/cloudfoundry/vcap/tree/master/dev_setup">dev_setup</a> 目录的内容。您可以使用此架构来执行单节点或多节点 VCAP 安装。本文档将一步步地介绍使用 dev_setup 脚本执行单节点和多节点安装的过程。</p>
+
+<p>这些说明的各个版本已在生产部署中使用，此外也已
+用于我们自己的开发。由于我们大家有不少人都是在 Mac 笔记本电脑上进行开发的，
+因此还针对这种环境加入了一些额外的说明。</p>
+
+<h2 id="section-1">免责声明</h2>
+
+<p>以下脚本是使用原始的 Ubuntu 10.04 64 位安装环境进行测试的，并且假定使用的也是这种环境。其他 Ubuntu 发行版、Linux 分发包及操作系统尚未采用这种安装方法进行验证，因而在使用时可能不起作用。</p>
+
+<h2 id="ssh-">前提条件：装有 SSH 的原始虚拟机</h2>
+
+<ul>
+<li>使用原始的 Ubuntu 10.04 服务器 64 位映像设置一个虚拟机，该映像可以
+<a href="http://www.ubuntu.com/download/ubuntu/download">从此处下载</a>
+</li>
+  <li>为该虚拟机设置 1G 或更多内存</li>
+  <li>您可能需要现在就创建该虚拟机的快照，以便在万一搞砸时进行恢复</li>
+  <li>要启用远程访问（比使用控制台更有趣），请安装 ssh。</li>
+</ul><p>安装 ssh：</p>
+
+<pre><code>sudo apt-get install openssh-server
+</code></pre>
+
+<h1 id="section-2">单节点部署</h1>
+
+<p>本节将引导您完成单节点 Cloud Foundry (VCAP) 部署的安装和验证过程。这是搭建适合部署和测试的 VCAP 环境并让其运行起来的最快方式。</p>
+
+<h2 id="section-3">单节点安装</h2>
+
+<ol>
+<li>
+    <p>运行安装脚本。</p>
+
+    <p>此脚本在开始时及快要结束时会要求您提供您的 sudo 密码。整个过程需要大约半个小时，因此时不时盯一下就可以了。</p>
+
+    <pre><code> sudo apt-get install curl
+ bash &lt; &lt;(curl -s -k -B https://raw.github.com/cloudfoundry/vcap/master/dev_setup/bin/vcap_dev_setup)
+</code></pre>
+
+    <p>脚本执行结束时，您应该会看到与下面类似的消息：</p>
+
+    <pre><code> ---------------  
+ Deployment info  
+ ---------------  
+ Status:successful  
+ Config files:/home/cfsupp/cloudfoundry/.deployments/devbox/config  
+ Deployment name:devbox  
+ Command to run cloudfoundry:/home/cfsupp/cloudfoundry/vcap/dev_setup/bin/vcap_dev start
+</code></pre>
+
+    <p>如果此安装过程因出错而停止，请务必查看本文档最后的<strong>已知问题</strong>部分。</p>
+  </li>
+  <li>
+    <p>启动此系统</p>
+
+    <pre><code> ~/cloudfoundry/vcap/dev_setup/bin/vcap_dev start
+</code></pre>
+  </li>
+  <li>
+    <p><em>（可选，仅限 mac/linux 用户）</em>创建一个本地 SSH 隧道。</p>
+
+    <p>从您的虚拟机中运行 <code>ifconfig</code> 并记下 eth0 IP 地址，此地址类似于： <code>192.168.252.130</code></p>
+
+    <p>现在转到您的 Mac 终端窗口，验证您能否使用 SSH 进行连接：</p>
+
+    <pre><code> ssh &lt;您的虚拟机用户&gt;@&lt;虚拟机 IP 地址&gt;
+</code></pre>
+
+    <p>如果能够连接，请注销并创建一个本地端口 80 隧道：</p>
+
+    <pre><code> sudo ssh -L &lt;本地端口&gt;:&lt;虚拟机 IP 地址&gt;:80 &lt;您的虚拟机用户&gt;@&lt;虚拟机 IP 地址&gt; -N
+</code></pre>
+
+    <p>如果您尚未运行本地 Web 服务器，请使用端口 80 作为您的本地端口；
+ 否则，您可能需要使用 8080 或其他常用 http 端口。</p>
+
+    <p>从您的 Mac 以及从该虚拟机中都完成此操作后，<code>api.vcap.me</code> 和 <code>*.vcap.me</code>
+ 将映射到 localhost，localhost 又将映射到正在运行的 Cloud Foundry 实例。</p>
+  </li>
+</ol><h2 id="section-4">试用您的环境</h2>
+
+<ol>
+<li>
+    <p>验证您能否连接以及测试是否通过。</p>
+
+    <p>从您的虚拟机的控制台中，或者从您的 Mac（得益于本地隧道）中运行以下命令：</p>
+
+    <pre><code> vmc target api.vcap.me
+ vmc info
+</code></pre>
+
+    <p>注意：如果您运行的是隧道并且选择的是 80 以外的本地端口，您将
+ 需要修改目标以在此包含该端口，例如 <code>api.vcap.me:8080</code>。</p>
+  </li>
+  <li>
+    <p>这应该会产生大致如下的输出：</p>
+
+    <pre><code> VMware's Cloud Application Platform
+ For support visit http://support.cloudfoundry.com
+
+ Target:   http://api.vcap.me (v0.999)
+ Client:   v0.3.10
+</code></pre>
+  </li>
+  <li>
+    <p>以用户身份体验一下，首先运行：</p>
+
+    <pre><code> vmc register --email foo@bar.com --passwd password
+ vmc login --email foo@bar.com --passwd password
+</code></pre>
+  </li>
+  <li>
+    <p>要了解您还可以执行哪些其他操作，请尝试运行：</p>
+
+    <pre><code> vmc help
+</code></pre>
+  </li>
+</ol><h2 id="section-5">测试您的环境</h2>
+
+<ol>
+<li>
+    <p>此系统安装好后，您就可以运行以下基本系统
+ 验证测试 (BVT) 来确保主要功能正常工作。BVT
+ 需要用到额外的 Maven 和 JDK 依赖项，可通过以下命令安装它们：</p>
+
+    <pre><code> sudo apt-get install default-jdk maven2
+</code></pre>
+
+    <p>现在您既然已经有了必需的依赖项，您就可以运行 BVT 了：</p>
+
+    <pre><code> source ~/.cloudfoundry_部署_local
+ cd cloudfoundry/vcap
+ cd tests &amp;&amp; bundle package; bundle install &amp;&amp; cd ..
+ rake tests
+</code></pre>
+  </li>
+  <li>
+    <p>也可以使用以下命令来运行单元测试：</p>
+
+    <pre><code> source ~/.cloudfoundry_部署_local
+ cd cloud_controller
+ rake spec
+ cd ../dea
+ rake spec
+ cd ../router
+ rake spec
+ cd ../health_manager
+ rake spec
+</code></pre>
+  </li>
+</ol><h3 id="hello-world-">大功告成，请确保您可以运行一个简单的 hello world 应用程序：</h3>
+
+<ol>
+<li>
+    <p>为您的测试应用程序创建一个空目录（姑且将此目录命名为 env），然后进入此目录。</p>
+
+    <pre><code> mkdir env &amp;&amp; cd env
+</code></pre>
+  </li>
+  <li>
+    <p>将下面的应用程序剪切并粘贴到一个 ruby 文件中（姑且将此文件命名为 env.rb）：</p>
+
+    <pre><code> require 'rubygems'
+ require 'sinatra'
+ require 'json/pure'
+
+ get '/' do
+   host = ENV['VMC_APP_HOST']
+   port = ENV['VMC_APP_PORT']
+   "&lt;h1&gt;XXXXX Hello from the Cloud! via:#{host}:#{port}&lt;/h1&gt;"
+ end
+
+ get '/env' do
+   res = "&lt;html&gt;&lt;body style=\"margin:0px auto; width:80%; font-family:monospace\"&gt;" 
+   res &lt;&lt; "&lt;head&gt;&lt;title&gt;CloudFoundry Environment&lt;/title&gt;&lt;/head&gt;"
+   res &lt;&lt; "&lt;h3&gt;CloudFoundry Environment&lt;/h3&gt;"
+   res &lt;&lt; "&lt;div&gt;&lt;table&gt;"
+   ENV.keys.sort.each do |key|
+     value = begin
+               "&lt;pre&gt;" + JSON.pretty_generate(JSON.parse(ENV[key])) + "&lt;/pre&gt;"
+             rescue
+               ENV[key]
+             end
+     res &lt;&lt; "&lt;tr&gt;&lt;td&gt;&lt;strong&gt;#{key}&lt;/strong&gt;&lt;/td&gt;&lt;td&gt;#{value}&lt;/tr&gt;"
+   end
+   res &lt;&lt; "&lt;/table&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"
+ end
+</code></pre>
+  </li>
+  <li>
+    <p>创建并推送此测试应用程序的 4 个实例：</p>
+
+    <pre><code> vmc push env --instances 4 --mem 64M --url env.vcap.me -n
+</code></pre>
+  </li>
+  <li>
+    <p>在浏览器中对此应用程序进行测试：</p>
+
+    <p><a href="http://env.vcap.me">http://env.vcap.me</a></p>
+
+    <p>请注意，每次单击刷新后都将显示不同的端口，这反映了四个不同的活动实例。</p>
+  </li>
+  <li>
+    <p>通过运行以下命令查看此应用程序的状态：</p>
+
+    <pre><code> vmc apps
+</code></pre>
+
+    <p>此命令应产生下面的输出：</p>
+
+    <pre><code> +-------------+----+---------+-------------+----------+
+ | Application | #  | Health  | URLS        | Services |
+ +-------------+----+---------+-------------+----------+
+ | env         | 1  | RUNNING | env.vcap.me |          |
+ +-------------+----+---------+-------------+----------+
+</code></pre>
+  </li>
+</ol><h1 id="section-6">多节点部署</h1>
+
+<p>本节将提供有关用于安装 VCAP 的_dev_setup_ 脚本的一些背景信息，然后引导您完成一个 4 节点 VCAP 环境的部署过程；该环境包含 2 个 MySQL 节点、1 个 DEA 节点，最后一个节点包含了其余的 VCAP 组件。</p>
+
+<h2 id="section-7">安装前的准备工作</h2>
+
+<h3 id="section-8">前提条件</h3>
+<ol>
+<li>
+    <p>请查看 vcap_dev_setup
+<a href="https://github.com/cloudfoundry/vcap/tree/master/dev_setup#readme">自述文件</a></p>
+  </li>
+  <li>
+    <p>克隆 VCAP 资源库</p>
+
+    <p>$ git clone https://github.com/cloudfoundry/vcap.git</p>
+  </li>
+  <li>
+    <p>将 dev_setup 目录压缩成 tar 包</p>
+
+    <pre><code> $ cd vcap
+ $ tar czvf dev_setup.tar.gz dev_setup
+</code></pre>
+  </li>
+  <li>
+    <p>将 dev_setup.tar.gz 文件复制到要
+将 VCAP 及其组件安装到的服务器。</p>
+  </li>
+  <li>
+    <p>在将 dev_setup.tar.gz 文件复制到的服务器中解压缩该文件。</p>
+  </li>
+</ol><h3 id="devsetupbin-">dev_setup/bin 目录中的脚本</h3>
+
+<ol>
+<li>
+    <p><em>vcap_dev_setup</em>: 安装 VCAP 及其组件时将调用的主脚本</p>
+
+    <pre><code> 用法：./vcap_dev_setup options
+
+ 选项：
+   -h           显示此消息
+   -a           对所有问题均回答 yes
+   -p           http 代理，即 -p http://用户名:密码@主机:端口/
+   -c           部署配置
+   -d           cloudfoundry 主目录
+   -D           cloudfoundry 域（默认为：vcap.me）
+   -r           cloud foundry repo
+   -b           cloud foundry repo 分支/标记/SHA
+</code></pre>
+  </li>
+  <li>
+    <p><em>vcap_dev</em>: 用于启动/停止组件的脚本</p>
+
+    <pre><code> Usage:./vcap_dev [--name deployment_name] [--dir cloudfoundry_home_dir] [start|stop|restart|tail|status]
+     -n, --name deployment_name       部署名称
+     -d, --dir cloud_foundry_home_dir Cloud foundry 主目录
+</code></pre>
+  </li>
+</ol><h3 id="section-9">部署规范</h3>
+
+<p><a href="https://github.com/cloudfoundry/vcap/tree/master/dev_setup/deployments">vcap_dev/deployments</a> 目录 
+包含部署规范。此目录也有一个 
+<a href="https://github.com/cloudfoundry/vcap/tree/master/dev_setup/deployments#readme">README</a>，请阅读。单节点部署（上文中的说明）采用 <a href="https://github.com/cloudfoundry/vcap/blob/master/dev_setup/deployments/devbox.yml">devbox.yml</a> 部署规范，该规范会将所有组件都安装在本地服务器上。在下一节中，我们将一步步介绍 <a href="https://github.com/cloudfoundry/vcap/tree/master/dev_setup/deployments/sample/multihost_mysql">multihost_mysql</a> 规范的部署过程。</p>
+
+<h2 id="section-10">多节点部署逐步演练</h2>
+
+<p>我们将一步步介绍在 4 个节点（包含了示例 IP 地址）上部署 VCAP 组件的过程：</p>
+
+<ol>
+<li>
+<strong>云控制器、路由器、运行状况管理器、服务</strong> - <code>10.20.143.190</code>
+</li>
+  <li>
+<strong>DEA</strong> - <code>10.20.143.187</code>
+</li>
+  <li>
+<strong>MySQL 节点 0</strong> - <code>10.20.143.188</code>
+</li>
+  <li>
+<strong>MySQL 节点 1</strong> - <code>10.20.143.189</code>
+</li>
+</ol><p>这种部署在 
+<a href="https://github.com/cloudfoundry/vcap/tree/master/dev_setup/deployments/sample/multihost_mysql">deployments/sample/multihost_mysql</a> 中有相关说明 - 请阅读这些部署配置文件。</p>
+
+<h3 id="devsetup-">1. 将 dev_setup 脚本复制过来并解压缩</h3>
+
+<p>如<strong>前提条件</strong>一节中所述，请将_dev_setup.tar.gz_ 复制到各个节点并解压缩它们。</p>
+
+<h3 id="restyml--1020143190-">2. 安装第一个节点：将_rest.yml_ 安装到 10.20.143.190 上</h3>
+
+<p>无需更改用于此节点的部署配置，即
+<a href="https://github.com/cloudfoundry/vcap/blob/master/dev_setup/deployments/sample/multihost_mysql/rest.yml">rest.yml</a></p>
+
+<pre><code>---  
+deployment:  
+  name: "rest"  
+jobs:  
+  install:  
+    - nats_server  
+    - cloud_controller:  
+        builtin_services:  
+          - redis  
+          - mongodb  
+          - mysql  
+    - router  
+    - health_manager  
+    - ccdb  
+    - redis:  
+        index: "0"  
+    - redis_gateway  
+    - mysql_gateway  
+    - mongodb:  
+        index: "0"  
+    - mongodb_gateway
+</code></pre>
+
+<p>使用下面的配置文件选项调用 vcap_dev_setup 脚本：</p>
+
+<pre><code>~/dev_setup$ bin/vcap_dev_setup -c deployments/sample/multihost_mysql/rest.yml   
+Checking web connectivity. 
+chef-solo is required, should I install it? [Y/n]  
+[sudo] password for cfsupp:
+
+deb http://apt.opscode.com/ lucid-0.10 main  
+OK  
+Hit http://theonemirror.eng.vmware.com lucid Release.gpg  
+Ign http://theonemirror.eng.vmware.com/ubuntu/ lucid/main Translation-en_US  
+Hit http://theonemirror.eng.vmware.com lucid-security Release.gpg   
+Ign http://theonemirror.eng.vmware.com/ubuntu/ lucid-security/main Translation-en_US  
+Hit http://theonemirror.eng.vmware.com lucid-updates Release.gpg   
+Ign http://theonemirror.eng.vmware.com/ubuntu/ lucid-updates/main Translation-en_US  
+Hit http://theonemirror.eng.vmware.com lucid Release   
+Hit http://theonemirror.eng.vmware.com lucid-security Release   
+Hit http://theonemirror.eng.vmware.com lucid-updates Release   
+Ign http://theonemirror.eng.vmware.com lucid/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid/main Packages   
+Hit http://theonemirror.eng.vmware.com lucid/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-security/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-security/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-updates/main Packages   
+Get:1 http://apt.opscode.com lucid-0.10 Release.gpg [198B]   
+Hit http://theonemirror.eng.vmware.com lucid-security/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-updates/main Packages   
+Hit http://theonemirror.eng.vmware.com lucid-updates/main Packages   
+Ign http://apt.opscode.com/ lucid-0.10/main Translation-en_US   
+Get:2 http://apt.opscode.com lucid-0.10 Release [4,477B]   
+Hit http://security.ubuntu.com lucid-security Release.gpg   
+Ign http://apt.opscode.com lucid-0.10/main Packages   
+Ign http://apt.opscode.com lucid-0.10/main Packages   
+Hit http://us.archive.ubuntu.com lucid Release.gpg
+
+.. and more ..
+</code></pre>
+
+<p>如果此安装过程因出错而停止，请务必查看本文档最后的<strong>已知问题</strong>部分。如果安装成功，那么安装结束时将显示与下面类似的消息。我们暂且_不启动_ 这些
+组件，而是接着在其他节点上安装其他组件，
+最后再按顺序启动它们。</p>
+
+<pre><code>---------------  
+Deployment info  
+---------------  
+Status: successful  
+Config files: /home/cfsupp/cloudfoundry/.deployments/rest/config  
+Deployment name: rest  
+Command to run cloudfoundry: /home/cfsupp/cloudfoundry/vcap/dev_setup/bin/vcap_dev -n rest start
+</code></pre>
+
+<h3 id="dea-deayml--1020143187-">3. 安装 DEA 节点：将_dea.yml_ 安装到 10.20.143.187 上</h3>
+
+<p>用于此节点的部署配置
+<a href="https://github.com/cloudfoundry/vcap/blob/master/dev_setup/deployments/sample/multihost_mysql/dea.yml">dea.yml</a> 需进行一定的修改（请注意修改后的 <code>nats_server</code> 主机）：</p>
+
+<pre><code>---  
+# Deployment  
+# ----------  
+deployment:  
+  name: "dea"
+
+jobs:  
+  install:  
+    - dea  
+  installed:  
+    - nats_server:  
+      host: "10.20.143.190"  
+      port: "4222"  
+      user: "nats"  
+      password: "nats"
+</code></pre>
+
+<p>请使用带有 mysql0.yml 部署配置选项的 vcap_dev_setup 脚本进行安装，安装期间会在命令行中传入 dea.yml 
+配置：</p>
+
+<pre><code>~/dev_setup$ bin/vcap_dev_setup -c deployments/sample/multihost_mysql/dea.yml   
+Checking web connectivity. 
+chef-solo is required, should I install it? [Y/n]  
+[sudo] password for cfsupp:
+
+deb http://apt.opscode.com/ lucid-0.10 main  
+OK  
+Hit http://theonemirror.eng.vmware.com lucid Release.gpg  
+Ign http://theonemirror.eng.vmware.com/ubuntu/ lucid/main Translation-en_US  
+Hit http://theonemirror.eng.vmware.com lucid-security Release.gpg   
+Ign http://theonemirror.eng.vmware.com/ubuntu/ lucid-security/main Translation-en_US  
+Hit http://theonemirror.eng.vmware.com lucid-updates Release.gpg   
+Ign http://theonemirror.eng.vmware.com/ubuntu/ lucid-updates/main Translation-en_US  
+Hit http://theonemirror.eng.vmware.com lucid Release   
+Hit http://theonemirror.eng.vmware.com lucid-security Release   
+Hit http://theonemirror.eng.vmware.com lucid-updates Release   
+Ign http://theonemirror.eng.vmware.com lucid/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid/main Packages   
+Hit http://theonemirror.eng.vmware.com lucid/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-security/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-security/main Packages   
+Hit http://theonemirror.eng.vmware.com lucid-security/main Packages   
+Get:1 http://apt.opscode.com lucid-0.10 Release.gpg [198B]   
+Ign http://theonemirror.eng.vmware.com lucid-updates/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-updates/main Packages   
+Hit http://theonemirror.eng.vmware.com lucid-updates/main Packages   
+Ign http://apt.opscode.com/ lucid-0.10/main Translation-en_US 
+Get:2 http://apt.opscode.com lucid-0.10 Release [4,477B]
+Ign http://apt.opscode.com lucid-0.10/main Packages
+Ign http://apt.opscode.com lucid-0.10/main Packages
+Hit http://security.ubuntu.com lucid-security Release.gpg
+Get:3 http://apt.opscode.com lucid-0.10/main Packages [14.6kB]
+Ign http://security.ubuntu.com/ubuntu/ lucid-security/main Translation-en_US
+Ign http://security.ubuntu.com/ubuntu/ lucid-security/restricted Translation-en_US
+Ign http://security.ubuntu.com/ubuntu/ lucid-security/universe Translation-en_US
+Ign http://security.ubuntu.com/ubuntu/ lucid-security/multiverse Translation-en_US
+
+.. and more ..
+</code></pre>
+
+<p>如果此安装过程因出错而停止，请务必查看本文档最后的<strong>已知问题</strong>部分。安装成功后，您将看到与下面类似的消息。我们暂且
+再启动这些组件，现在接着安装 MysQL 节点 0。</p>
+
+<pre><code>---------------  
+Deployment info  
+---------------  
+Status: successful  
+Config files: /home/cfsupp/cloudfoundry/.deployments/dea/config  
+Deployment name: dea  
+Command to run cloudfoundry: /home/cfsupp/cloudfoundry/vcap/dev_setup/bin/vcap_dev -n dea start
+</code></pre>
+
+<h3 id="mysql-mysql0yml--1020143188-">4. 安装第一个 MySQL 节点：将_mysql0.yml_ 安装到 10.20.143.188 上</h3>
+
+<p>用于此节点的部署配置 <a href="https://github.com/cloudfoundry/vcap/blob/master/dev_setup/deployments/sample/multihost_mysql/mysql0.yml">mysql0.yml</a> 需进行一定的修改（请注意修改后的 <code>nats_server</code> 主机）：</p>
+
+<pre><code>---  
+deployment:  
+  name: "mysql0"  
+jobs:  
+  install:  
+    - mysql:  
+        index: "0"  
+   installed:  
+     - nats_server:  
+       host: "10.20.143.190"
+       port: "4222"  
+       user: "nats"  
+       password: "nats"
+</code></pre>
+
+<p>请使用带有 mysql0.yml 部署配置选项的 vcap_dev_setup 脚本进行安装：</p>
+
+<pre><code>~/dev_setup$ bin/vcap_dev_setup -c deployments/sample/multihost_mysql/mysql0.yml
+Checking web connectivity. 
+chef-solo is required, should I install it? [Y/n]  
+[sudo] password for cfsupp:
+
+deb http://apt.opscode.com/ lucid-0.10 main  
+OK  
+Hit http://theonemirror.eng.vmware.com lucid Release.gpg  
+Ign http://theonemirror.eng.vmware.com/ubuntu/ lucid/main Translation-en_US  
+Hit http://theonemirror.eng.vmware.com lucid-security Release.gpg   
+Ign http://theonemirror.eng.vmware.com/ubuntu/ lucid-security/main Translation-en_US  
+Hit http://theonemirror.eng.vmware.com lucid-updates Release.gpg   
+Ign http://theonemirror.eng.vmware.com/ubuntu/ lucid-updates/main Translation-en_US  
+Hit http://theonemirror.eng.vmware.com lucid Release   
+Hit http://theonemirror.eng.vmware.com lucid-security Release   
+Hit http://theonemirror.eng.vmware.com lucid-updates Release   
+Ign http://theonemirror.eng.vmware.com lucid/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-security/main Packages   
+Hit http://theonemirror.eng.vmware.com lucid/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-updates/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-security/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-updates/main Packages   
+Hit http://theonemirror.eng.vmware.com lucid-security/main Packages   
+Hit http://theonemirror.eng.vmware.com lucid-updates/main Packages   
+Get:1 http://apt.opscode.com lucid-0.10 Release.gpg [198B]   
+Ign http://apt.opscode.com/ lucid-0.10/main Translation-en_US   
+Get:2 http://apt.opscode.com lucid-0.10 Release [4,477B]   
+Ign http://apt.opscode.com lucid-0.10/main Packages
+
+.. and more ..
+</code></pre>
+
+<p>安装结束时，您将看到与下面类似的消息。我们暂且
+不启动这些组件，而是接着安装 
+MySQL 节点 1。</p>
+
+<pre><code>---------------  
+Deployment info  
+---------------  
+Status: successful  
+Config files: /home/cfsupp/cloudfoundry/.deployments/mysql0/config  
+Deployment name: mysql0  
+Command to run cloudfoundry: /home/cfsupp/cloudfoundry/vcap/dev_setup/bin/vcap_dev -n mysql0 start
+</code></pre>
+
+<h3 id="mysql-mysql1yml--1020143189-">5. 安装第二个 MySQL 节点：将_mysql1.yml_ 安装到 10.20.143.189 上</h3>
+
+<p>用于此节点的部署配置 <a href="https://github.com/cloudfoundry/vcap/blob/master/dev_setup/deployments/sample/multihost_mysql/mysql1.yml">mysql1.yml</a> 需进行一定的修改（请注意修改后的 <code>nats_server</code> 主机）：</p>
+
+<pre><code>---  
+deployment:  
+  name: "mysql1"  
+jobs:  
+  install:  
+    - mysql:  
+      index: "1"  
+  installed:  
+    - nats_server:  
+      host: "10.20.143.190"  
+      port: "4222"  
+      user: "nats"  
+      password: "nats"
+</code></pre>
+
+<p>请使用带有 mysql0.yml 部署配置选项的 vcap_dev_setup 脚本进行
+安装：</p>
+
+<pre><code>~/dev_setup$ bin/vcap_dev_setup -c deployments/sample/multihost_mysql/mysql1.yml
+Checking web connectivity. 
+chef-solo is required, should I install it? [Y/n]  
+[sudo] password for cfsupp:
+
+deb http://apt.opscode.com/ lucid-0.10 main  
+OK  
+Hit http://theonemirror.eng.vmware.com lucid Release.gpg  
+Ign http://theonemirror.eng.vmware.com/ubuntu/ lucid/main Translation-en_US  
+Hit http://theonemirror.eng.vmware.com lucid-security Release.gpg   
+Ign http://theonemirror.eng.vmware.com/ubuntu/ lucid-security/main Translation-en_US  
+Hit http://theonemirror.eng.vmware.com lucid-updates Release.gpg   
+Ign http://theonemirror.eng.vmware.com/ubuntu/ lucid-updates/main Translation-en_US  
+Hit http://theonemirror.eng.vmware.com lucid Release   
+Hit http://theonemirror.eng.vmware.com lucid-security Release   
+Hit http://theonemirror.eng.vmware.com lucid-updates Release   
+Ign http://theonemirror.eng.vmware.com lucid/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid/main Packages   
+Hit http://theonemirror.eng.vmware.com lucid/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-security/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-security/main Packages   
+Hit http://theonemirror.eng.vmware.com lucid-security/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-updates/main Packages   
+Ign http://theonemirror.eng.vmware.com lucid-updates/main Packages   
+Get:1 http://apt.opscode.com lucid-0.10 Release.gpg [198B]   
+Hit http://theonemirror.eng.vmware.com lucid-updates/main Packages   
+Ign http://apt.opscode.com/ lucid-0.10/main Translation-en_US   
+Get:2 http://apt.opscode.com lucid-0.10 Release [4,477B]   
+Ign http://apt.opscode.com lucid-0.10/main Packages   
+Get:3 http://security.ubuntu.com lucid-security Release.gpg [198B]  
+Hit http://us.archive.ubuntu.com lucid Release.gpg   
+Ign http://apt.opscode.com lucid-0.10/main Packages   
+Get:4 http://apt.opscode.com lucid-0.10/main Packages [14.6kB]   
+Ign http://security.ubuntu.com/ubuntu/ lucid-security/main Translation-en_US  
+Ign http://us.archive.ubuntu.com/ubuntu/ lucid/main Translation-en_US   
+Ign http://security.ubuntu.com/ubuntu/ lucid-security/restricted Translation-en_US   
+Ign http://us.archive.ubuntu.com/ubuntu/ lucid/restricted Translation-en_US  
+Ign http://us.archive.ubuntu.com/ubuntu/ lucid/universe Translation-en_US  
+Ign http://security.ubuntu.com/ubuntu/ lucid-security/universe Translation-en_US
+
+.. and more ..
+</code></pre>
+
+<p>安装结束时，您将看到与下面类似的消息。</p>
+
+<pre><code>---------------  
+Deployment info  
+---------------  
+Status: successful  
+Config files: /home/cfsupp/cloudfoundry/.deployments/mysql1/config  
+Deployment name: mysql1  
+Command to run cloudfoundry: /home/cfsupp/cloudfoundry/vcap/dev_setup/bin/vcap_dev -n mysql1 start
+</code></pre>
+
+<h3 id="section-11">5. 启动所有组件</h3>
+
+<ol>
+<li>
+    <p>启动所有安装在<em><strong>rest</strong></em> 部署
+节点 (<code>10.20.143.190</code>) 上的组件</p>
+
+ 	$ ~/cloudfoundry/vcap/dev_setup/bin/vcap_dev -n rest start 
+ 	Setting up cloud controller environment<br>
+ 	Using cloudfoundry config from /home/cfsupp/cloudfoundry/.deployments/rest/config<br>
+ 	Executing /home/cfsupp/cloudfoundry/.deployments/rest/deploy/rubies/ruby-1.9.2-p180/bin/ruby /home/cfsupp/cloudfoundry/vcap/dev_setup/bin/vcap start health_manager mongodb_gateway router redis_gateway mongodb_backup redis_node mongodb_node mysql_gateway redis_backup cloud_controller -c /home/cfsupp/cloudfoundry/.deployments/rest/config -v /home/cfsupp/cloudfoundry/vcap/bin<br>
+ 	health_manager : RUNNING<br>
+ 	mongodb_gateway : RUNNING<br>
+ 	router : RUNNING<br>
+ 	redis_gateway : RUNNING<br>
+ 	redis_node : RUNNING<br>
+ 	mongodb_node : RUNNING<br>
+ 	mysql_gateway : RUNNING<br>
+ 	cloud_controller : RUNNING
+  </li>
+  <li>
+    <p>启动安装在 <strong><em>dea</em></strong> 部署节点 (<code>10.20.143.187</code>) 上的组件</p>
+
+ 	$ ~/cloudfoundry/vcap/dev_setup/bin/vcap_dev -n dea start<br>
+ 	Using cloudfoundry config from /home/cfsupp/cloudfoundry/.deployments/dea/config<br>
+ 	Executing /home/cfsupp/cloudfoundry/.deployments/dea/deploy/rubies/ruby-1.9.2-p180/bin/ruby /home/cfsupp/cloudfoundry/vcap/dev_setup/bin/vcap start dea -c /home/cfsupp/cloudfoundry/.deployments/dea/config -v /home/cfsupp/cloudfoundry/vcap/bin<br>
+ 	dea : RUNNING
+  </li>
+  <li>
+    <p>启动安装在 <strong><em>mysql0</em></strong> 部署节点 (<code>10.20.143.188</code>) 上的组件</p>
+
+ 	$ ~/cloudfoundry/vcap/dev_setup/bin/vcap_dev -n mysql0 start 
+ 	Using cloudfoundry config from /home/cfsupp/cloudfoundry/.deployments/mysql0/config<br>
+ 	Executing /home/cfsupp/cloudfoundry/.deployments/mysql0/deploy/rubies/ruby-1.9.2-p180/bin/ruby /home/cfsupp/cloudfoundry/vcap/dev_setup/bin/vcap start mysql_backup mysql_node -c /home/cfsupp/cloudfoundry/.deployments/mysql0/config -v /home/cfsupp/cloudfoundry/vcap/bin<br>
+ 	mysql_node : RUNNING
+  </li>
+  <li>
+    <p>启动安装在 <strong><em>mysql1</em></strong> 部署节点 (<code>10.20.143.189</code>) 上的组件</p>
+
+ 	$ ~/cloudfoundry/vcap/dev_setup/bin/vcap_dev -n mysql1 start**<br><pre><code> 	Using cloudfoundry config from /home/cfsupp/cloudfoundry/.deployments/mysql1/config  
+ 	Executing /home/cfsupp/cloudfoundry/.deployments/mysql1/deploy/rubies/ruby-1.9.2-p180/bin/ruby /home/cfsupp/cloudfoundry/vcap/dev_setup/bin/vcap start mysql_backup mysql_node -c /home/cfsupp/cloudfoundry/.deployments/mysql1/config -v /home/cfsupp/cloudfoundry/vcap/bin  
+ 	mysql_node : RUNNING
+</code></pre>
+  </li>
+</ol><h2 id="section-12">多节点安装验证</h2>
+
+<p>cloud_controller 组件在 <code>api.vcap.me</code> 端点上侦听命令，该端点绑定到 <code>127.0.0.1</code>。请在当前运行 cloud_controller 的节点（位于 <code>10.20.143.190</code> 的 <strong>rest</strong> 节点）上运行 vcap 命令行客户端 <code>vmc</code>。</p>
+
+<pre><code>$ vmc target
+
+[http://api.vcap.me]
+
+$ vmc info
+
+VMware's Cloud Application Platform  
+For support visit http://support.cloudfoundry.com
+
+Target: http://api.vcap.me (v0.999)  
+Client: v0.3.12
+
+$ vmc register
+Email: user@vmware.com  
+Password: *******  
+Verify Password: *******  
+Creating New User: OK  
+Successfully logged into [http://api.vcap.me]
+
+$ vmc info
+
+VMware's Cloud Application Platform  
+For support visit http://support.cloudfoundry.com
+
+Target: http://api.vcap.me (v0.999)  
+Client: v0.3.12
+
+User: user@vmware.com  
+Usage: Memory (0B of 2.0G total)  
+ Services (0 of 16 total)  
+ Apps (0 of 20 total)
+
+$ vmc services
+
+============== System Services ==============
+
++---------+---------+-------------------------------+  
+| Service | Version | Description                   |  
++---------+---------+-------------------------------+  
+| mongodb | 1.8 | MongoDB NoSQL store               |  
+| mysql   | 5.1 | MySQL database service            |  
+| redis   | 2.2 | Redis key-value store service     |  
++---------+---------+-------------------------------+
+
+=========== Provisioned Services ============
+
+  
+$ vmc frameworks
+
++-----------+  
+| Name      |  
++-----------+  
+| sinatra   |  
+| spring    |  
+| node      |  
+| grails    |  
+| lift      |  
+| rails3    |  
+| otp_rebar |  
++-----------+
+</code></pre>
+
+<p>我们将推送一个 Sinatra 示例应用程序，该应用程序会输出 Cloud Foundry 中的应用程序可用的 
+环境变量。请将以下内容粘贴到一个
+名为 env.rb 的文件</p>
+
+<pre><code>require 'rubygems'
+require 'sinatra'
+require 'json/pure'
+
+get '/' do
+  host = ENV['VMC_APP_HOST']
+  port = ENV['VMC_APP_PORT']
+  "&lt;h1&gt;XXXXX Hello from the Cloud! via:#{host}:#{port}&lt;/h1&gt;"
+end
+
+get '/env' do
+  res = "&lt;html&gt;&lt;body style=\"margin:0px auto; width:80%; font-family:monospace\"&gt;" 
+  res &lt;&lt; "&lt;head&gt;&lt;title&gt;CloudFoundry Environment&lt;/title&gt;&lt;/head&gt;"
+  res &lt;&lt; "&lt;h3&gt;CloudFoundry Environment&lt;/h3&gt;"
+  res &lt;&lt; "&lt;div&gt;&lt;table&gt;"
+  ENV.keys.sort.each do |key|
+    value = begin
+              "&lt;pre&gt;" + JSON.pretty_generate(JSON.parse(ENV[key])) + "&lt;/pre&gt;"
+            rescue
+              ENV[key]
+            end
+    res &lt;&lt; "&lt;tr&gt;&lt;td&gt;&lt;strong&gt;#{key}&lt;/strong&gt;&lt;/td&gt;&lt;td&gt;#{value}&lt;/tr&gt;"
+  end
+  res &lt;&lt; "&lt;/table&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"
+end
+</code></pre>
+
+<p>然后，将此应用程序推送到您的 VCAP 实例：</p>
+
+<pre><code>$ vmc push env -n  
+Creating Application: OK  
+Uploading Application:  
+ Checking for available resources: OK  
+ Packing application: OK  
+ Uploading (1K): OK   
+Push Status: OK  
+Staging Application: OK   
+Starting Application: OK
+
+$ curl -I env.vcap.me 
+HTTP/1.1 200 OK   
+Server: nginx/0.7.65  
+Date: Wed, 07 Sep 2011 23:39:09 GMT  
+Content-Type: text/html;charset=utf-8  
+Connection: keep-alive  
+Keep-Alive: timeout=20  
+Vary: Accept-Encoding  
+Content-Length: 4239
+</code></pre>
+
+<p>我们将创建一项 mysql 服务并将这项服务绑定到此应用程序</p>
+
+<pre><code>$ vmc create-service mysql mysql-env env  
+Creating Service: OK  
+Binding Service: OK  
+Stopping Application: OK  
+Staging Application: OK   
+Starting Application: OK
+
+$ vmc apps
+
++-------------+----+---------+----------------+--------------+  
+| Application | #  | Health  | URLS           | Services     |  
++-------------+----+---------+----------------+--------------+  
+| sv-env      | 1  | RUNNING | env.vcap.me    | mysql-env    |  
++-------------+----+---------+----------------+--------------+
+</code></pre>
+
+<h1 id="section-13">已知问题</h1>
+
+<h2 id="http-">在 HTTP 代理后进行的安装失败</h2>
+
+<p>如果您处于 HTTP 代理后，请确保先将 Ubuntu 虚拟机配置为使用此代理，再进行安装。</p>
+
+<ol>
+<li>
+    <p>设置环境变量 <code>http_proxy, https_proxy, no_proxy</code>：</p>
+
+    <pre><code> $ http_proxy="http://&lt;代理主机&gt;:&lt;代理端口&gt;"
+ $ https_proxy=$http_proxy
+ $ no_proxy="localhost,vcap.me"
+ $ export http_proxy https_proxy no_proxy
+</code></pre>
+
+    <p>有时（并非经常性的情况），您可能需要指定用户 ID 和密码，这取决于环境。请咨询系统管理员或问讯台。</p>
+
+    <pre><code> http_proxy=http://&lt;用户名&gt;:&lt;密码&gt;@&lt;代理主机&gt;:&lt;代理端口&gt;
+</code></pre>
+
+    <p>为确保当命令以 <code>root</code> 用户身份运行（在_dev_setup_ 要求提供 <code>sudo</code> 密码时会出现这种情况）使用此代理，请编辑 <code>/etc/sudoers</code>，在其中添加下面的配置：</p>
+
+    <pre><code> Defaults env_keep = "http_proxy https_proxy no_proxy"
+</code></pre>
+  </li>
+  <li>
+    <p>VCAP 安装过程中使用 maven 供某些组件下载外部依赖项。您需要将您的代理信息添加到 maven 设置文件：</p>
+
+    <pre><code> $ mkdir ~/.m2
+ $ vi ~/.m2/settings.xml
+
+ &lt;settings&gt;
+   &lt;proxies&gt;
+     &lt;proxy&gt;
+       &lt;active&gt;true&lt;/active&gt;
+       &lt;protocol&gt;http&lt;/protocol&gt;
+       &lt;host&gt;proxy-host.yourcompany.com&lt;/host&gt;
+       &lt;port&gt;3128&lt;/port&gt;
+       &lt;username&gt;proxy-user&lt;/username&gt;
+       &lt;password&gt;proxy-password&lt;/password&gt;
+       &lt;nonProxyHosts&gt;localhost|*.vcap.me&lt;/nonProxyHosts&gt;
+     &lt;/proxy&gt;
+   &lt;/proxies&gt;
+ &lt;/settings&gt;
+</code></pre>
+
+    <p>您可能还需要在 <code>~/cloudfoundry/.deployments/&lt;deployment_name&gt;/deploy/maven/apache-maven-3.0.4/bin/m2.conf</code> 中指定 HTTPS 代理：</p>
+
+    <pre><code> set https.proxyHost default proxy-host.yourcompany.com
+ set https.proxyPort default 3128
+</code></pre>
+  </li>
+</ol><h2 id="rack-argumenterror">安装_rack_ 时失败并出现_ArgumentError_</h2>
+<p>显示的错误可能类似于：</p>
+
+<pre><code>	[Wed, 31 Aug 2011 14:36:56 -0700] WARN: failed to find gem rack (&gt;= 0, runtime) from [http://gems.rubyforge.org/]  
+	[Wed, 31 Aug 2011 14:36:56 -0700] DEBUG: sh(/home/cfsupp/cloudfoundry/.deployments/devbox/deploy/rubies/ruby-1.8.7-p334/bin/gem install rack -q --no-rdoc --no-ri -v "")  
+	[Wed, 31 Aug 2011 14:36:56 -0700] ERROR: gem_package[rack] (ruby::default line 75) has had an error  
+	[Wed, 31 Aug 2011 14:36:56 -0700] ERROR: gem_package[rack] (/home/cfsupp/cloudfoundry/vcap/dev_setup/cookbooks/ruby/recipes/default.rb:75:in `from_file') had an error:  
+	gem_package[rack] (ruby::default line 75) had an error: Expected process to exit with [0], but received '1'
+	[Tue, 06 Sep 2011 15:16:44 -0700] FATAL: Chef::Exceptions::ShellCommandFailed: gem_package[rack] (ruby::default line 75) had an error: Expected process to exit with [0], but received '1'  
+	---- Begin output of /home/cfsupp/cloudfoundry/.deployments/rest/deploy/rubies/ruby-1.8.7-p334/bin/gem install rack -q --no-rdoc --no-ri -v "" ----  
+	STDOUT:   
+	STDERR: ERROR: While executing gem ... (ArgumentError)
+	Illformed requirement [""] 
+	---- End output of /home/cfsupp/cloudfoundry/.deployments/rest/deploy/rubies/ruby-1.8.7-p334/bin/gem install rack -q --no-rdoc --no-ri -v "" ----  
+	Ran /home/cfsupp/cloudfoundry/.deployments/rest/deploy/rubies/ruby-1.8.7-p334/bin/gem install rack -q --no-rdoc --no-ri -v "" returned 1
+</code></pre>
+
+<p>如果您重新运行 vcap_dev_setup 脚本，该脚本将从它停止的地方接着运行，并且这次应该会成功 
+安装 rack。您可能会多次遇到类似的错误；如果是这样，请再次尝试重新运行 vcap_dev_setup，直到它完成为止。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

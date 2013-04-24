@@ -1,0 +1,288 @@
+@media screen {
+
+.super-nav li {
+  padding: 0 8px 0 12px;
+}
+
+.super-nav li + li {
+  background: url('/images/nav_separator.gif') 0 6px no-repeat;
+}
+
+.hero-error {
+  width: 900px;
+  height: 300px;
+  margin: 0 auto 10px auto;
+}
+
+.hero-error.four-oh-four {
+  background: url("/images/404.jpg") no-repeat;
+}
+
+.hero-error.oops {
+  background: url("/images/Error.jpg") no-repeat;
+}
+
+li {
+  margin: 0 0 5px 30px;
+}
+
+.new:after {
+  color: #FF8920;
+  content: "New!";
+  font-size: 60%;
+  padding-left: 0.3em;
+  vertical-align: super;
+}
+
+.sub-nav a {
+  color: #0094D4;
+}
+
+.sub-nav .active a {
+  color: #666666;
+}
+
+.sub-nav p {
+  border-left: 6px solid #ffffff;
+  font-size: 14px;
+  margin-left: 0;
+  padding-bottom: 5px;
+  padding-left: 12px;
+  padding-top: 5px;
+  margin-bottom: 5px;
+}
+
+.sub-nav p.active {
+  border-left: 6px solid #666666;
+}
+
+.sub-nav p.active:hover {
+  background-color: #ffffff;
+  border-left: 6px solid #666666;
+  margin-left: 0px;
+}
+
+.sub-nav p:hover {
+  background-color: #EBF7FC;
+  border-left: 12px solid #EBF7FC;
+  margin-left: -6px;
+}
+
+.sub-nav-promo {
+  background-color: #ffffff;
+  border-left: 10px solid #ffffff;
+  padding: 0px;
+}
+
+.breadcrumb {
+  border-bottom: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.breadcrumb a {
+  color: #E4E4E4;
+}
+
+.breadcrumb li:after {
+  color: #E4E4E4;
+}
+
+.header-wrap {
+    padding-top: 15px;
+}
+
+.header-wrap .button-plain {
+    top: 45px;
+}
+
+/**
+ * ADDED FOR COMMUNITY PAGE
+ */
+
+.no-bold {
+    font-weight: normal;
+}
+hr {
+    margin: 20px 0;
+}
+hr.space {
+    margin: 10px 0 20px;
+}
+
+.sub-nav a.selected {
+    text-decoration: none;
+    color: #666;
+}
+.float-right {
+    float: right;
+}
+.content p {
+    line-height: 1.4;
+}
+h2 {
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+h3 {
+    font-size: 23px;
+}
+h5 {
+    font-size: 16px;
+    text-transform: none;
+}
+h6 {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px;
+}
+#nav ul {
+    padding: 4px 15px;
+}
+.icon-text {
+    padding-left: 55px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    margin-top: -35px;
+}
+.icon-code {
+    background-image: url('/images/ICO_Sprite_GetInvolved.png');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    height: 37px;
+}
+.icon-videos {
+    background-image: url('/images/ICO_Sprite_GetInvolved.png');
+    background-repeat: no-repeat;
+    background-position: 0px -280px;
+    height: 37px;
+}
+.icon-forums {
+    background-image: url('/images/ICO_Sprite_GetInvolved.png');
+    background-repeat: no-repeat;
+    background-position: 0px -160px;
+    height: 37px;
+}
+.icon-leads {
+    background-image: url('/images/ICO_Sprite_GetInvolved.png');
+    background-repeat: no-repeat;
+    background-position: 0px -201px;
+    height: 40px;
+}
+.icon-blog {
+    background-image: url('/images/ICO_Sprite_GetInvolved.png');
+    background-repeat: no-repeat;
+    background-position: 0px -240px;
+    height: 40px;
+}
+.icon-events {
+    background-image: url('/images/ICO_Sprite_GetInvolved.png');
+    background-repeat: no-repeat;
+    background-position: 0px -120px;
+    height: 40px;
+}
+.span-icon {
+    float: left;
+    width: 72px;
+    margin-right: 20px;
+}
+.span-icon img {
+    margin-bottom: 10px;
+}
+.last {
+    margin-right: 0 !important;
+}
+
+#sidebar .form-wrap p {
+    margin-bottom: 15px;
+}
+.form-wrap {
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: auto;
+    background: #ebf7fc;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: 0 0 0;
+    -moz-box-shadow: 0 0 0;
+    box-shadow: 0 0 0;
+}
+.form-wrap label {
+    float: left;
+    margin: 2px 7px 0 0;
+    width: 72px;
+    font-size: 14px;
+    color: #666;
+    text-align: right;
+}
+.form-wrap input,
+.form-wrap textarea,
+.form-wrap select {
+    background: #fff;
+    border: 1px solid #7faac5;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    width: 166px;
+    color: #999;
+    font-weight: normal;
+}
+.form-wrap input.button-submit {
+    width: 94px;
+    margin: 15px 0 0 79px;
+    padding: 5px 0;
+    border: 1px solid #813516;
+    background: #f1865b; /* Old browsers */
+    background: -moz-linear-gradient(top,  #f1865b 0%, #eb6029 5%, #c65122 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f1865b), color-stop(5%,#eb6029), color-stop(100%,#c65122)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #f1865b 0%,#eb6029 5%,#c65122 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #f1865b 0%,#eb6029 5%,#c65122 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #f1865b 0%,#eb6029 5%,#c65122 100%); /* IE10+ */
+    background: linear-gradient(top,  #f1865b 0%,#eb6029 5%,#c65122 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1865b', endColorstr='#c65122',GradientType=0 ); /* IE6-9 */
+
+}
+.form-wrap input.button-submit:hover {
+    text-decoration: none;
+    background: #c65122; /* Old browsers */
+    background: -moz-linear-gradient(top,  #c65122 0%, #eb6029 95%, #f1865b 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c65122), color-stop(95%,#eb6029), color-stop(100%,#f1865b)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #c65122 0%,#eb6029 95%,#f1865b 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #c65122 0%,#eb6029 95%,#f1865b 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #c65122 0%,#eb6029 95%,#f1865b 100%); /* IE10+ */
+    background: linear-gradient(top,  #c65122 0%,#eb6029 95%,#f1865b 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c65122', endColorstr='#f1865b',GradientType=0 ); /* IE6-9 */
+}
+label.error {
+    border: none !important;
+    color: red;
+    display: block;
+    width: 100%;
+    font-style: italic;
+    font-size: 12px;
+}
+#results-header b {
+    font-weight: bold;
+}
+}
+
+.default-jobs-title {
+    margin-bottom:40px;
+    margin-top:40px;
+    margin-left:-200px
+}
+
+.default-jobs-iframe {
+   margin-left:-200px
+}
+/**
+ * FIX FOR FORMATTING IN FIREFOX ON LINUX
+ */
+.linux.gecko .super-nav li.fat {
+  background: none;
+}
+.linux.gecko #nav ul li a {
+  font-size: 13px;
+}

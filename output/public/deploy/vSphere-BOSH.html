@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/deploy/vSphere-BOSH.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | 安装 BOSH' property='og:title'>
+<meta content='在vSphere上通过BOSH工具大规模部署Cloud Foundry' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | 安装 BOSH</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Deploy</h1>
+<p class='sub-head'>安装 BOSH</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>在vSphere上通过BOSH工具大规模部署Cloud Foundry</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/vSphere" rel="tag">vSphere</a><a href="/tags/BOSH" rel="tag">BOSH</a><a href="/tags/Deploy" rel="tag">Deploy</a><a href="/tags/IaaS" rel="tag">IaaS</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2013-01-08
+</span>
+</p>
+<div id='social-share'></div>
+<p>BOSH CLI 安装完毕后，我们现在便开始安装Micro BOSH。如前文所述，可以将Micro BOSH视作袖珍版的 BOSH。尽管标准的 BOSH各个组件分布在 6 个虚拟机上 ，但Micro BOSH却恰恰相反，它在单个虚拟机中包含了所有组件。它可以轻易的设置，通常用于部署小型的Release，如 BOSH。从这个意义上讲，BOSH 是自部署的。用 BOSH 团队的话说，这叫做“Inception”。</p>
+
+<p>以下步骤是通过在 BOSH 官方文档基础上添加更多操作细节改编成的。</p>
+
+<p>1.在 BOSH CLI 虚拟机中，安装 BOSH 部署器bosh_deployer，这一部分大约需要5分钟。</p>
+
+<p><code>$ gem install bosh_deployer</code></p>
+
+<p>一旦安装了该部署器，那么您在命令行中键入 bosh 后将会看到一些额外的命令显示出来。</p>
+
+<p><code>$ bosh help</code></p>
+
+<pre><code>	...
+		Micro
+    	micro deployment [&lt;name&gt;]	选择要使用的微部署
+    	micro status			显示Micro BOSH部署的状态
+   	 	micro deployments		显示部署列表
+    	micro deploy &lt;stemcell&gt;	将Micro BOSH实例部署到当前选择的部署
+                    --update		更新现有实例
+    	micro delete			删除Micro BOSH实例（包括持久磁盘）
+    	micro agent &lt;args&gt;		发送代理消息
+    	micro apply &lt;spec&gt;		应用规范
+</code></pre>
+
+<p>2.在 vCenter 中的“主页”(Home) -&gt;“清单”(Inventory) -&gt;“虚拟机和模板”(VMs and Templates) 视图下，确保用来存放虚拟机和模板的文件夹已经创建（见第 II 部分）。这些文件夹将在部署配置中使用。</p>
+
+<p>3.从“主页”(Home) -&gt;“清单”(Inventory) -&gt;“数据存储”(Datastores) 视图中，选择我们创建的NFSdatastore数据存储，并浏览该存储。</p>
+
+<p><img src="/images/deploy/fig25.png" alt="fig25.png"></p>
+
+<p>右键单击根文件夹，创建一个用来存储虚拟机的子文件夹。在本例中，我们将此子文件夹命名为“boshdeployer”。此文件夹名称将成为我们部署清单中的“disk_path”参数的值。</p>
+
+<p><img src="/images/deploy/fig26.png" alt="fig26.png"></p>
+
+<p>注意：如果您没有共享的 NFS 存储，您可以使用hypervisor的本地磁盘作为数据存储。（注意: 仅建议在试验系统采用本地磁盘。）您可以按如下方式命名这些数据存储：主机 1 的数据存储命名为“localstore1”、主机 2 的数据存储命名为“localstore2”，依此类推。随后在清单文件中，您可以使用诸如“localstore*”之类的通配符模式来指定所有主机的数据存储。应在所有本地数据存储上都创建“boshdeployer”文件夹。</p>
+
+<p>4.下载公共 stemcell  </p>
+
+<p><code>$ mkdir -p ~/stemcells</code></p>
+
+<p><code>$ cd stemcells</code></p>
+
+<p><code>$ bosh public stemcells</code></p>
+
+<p>输出大致如下 ：</p>
+
+<pre><code>+---------------------------------+-------------------------------------------------------+
+| Name                            | Url                                                   |
++---------------------------------+-------------------------------------------------------+
+| bosh-stemcell-0.5.2.tgz         | https://blob.cfblob.com/rest/objects/4e4e78bca31e1... |
+| bosh-stemcell-aws-0.5.1.tgz     | https://blob.cfblob.com/rest/objects/4e4e78bca21e1... |
+| bosh-stemcell-vsphere-0.6.4.tgz | https://blob.cfblob.com/rest/objects/4e4e78bca31e1... |
+| micro-bosh-stemcell-0.1.0.tgz   | https://blob.cfblob.com/rest/objects/4e4e78bca51e1... |
++---------------------------------+-------------------------------------------------------+
+To download use 'bosh download public stemcell&lt;stemcell_name&gt;'.For full url use --full.
+</code></pre>
+
+<p>使用下面的命令下载Micro BOSH的 stemcell：</p>
+
+<p><code>$ bosh download public stemcell micro-bosh-stemcell-0.1.0.tgz</code></p>
+
+<p>注意：此stemcell的大小为 400 至 500 MB。在速度缓慢的网络中可能需要耗费很长时间才能将它下载下来。在这种情况下，您可以使用任何能在出断点续传的工具（如 Firefox 浏览器）进行下载。使用 –full 参数可显示完整的下载 URL。</p>
+
+<p>5.配置部署 (.yml) 文件，然后将它保存在micro1文件夹下，该文件夹名称在 .yml文件中定义。</p>
+
+<p><code>$ cd ~</code></p>
+
+<p><code>$ mkdir deployments</code></p>
+
+<p><code>$ cd deployments</code> </p>
+
+<p><code>$ mkdir micro01</code></p>
+
+<p>在 yml 文件中，有一节内容是关于 vCenter 的。请在此节中输入我们在第 II 部分中创建的文件夹的名称。“disk_path”应为我们刚刚在数据存储 (NFSdatastore) 中创建的文件夹。datastore_pattern 和persistent_datastore_pattern 的值是共享数据存储的名称 (NFSdatastore)。如果您采用本地磁盘，此值可以是像“localstore*”这样的通配字符串。</p>
+
+<pre><code>	datacenters:
+	- name:vDataCenter	
+	vm_folder:vm_folder	
+	template_folder:template	
+	disk_path:boshdeployer		
+	datastore_pattern:NFSdatastore								
+	persistent_datastore_pattern:NFSdatastore		
+	allow_mixed_datastores:true 
+</code></pre>
+
+<p>下面是Micro BOSH的一个示例yml文件的链接：</p>
+
+<p><a href="https://github.com/vmware-china-se/bosh_doc/blob/master/micro.yml">https://github.com/vmware-china-se/bosh_doc/blob/master/micro.yml</a></p>
+
+<p>6.使用以下命令设置此Micro BOSH部署：</p>
+
+<p>注意：所有 bosh micro 命令必须先cd到这个Micro BOSH的部署目录中才能执行</p>
+
+<p><code>$ cd deployments</code></p>
+
+<p><code>$ bosh micro deployment micro01</code></p>
+
+<p><code>Deployment set to “~/deployments/micro01/micro_bosh.yml”</code></p>
+
+<p><code>$ bosh micro deploy ~/stemcells/micro-bosh-stemcell-0.1.0.tgz</code></p>
+
+<p>如果一切都运行顺利，Micro BOSH将在几分钟内部署完毕。您可以通过下面的命令查看部署状态：</p>
+
+<p><code>$ bosh micro deployments</code></p>
+
+<p>您将会看到您的Micro BOSH部署已列出 ：</p>
+
+<pre><code>+---------+-----------------------------------------+-----------------------------------------+
+| Name    | VM name                                 | Stemcell name                           |
++---------+-----------------------------------------+-----------------------------------------+
+| micro01 | vm-a51a9ba4-8e8f-4b69-ace2-8f2d190cb5c3 | sc-689a8c4e-63a6-421b-ba1a-400287d8d805 |
++---------+-----------------------------------------+-----------------------------------------+
+</code></pre>
+
+<h3 id="bosh">安装 BOSH</h3>
+
+<p>Micro BOSH准备就绪后，我们就可用它来部署 BOSH。BOSH 是一个包含 6 个虚机的分布式系统。正如上一节所提到的那样，我们需要有三项内容：一个作为虚拟机模板的stemcell、一个作为待部署软件的 BOSH Release，以及一个用来定义部署配置的部署清单文件。我们来逐一准备。</p>
+
+<p>1)首先，我们将 BOSH CLI 的目标设为Micro BOSH的Director。可以将 BOSH Director视作 BOSH 的控制者或协调者。所有 BOSH CLI 命令均发往该Director加以执行。该Director的 IP 地址在我们用来创建Micro BOSH的 yml 文件中定义。BOSH Director的默认用户/密码为 admin/admin。在我们的示例中，我们使用下面的命令来设定Micro BOSH的目标和进行身份验证：</p>
+
+<p><code>$ bosh target 10.60.98.124:25555</code></p>
+
+<p><code>$ bosh login</code></p>
+
+<p>2)接下来，我们下载 BOSH stemcell并将其上传到Micro BOSH。这一步与下载Micro BOSH的 stemcell 类似。唯一的差别在于，我们选择的是 BOSH 而非Micro BOSH的stemcell。</p>
+
+<p><code>$ cd ~/stemcells</code></p>
+
+<p><code>$ bosh public stemcells</code></p>
+
+<p>随即便会显示一列stemcell；请选择最新的stemcell进行下载：</p>
+
+<p><code>$ bosh download public stemcell bosh-stemcell-vsphere-0.6.4.tgz</code></p>
+
+<p><code>$ bosh upload stemcell bosh-stemcell-vsphere-0.6.4.tgz</code></p>
+
+<p>如果您已在第 II 部分中创建了Gerrit帐户，请跳过第 3 步至第 7 步。</p>
+
+<p>3)在以下位置注册 Cloud Foundry Gerrit服务器：<a href="http://reviews.cloudfoundry.org">http://reviews.cloudfoundry.org</a></p>
+
+<p>4)设置您的 ssh 公钥（接受所有默认值）</p>
+
+<p><code>$ ssh-keygen -t rsa</code></p>
+
+<p>5)将您的密钥内容从 ~/.ssh/id_rsa.pub 完整复制到您的Gerrit和Git帐户配置的SSH public key部分中</p>
+
+<p>需要注意您的gerrit账户（reviews.cloudfoundry.org）和git账户（github.com）都需要进行这个操作。</p>
+
+<p>6)设置您的姓名和电子邮件</p>
+
+<p><code>$ git config --global user.name FirstnameLastname</code></p>
+
+<p><code>$ git config --global user.email your_email@youremail.com</code></p>
+
+<p>如果您是新注册的gerrit账户，记得事先到账户设置里配置好自己的用户名并与这里的配置保持一致</p>
+
+<p>7)前面已经安装好了gerrit-cli，在终端输入gerrit -v检查是否能打印出版本号</p>
+
+<p>8)使用Gerrit从 Cloud Foundry 代码库中克隆Release代码。以下命令分别获取 BOSH 和 Cloud Foundry 的代码。</p>
+
+<p><code>$ gerrit clone ssh://&lt;yourusername&gt;@reviews.cloudfoundry.org:29418/bosh-release.git</code></p>
+
+<p><code>$ gerrit clone ssh://&lt;your username&gt;@reviews.cloudfoundry.org:29418/cf-release.git</code></p>
+
+<p>然后我们创建我们自己的 BOSH Release：</p>
+
+<p><code>$ cd bosh-release</code></p>
+
+<p><code>$ git submodule update --init</code></p>
+
+<p><code>$ bosh create release  --with-tarball</code> 下载所有依赖包，并把整个BOSH打包成一个tar包</p>
+
+<p>这个过程需要自己输入deployment的名字，BOSH会为最后的tar包和yml生成形如x.x-dev这样的版本号来命名。如果存在本地代码冲突，您可以添加“–force”选项：</p>
+
+<p><code>$ bosh create release  --with-tarball --force</code></p>
+
+<p>这里会要求您输入deployment的名字，您可以自己定义一个易于识别的名字比如bosh1。</p>
+
+<p>这一步可能需要一些时间才能完成，具体取决于您的网络速度。它首先会从一个 Blob 服务器下载二进制文件。然后它会构建包并生成清单文件。该命令的输出大致如下：</p>
+
+<pre><code>         Syncing blobs…
+          ...
+          Building DEV release
+          Please enter development release name:bosh-dev1
+           ---------------------------------
+          Building packages
+          …
+          Generating manifest...
+          …
+          Copying jobs...
+</code></pre>
+
+<p>最后，Release创建完毕后，您将看到大致如下的内容。请注意，最后两行指出了清单文件和Release文件。</p>
+
+<pre><code>	Generated /home/boshcli/bosh-release/dev_releases/bosh-dev1-6.1-dev.tgz
+	Release summary
+	---------------
+	Packages
+	+----------------+---------+-------+------------------------------------------+
+	| Name           | Version | Notes | Fingerprint                              |
+	+----------------+---------+-------+------------------------------------------+
+	| nginx          | 1       |       | 1f01e008099b9baa06d9a4ad1fcccc55840cf56e |
+	……
+	| ruby           | 1       |       | c79b76fcb9bdda122ad2c52c3604ba950b482681 |
+	+----------------+---------+-------+------------------------------------------+
+
+	Jobs
+	+----------------+---------+-------------+------------------------------------------+
+	| Name           | Version | Notes       | Fingerprint                              |
+	+----------------+---------+-------------+------------------------------------------+
+	| micro_aws      | 1.1-dev | new version | fadbedb276f918beba514c69c9e77978eadb65ac |
+	……
+	| redis          | 2       |             | 3d5767e5deec579dee61f2c131982a97975d405e |
+	+----------------+---------+-------------+------------------------------------------+
+	Release version:6.1-dev
+	Release manifest:/home/boshcli/bosh-release/dev_releases/bosh-dev1-6.1-dev.yml
+	Release tarball (88.8M):/home/boshcli/bosh-release/dev_releases/bosh-dev1-6.1-dev.tgz
+</code></pre>
+
+<p>最后两句就是您create release生成出的产物。</p>
+
+<p>9)将创建好的Release tar包上传到Micro BOSH的director。</p>
+
+<p><code>$ bosh upload release dev_releases/bosh-dev1-6.1-dev.tgz </code></p>
+
+<p>使用bosh releases就可以看到我们上传好的releases。</p>
+
+<p>10)配置 BOSH 部署清单。首先，我们通过执行以下命令获取并记录下该director的 UUID 信息：</p>
+
+<p><code>$ bosh status</code></p>
+
+<pre><code>Updating director data... done
+Target         micro01 (http://10.60.98.124:25555) Ver: 0.4 (00000000)
+UUID           7d72eb71-9a98-4081-9857-ad7c7ff4ee33
+User           admin
+Deployment     /home/boshcli/bosh-dev1.yml
+</code></pre>
+
+<p>现在我们将进入此安装过程中最为复杂的环节：修改部署清单文件。由于大多数 BOSH 部署错误都是因为清单文件中的设置不正确而造成的，因此我们详细地对此环节进行说明。</p>
+
+<p>首先，我们从以下位置获取清单模板：<a href="https://github.com/cloudfoundry/oss-docs/blob/master/bosh/tutorial/examples/bosh_manifest.yml">https://github.com/cloudfoundry/oss-docs/blob/master/bosh/tutorial/examples/bosh_manifest.yml</a></p>
+
+<p>由于 BOSH 官方文档提供了该清单文件的规范，因此我们假定您在阅读本篇文章前，已经通读了此文档。我们将不会对该文件进行全面的介绍；而是讨论该清单文件中的一些重要项目。</p>
+
+<p><strong>网络（networks）</strong></p>
+
+<p>下面是网络一节的一个示例。</p>
+
+<pre><code>	networks:		#定义网络
+	- name:default
+	  subnets:
+	  - reserved:	#您不希望分配的 IP
+	    - 10.60.98.121 - 10.60.98.254
+	    static:		#您将使用的 IP
+	    - 10.60.98.115 - 10.60.98.120
+	    range: 10.60.98.0/24
+	    gateway: 10.60.98.1
+	dns:
+	    - 10.40.62.11
+	    - 10.135.12.101
+	cloud_properties:#与所有其他虚拟机都相同的网络。
+	      name:VM Network
+</code></pre>
+
+<p>static：包含 BOSH 虚拟机的 IP 地址。</p>
+
+<p>reserved：BOSH 不应使用的 IP 地址。请务必要排除所有已经分配给同一网络中其他设备（例如存储设备、网络设备、Micro BOSH和 vCenter 主机）的 IP 地址。在安装期间，Micro BOSH可能会创建一些临时虚拟机（工作者虚拟机）来执行编译。如果我们不指定预留的地址，这些临时虚拟机可能会与现有设备或主机存在 IP 地址冲突。</p>
+
+<p>cloud_properties：name 是我们在 vSphere 中定义的网络名称（见第 II 部分）。</p>
+
+<p><strong>资源池（resource_pools）</strong></p>
+
+<p>此节定义作业使用的虚拟机配置（CPU、内存、磁盘和网络）。通常，应用程序的各个作业在资源使用方面各异。例如，有些作业需要较多的内存量，而有些作业则需要更多的vCPU来执行计算密集型任务。根据实际需要，我们应创建一个或多个资源池。需要注意的是，所有池的总规模应等于在清单文件中定义的作业实例的总数。部署 BOSH 时，由于总共有 6 个虚拟机（6 个作业），因此所有池的规模加起来应等于 6。</p>
+
+<p>在我们的清单文件中，我们有 3 个资源池：</p>
+
+<table class="std">
+<tr>
+<th>Resource Pool</th>
+      <th>Size</th>
+      <th>VM Configuration</th>
+      <th>Job</th>
+    </tr>
+<tr>
+<td>small</td>
+      <td>3</td>
+      <td>RAM：512 MB；CPU：1 个；磁盘：2 GB</td>
+      <td>nats、redis、health_monitor</td>
+    </tr>
+<tr>
+<td>medium</td>
+      <td>2</td>
+      <td>RAM：1 GB；CPU：1 个；磁盘：8 GB</td>
+      <td>postgres、blobstore</td>
+    </tr>
+<tr>
+<td>director</td>
+      <td>1</td>
+      <td>RAM：2 GB；CPU：2 个；磁盘：8 GB</td>
+      <td>director</td>
+    </tr>
+</table><p><strong>编译（compilation）</strong></p>
+
+<p>此节定义为编译包而创建的工作者虚拟机。在资源有限的系统中，我们应减少并发工作者虚拟机的数目，以确保编译成功。在我们的示例中，我们定义 4 个工作者虚拟机。</p>
+
+<p><strong>更新（update）</strong></p>
+
+<p>此节包含一个非常有用的参数：max_in_flight。此参数用于向 BOSH 告知最多可以并行安装的作业数。在运行速度缓慢的系统中，请设法减小此数目。如果将此数目设置为 1，则表示作业将按顺序部署。对于 BOSH 部署，我们建议将此数目设置为 1，以确保 BOSH 可以成功安装。</p>
+
+<p><strong>作业（jobs）</strong></p>
+
+<p>在 BOSH Release中有六个作业。每个作业占用一个虚拟机。根据作业的性质和资源使用情况，我们将作业分配给各个资源池。需要注意的一点是，我们需要向以下三个作业分配持久磁盘：postgres、director 和blobstore。若无持久磁盘，这些作业将无法正常运行，因为它们的本地磁盘很快就会被占满。</p>
+
+<p>最好填写一张像下面这样的电子表格来对您的部署进行规划。您可以根据该电子表格修改部署清单。</p>
+
+<table class="std">
+<tr>
+<th>作业</th>
+      <th>资源池</th>
+      <th>IP</th>
+    </tr>
+<tr>
+<td>nats</td>
+      <td>small</td>
+      <td>10.60.98.120</td>
+    </tr>
+<tr>
+<td>postgres</td>
+      <td>medium</td>
+      <td>10.60.98.119</td>
+    </tr>
+<tr>
+<td>redis</td>
+      <td>small</td>
+      <td>10.60.98.118</td>
+    </tr>
+<tr>
+<td>director</td>
+      <td>director</td>
+      <td>10.60.98.117</td>
+    </tr>
+<tr>
+<td>blob_store</td>
+      <td>medium</td>
+      <td>10.60.98.116</td>
+    </tr>
+<tr>
+<td>health_monitor</td>
+      <td>small</td>
+      <td>10.60.98.115</td>
+    </tr>
+</table><p>我们基于上表创建了一个示例部署清单，您可以从这里下载：</p>
+
+<p><a href="https://github.com/vmware-china-se/bosh_doc/blob/master/bosh.yml">https://github.com/vmware-china-se/bosh_doc/blob/master/bosh.yml</a></p>
+
+<p>我们至少需要在这个配置文件中更改bosh director的UUID，release的名称和版本</p>
+
+<p>11)更新完部署清单文件后，我们便可以通过运行以下命令开始实际部署：</p>
+
+<pre><code>$ bosh deployment bosh_dev1.yml
+
+$ bosh deploy 
+</code></pre>
+
+<p>此过程可能需要等待一段时间才能完成，具体取决于您的网络条件以及可用的硬件资源。您也可以在 vCenter 控制台查看创建、配置并销毁虚拟机的过程。</p>
+
+<pre><code>	Preparing deployment
+	…..
+	Compiling packages
+	……
+	Binding instance VMs
+	  postgres/0 (00:00:01)                                                                            
+	  director/0 (00:00:01)                                                                            
+	  redis/0 (00:00:01)                                                                               
+	  blobstore/0 (00:00:01)                                                                           
+	  nats/0 (00:00:01)                                                                                
+	  health_monitor/0 (00:00:01)                                                                      
+	Done                    6/6 00:00:01                                                               
+
+	Updating job nats
+	  nats/0 (canary) (00:01:14)                                                                       
+	Done                    1/1 00:01:14
+	……
+	Updating job director
+	  director/0 (canary) (00:01:10)                                                                   
+	Done                    1/1 00:01:10   
+	……
+</code></pre>
+
+<p>如果一切运行顺利，您最终将会看到大致如下的结果：</p>
+
+<pre><code>	Task 14 done
+	Started		2012-08-12 03:32:24 UTC
+	Finished	2012-08-12 03:52:24 UTC
+	Duration	00:20:00
+	Deployed `bosh-dev1.yml` to `micro01`
+</code></pre>
+
+<p>这表示您已成功部署 BOSH。您可以通过执行下面的命令来查看您的部署：</p>
+
+<p><code>$ bosh deployments</code></p>
+
+<pre><code>	+-------+
+	| Name  |
+	+-------+
+	| bosh1 |
+	+-------+
+</code></pre>
+
+<p>您可以通过执行下面的命令来查看所有虚拟机的状态：</p>
+
+<p><code>$ bosh vms</code></p>
+
+<p>如果一切都未出问题的话，您将看到大致如下的虚拟机状态：</p>
+
+<pre><code>	+------------------+---------+---------------+--------------+
+	| Job/index        | State   | Resource Pool | IPs          |
+	+------------------+---------+---------------+--------------+
+	| blobstore/0      | running | medium        | 10.60.98.116 |
+	| director/0       | running | director      | 10.60.98.117 |
+	| health_monitor/0 | running | small         | 10.60.98.115 |
+	| nats/0           | running | small         | 10.60.98.120 |
+	| postgres/0       | running | medium        | 10.60.98.119 |
+	| redis/0          | running | small         | 10.60.98.118 |
+	+------------------+---------+---------------+--------------+
+	VMs total: 6
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+Crashlog created at 2013-03-06 15:20:57 -0800
+
+=== MESSAGE:
+
+RuntimeError: Could not spawn pygmentize -V
+
+=== COMPILATION STACK:
+
+  - [item]   /frameworks/java/spring/spring/ (rep default)
+
+=== BACKTRACE:
+
+  0. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/filters/colorize_syntax.rb:296:in `check_availability'
+  1. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/filters/colorize_syntax.rb:189:in `pygmentize'
+  2. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/filters/colorize_syntax.rb:288:in `highlight'
+  3. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/filters/colorize_syntax.rb:130:in `block in run'
+  4. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nokogiri-1.4.7/lib/nokogiri/xml/node_set.rb:239:in `block in each'
+  5. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nokogiri-1.4.7/lib/nokogiri/xml/node_set.rb:238:in `upto'
+  6. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nokogiri-1.4.7/lib/nokogiri/xml/node_set.rb:238:in `each'
+  7. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/filters/colorize_syntax.rb:109:in `run'
+  8. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/base/result_data/item_rep.rb:343:in `filter'
+  9. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/base/compilation/item_rep_proxy.rb:47:in `filter'
+  10. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/base/compilation/rule_context.rb:54:in `filter'
+  11. ./Rules:22:in `block in load'
+  12. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/base/compilation/rule.rb:68:in `instance_eval'
+  13. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/base/compilation/rule.rb:68:in `apply_to'
+  14. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/base/compilation/compiler.rb:381:in `compile_rep'
+  15. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/base/compilation/compiler.rb:337:in `block in compile_reps'
+  16. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/base/compilation/compiler.rb:330:in `loop'
+  17. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/base/compilation/compiler.rb:330:in `compile_reps'
+  18. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/base/compilation/compiler.rb:85:in `run'
+  19. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/base/source_data/site.rb:58:in `compile'
+  20. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/cli/commands/compile.rb:65:in `run'
+  21. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/cli/command_runner.rb:14:in `block in call'
+  22. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/cli/error_handler.rb:63:in `handle_while'
+  23. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/cli/error_handler.rb:26:in `handle_while'
+  24. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/cli/command_runner.rb:13:in `call'
+  25. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/cri-2.3.0/lib/cri/command_dsl.rb:185:in `block in runner'
+  26. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/cri-2.3.0/lib/cri/command.rb:296:in `call'
+  27. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/cri-2.3.0/lib/cri/command.rb:296:in `run_this'
+  28. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/cri-2.3.0/lib/cri/command.rb:249:in `run'
+  29. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/cri-2.3.0/lib/cri/command.rb:262:in `run'
+  30. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/cli.rb:53:in `block in run'
+  31. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/cli/error_handler.rb:63:in `handle_while'
+  32. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/cli/error_handler.rb:26:in `handle_while'
+  33. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib/nanoc/cli.rb:50:in `run'
+  34. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/bin/nanoc:19:in `<top (required)>'
+  35. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/bin/nanoc:23:in `load'
+  36. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/bin/nanoc:23:in `<main>'
+
+=== VERSION INFORMATION:
+
+nanoc 3.4.1 © 2007-2012 Denis Defreyne.
+Running ruby 1.9.2 (2012-04-20) on x86_64-darwin11.3.0 with RubyGems 1.8.24.
+
+=== SYSTEM INFORMATION:
+
+Darwin jacksonc.local 11.4.2 Darwin Kernel Version 11.4.2: Thu Aug 23 16:25:48 PDT 2012; root:xnu-1699.32.7~1/RELEASE_X86_64 x86_64
+
+=== INSTALLED GEMS:
+
+  addressable 2.2.8
+  adsf 1.1.1
+  bundler 1.1.3
+  cfoundry 0.3.40
+  clouseau 0.0.1
+  colored 1.2
+  cri 2.3.0
+  haml 3.1.7
+  interact 0.4.8
+  json_pure 1.6.7
+  kramdown 0.13.8
+  manifests-vmc-plugin 0.4.8
+  mime-types 1.19
+  mothership 0.1.5
+  multi_json 1.3.6
+  nanoc 3.4.1
+  nokogiri 1.4.7
+  pygmentize 0.0.3
+  rack 1.4.1
+  rake 0.9.2.2
+  rb-readline 0.4.2
+  rest-client 1.6.7
+  rubyzip 0.9.9
+  systemu 2.5.2
+  terminal-table 1.4.5
+  tunnel-dummy-vmc-plugin 0.0.1
+  uuidtools 2.1.3
+  vmc 0.4.0.beta.63
+  yajl-ruby 0.8.3
+
+=== ENVIRONMENT:
+
+Apple_PubSub_Socket_Render => "/tmp/launch-7XD6xA/Render"
+Apple_Ubiquity_Message => "/tmp/launch-bBGxiW/Apple_Ubiquity_Message"
+BUNDLE_BIN_PATH => "/Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@global/gems/bundler-1.1.3/bin/bundle"
+BUNDLE_GEMFILE => "/Users/jacksonc/Sites/cn-cf-docs/Gemfile"
+COMMAND_MODE => "unix2003"
+DISPLAY => "/tmp/launch-gnqDQC/org.x:0"
+GEM_HOME => "/Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs"
+GEM_PATH => "/Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs:/Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@global"
+HOME => "/Users/jacksonc"
+IRBRC => "/Users/jacksonc/.rvm/rubies/ruby-1.9.2-p320/.irbrc"
+LANG => "en_US.UTF-8"
+LOGNAME => "jacksonc"
+MY_RUBY_HOME => "/Users/jacksonc/.rvm/rubies/ruby-1.9.2-p320"
+OLDPWD => "/Users/jacksonc/Sites"
+PATH => "/Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/bin:/Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@global/bin:/Users/jacksonc/.rvm/rubies/ruby-1.9.2-p320/bin:/Users/jacksonc/.rvm/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:/usr/local/mysql/bin:/Users/jacksonc/gerrit/tools/gerrit:/Users/jacksonc/play-2.0.3:/opt/local/lib/postgresql92/bin:/usr/local/apache-maven-3.0.4/bin"
+PWD => "/Users/jacksonc/Sites/cn-cf-docs"
+RUBYOPT => "-I/Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@global/gems/bundler-1.1.3/lib -rbundler/setup"
+RUBY_VERSION => "ruby-1.9.2-p320"
+SHELL => "/bin/bash"
+SHLVL => "1"
+SSH_AUTH_SOCK => "/tmp/launch-26YB6p/Listeners"
+TERM => "xterm-256color"
+TERM_PROGRAM => "Apple_Terminal"
+TERM_PROGRAM_VERSION => "303.2"
+TERM_SESSION_ID => "01270993-75A0-40D6-A434-B57E4B3B605D"
+TMPDIR => "/var/folders/x6/1z5xf43j2w1gkfn3hv93f4ph0000gn/T/"
+USER => "jacksonc"
+_ => "/Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/bin/nanoc"
+__CF_USER_TEXT_ENCODING => "0x1F5:0:0"
+__array_start => "0"
+_first => "0"
+_second => "1"
+escape_flag => "1"
+rvm_bin_path => "/Users/jacksonc/.rvm/bin"
+rvm_delete_flag => "0"
+rvm_path => "/Users/jacksonc/.rvm"
+rvm_prefix => "/Users/jacksonc"
+rvm_ruby_string => "ruby-1.9.2-p320"
+rvm_rubygems_path => "/Users/jacksonc/.rvm/rubygems"
+rvm_sticky_flag => "1"
+rvm_version => "1.14.2 (stable)"
+
+=== GEMFILE.LOCK:
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    addressable (2.2.8)
+    adsf (1.1.1)
+      rack (>= 1.0.0)
+    cfoundry (0.3.40)
+      multi_json (~> 1.3.6)
+      rest-client (~> 1.6.1)
+      rubyzip (~> 0.9.9)
+    clouseau (0.0.1)
+      rubyzip (~> 0.9.9)
+    colored (1.2)
+    cri (2.3.0)
+      colored (>= 1.2)
+    haml (3.1.7)
+    interact (0.4.8)
+    json_pure (1.6.7)
+    kramdown (0.13.8)
+    manifests-vmc-plugin (0.4.8)
+      cfoundry (~> 0.3.9)
+    mime-types (1.19)
+    mothership (0.1.5)
+    multi_json (1.3.6)
+    nanoc (3.4.1)
+      cri (~> 2.2)
+    nokogiri (1.4.7)
+    pygmentize (0.0.3)
+    rack (1.4.1)
+    rake (0.9.2.2)
+    rb-readline (0.4.2)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+    rubyzip (0.9.9)
+    systemu (2.5.2)
+    terminal-table (1.4.5)
+    tunnel-dummy-vmc-plugin (0.0.1)
+      cfoundry (~> 0.3.14)
+    uuidtools (2.1.3)
+    vmc (0.4.0.beta.63)
+      addressable (~> 2.2.6)
+      cfoundry (~> 0.3.27)
+      cfoundry (~> 0.3.40)
+      clouseau (~> 0.0.1)
+      interact (~> 0.4.0)
+      interact (~> 0.4.8)
+      json_pure (>= 1.5.1, < 1.7.0)
+      json_pure (~> 1.6.5)
+      manifests-vmc-plugin (~> 0.4.8)
+      mothership (~> 0.1.5)
+      multi_json (~> 1.3.6)
+      rb-readline (~> 0.4.2)
+      rest-client (>= 1.6.1, < 1.7.0)
+      rubyzip (~> 0.9.4)
+      terminal-table (~> 1.4.2)
+      tunnel-dummy-vmc-plugin (~> 0.0.1)
+      uuidtools (~> 2.1.0)
+    yajl-ruby (0.8.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  adsf
+  haml
+  kramdown (~> 0.13.2)
+  mime-types (~> 1.16)
+  nanoc
+  nokogiri (~> 1.4.4)
+  pygmentize (~> 0.0.3)
+  rake (~> 0.9.2)
+  rubyzip
+  systemu
+  vmc (>= 0.3.16.beta.3)
+  yajl-ruby (~> 0.8.2)
+
+=== $LOAD_PATH:
+
+  0. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib
+  1. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/yajl-ruby-0.8.3/lib
+  2. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/yajl-ruby-0.8.3/ext
+  3. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/vmc-0.4.0.beta.63/vmc-ng/lib
+  4. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/uuidtools-2.1.3/lib
+  5. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/tunnel-dummy-vmc-plugin-0.0.1/lib
+  6. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/terminal-table-1.4.5/lib
+  7. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/systemu-2.5.2/lib
+  8. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/rb-readline-0.4.2/lib
+  9. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/pygmentize-0.0.3/lib
+  10. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nokogiri-1.4.7/lib
+  11. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/nanoc-3.4.1/lib
+  12. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/mothership-0.1.5/lib
+  13. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/manifests-vmc-plugin-0.4.8/lib
+  14. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/kramdown-0.13.8/lib
+  15. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/json_pure-1.6.7/lib
+  16. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/interact-0.4.8/lib
+  17. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/haml-3.1.7/lib
+  18. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/cri-2.3.0/lib
+  19. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/colored-1.2/lib
+  20. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/clouseau-0.0.1/lib
+  21. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/cfoundry-0.3.40/lib
+  22. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/rubyzip-0.9.9/lib
+  23. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/rest-client-1.6.7/lib
+  24. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/mime-types-1.19/lib
+  25. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/multi_json-1.3.6/lib
+  26. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/adsf-1.1.1/lib
+  27. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/rack-1.4.1/lib
+  28. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@docs/gems/addressable-2.2.8/lib
+  29. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@global/gems/rake-0.9.2.2/lib
+  30. /Users/jacksonc/.rvm/gems/ruby-1.9.2-p320@global/gems/bundler-1.1.3/lib
+  31. /Users/jacksonc/.rvm/rubies/ruby-1.9.2-p320/lib/ruby/site_ruby/1.9.1
+  32. /Users/jacksonc/.rvm/rubies/ruby-1.9.2-p320/lib/ruby/site_ruby/1.9.1/x86_64-darwin11.3.0
+  33. /Users/jacksonc/.rvm/rubies/ruby-1.9.2-p320/lib/ruby/site_ruby
+  34. /Users/jacksonc/.rvm/rubies/ruby-1.9.2-p320/lib/ruby/vendor_ruby/1.9.1
+  35. /Users/jacksonc/.rvm/rubies/ruby-1.9.2-p320/lib/ruby/vendor_ruby/1.9.1/x86_64-darwin11.3.0
+  36. /Users/jacksonc/.rvm/rubies/ruby-1.9.2-p320/lib/ruby/vendor_ruby
+  37. /Users/jacksonc/.rvm/rubies/ruby-1.9.2-p320/lib/ruby/1.9.1
+  38. /Users/jacksonc/.rvm/rubies/ruby-1.9.2-p320/lib/ruby/1.9.1/x86_64-darwin11.3.0

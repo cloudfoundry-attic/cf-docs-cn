@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/frameworks/nodejs/nodeAutoReconfig.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | Node.js 自动重新配置' property='og:title'>
+<meta content='Node.js 自动重新配置功能和常见问题解答' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | Node.js 自动重新配置</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Frameworks</h1>
+<p class='sub-head'>Node.js 自动重新配置</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>Node.js 自动重新配置功能和常见问题解答</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/nodejs" rel="tag">nodejs</a><a href="/tags/自动重新配置" rel="tag">自动重新配置</a><a href="/tags/redis" rel="tag">redis</a><a href="/tags/mongodb" rel="tag">mongodb</a><a href="/tags/mysql" rel="tag">mysql</a><a href="/tags/postgresql" rel="tag">postgresql</a><a href="/tags/rabbitmq" rel="tag">rabbitmq</a><a href="/tags/服务" rel="tag">服务</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-09-29
+</span>
+</p>
+<div id='social-share'></div>
+<h2 id="nodejs-">Node.js 应用程序自动重新配置</h2>
+<p>Cloud Foundry 能自动配置 Node.js 应用程序，以侦听右端口并连接它绑定的服务。</p>
+
+<p>例如，如果应用程序侦听 localhost:3000 的 Web 请求，并连接了本地 MongoDB mongodb://localhost/myDB，您可以不需要进行任何代码修改直接将其推送给 Cloud Foundry。</p>
+
+<p>为了了解它的作用，让我们看一下自动重新配置前后的区别。</p>
+
+<h3 id="section">端口示例：自动重新配置前</h3>
+
+<p>请注意，原来用户需要通过 <code>process.env.VCAP_APP_PORT</code> 环境变量获得端口并修改代码
+才能使它在 Cloud Foundry 上运行。</p>
+
+<pre><code class="language-javascript"><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VCAP_APP_PORT</span> <span class="o">||</span> <span class="s1">'3000'</span><span class="p">;</span>
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">'Hello World!'</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">);</span></code></pre>
+
+<h3 id="section-1">端口示例：自动重新配置后</h3>
+<p>现在，通过自动重新配置，用户可以通过一个硬编码端口（本例中为 3000）上传在 localhost 上运行的代码，无需对代码本身进行任何修改。而它仍然可以在 Cloud Foundry 使用！</p>
+
+<pre><code class="language-javascript"><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">);</span>
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">'Hello World!'</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span></code></pre>
+
+<p>现在，让我们以 MongoDB 为例看一下自动配置的功能有多强大。</p>
+
+<h3 id="mongodb-">MongoDB 示例：自动重新配置前</h3>
+<p>从下面示例可以看出，当应用程序在 Cloud Foundry 和 localhost 同时运行时，要确定 MongoDB 的 URL 需要使用非常繁琐的 <code>generate_mongo_url</code> 函数。</p>
+
+<pre><code class="language-javascript"><span class="kd">var</span> <span class="nx">port</span> <span class="o">=</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VMC_APP_PORT</span> <span class="o">||</span> <span class="mi">3000</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">host</span> <span class="o">=</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VCAP_APP_HOST</span> <span class="o">||</span> <span class="s1">'localhost'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">);</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VCAP_SERVICES</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VCAP_SERVICES</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">mongo</span> <span class="o">=</span> <span class="nx">env</span><span class="p">[</span><span class="s1">'mongodb-2.0'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'credentials'</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">mongo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"hostname"</span><span class="o">:</span><span class="s2">"localhost"</span><span class="p">,</span>
+    <span class="s2">"port"</span><span class="o">:</span><span class="mi">27017</span><span class="p">,</span>
+    <span class="s2">"username"</span><span class="o">:</span><span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"password"</span><span class="o">:</span><span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="o">:</span><span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"db"</span><span class="o">:</span><span class="s2">"test"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">generate_mongo_url</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+  <span class="nx">obj</span><span class="p">.</span><span class="nx">hostname</span> <span class="o">=</span> <span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">hostname</span> <span class="o">||</span> <span class="s1">'localhost'</span><span class="p">);</span>
+  <span class="nx">obj</span><span class="p">.</span><span class="nx">port</span> <span class="o">=</span> <span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">port</span> <span class="o">||</span> <span class="mi">27017</span><span class="p">);</span>
+  <span class="nx">obj</span><span class="p">.</span><span class="nx">db</span> <span class="o">=</span> <span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">db</span> <span class="o">||</span> <span class="s1">'test'</span><span class="p">);</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">username</span> <span class="o">&amp;&amp;</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">password</span><span class="p">){</span>
+    <span class="k">return</span> <span class="s2">"mongodb://"</span> <span class="o">+</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">username</span> <span class="o">+</span> <span class="s2">":"</span> <span class="o">+</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">password</span> <span class="o">+</span> <span class="s2">"@"</span> <span class="o">+</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">hostname</span> <span class="o">+</span> <span class="s2">":"</span> <span class="o">+</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">port</span> <span class="o">+</span> <span class="s2">"/"</span> <span class="o">+</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">db</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">else</span><span class="p">{</span>
+    <span class="k">return</span> <span class="s2">"mongodb://"</span> <span class="o">+</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">hostname</span> <span class="o">+</span> <span class="s2">":"</span> <span class="o">+</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">port</span> <span class="o">+</span> <span class="s2">"/"</span> <span class="o">+</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">db</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">mongourl</span> <span class="o">=</span> <span class="nx">generate_mongo_url</span><span class="p">(</span><span class="nx">mongo</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">mongourl</span><span class="p">);</span>
+
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">params</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'url'</span><span class="p">).</span><span class="nx">parse</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">pathname</span> <span class="o">===</span> <span class="s1">'/history'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">print_visits</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span><span class="p">{</span>
+    <span class="nx">record_visit</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="nx">host</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">record_visit</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="cm">/* Connect to the DB and auth */</span>
+  <span class="nx">require</span><span class="p">(</span><span class="s1">'mongodb'</span><span class="p">).</span><span class="nx">connect</span><span class="p">(</span><span class="nx">mongourl</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">conn</span><span class="p">){</span>
+    <span class="nx">conn</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'ips'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">coll</span><span class="p">){</span>
+      <span class="cm">/* Simple object to insert: ip address and date */</span>
+      <span class="nx">object_to_insert</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'ip'</span><span class="o">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">remoteAddress</span><span class="p">,</span> <span class="s1">'ts'</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="p">};</span>
+
+      <span class="cm">/* Insert the object then print in response */</span>
+      <span class="cm">/* Note the _id has been created */</span>
+      <span class="nx">coll</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span> <span class="nx">object_to_insert</span><span class="p">,</span> <span class="p">{</span><span class="nx">safe</span><span class="o">:</span><span class="kc">true</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">'Content-Type'</span><span class="o">:</span> <span class="s1">'text/plain'</span><span class="p">});</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">object_to_insert</span><span class="p">));</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">'\n'</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">print_visits</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="cm">/* Connect to the DB and auth */</span>
+  <span class="nx">require</span><span class="p">(</span><span class="s1">'mongodb'</span><span class="p">).</span><span class="nx">connect</span><span class="p">(</span><span class="nx">mongourl</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">conn</span><span class="p">){</span>
+    <span class="nx">conn</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'ips'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">coll</span><span class="p">){</span>
+      <span class="cm">/*find with limit:10 &amp; sort */</span>
+      <span class="nx">coll</span><span class="p">.</span><span class="nx">find</span><span class="p">({},</span> <span class="p">{</span><span class="nx">limit</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">sort</span><span class="o">:</span><span class="p">[[</span><span class="s1">'_id'</span><span class="p">,</span><span class="s1">'desc'</span><span class="p">]]},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">cursor</span><span class="p">){</span>
+        <span class="nx">cursor</span><span class="p">.</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">items</span><span class="p">){</span>
+          <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">'Content-Type'</span><span class="o">:</span> <span class="s1">'text/plain'</span><span class="p">});</span>
+          <span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">items</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="o">+</span> <span class="s2">"\n"</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="mongodb--1">MongoDB 示例：自动重新配置后</h3>
+
+<p>而有了自动重新配置，用户不需要添加代码就能确定 MongoDB 的 URL。他们只需把 localhost 上运行的代码上传 Cloud Foundry 即可达到目的。</p>
+
+<p>备注：请注意，<code>var mongoUrl = 'mongodb://localhost:27017/test';</code> 仍然指向 localhost 上的 MongoDB，而 <code>generate_mongo_url</code> 则不见了。</p>
+
+<pre><code class="language-javascript"><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">);</span>
+
+<span class="c1">//With auto-reconfig, we don't have to change localhost's MongoDB url</span>
+<span class="kd">var</span> <span class="nx">mongoUrl</span> <span class="o">=</span> <span class="s1">'mongodb://localhost:27017/test'</span><span class="p">;</span>
+
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">params</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'url'</span><span class="p">).</span><span class="nx">parse</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">pathname</span> <span class="o">===</span> <span class="s1">'/history'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">print_visits</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span><span class="p">{</span>
+    <span class="nx">record_visit</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">record_visit</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="cm">/* Connect to the DB and auth */</span>
+  <span class="nx">require</span><span class="p">(</span><span class="s1">'mongodb'</span><span class="p">).</span><span class="nx">connect</span><span class="p">(</span><span class="nx">mongoUrl</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">conn</span><span class="p">){</span>
+    <span class="nx">conn</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'ips'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">coll</span><span class="p">){</span>
+      <span class="cm">/* Simple object to insert: ip address and date */</span>
+      <span class="nx">object_to_insert</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'ip'</span><span class="o">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">remoteAddress</span><span class="p">,</span> <span class="s1">'ts'</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="p">};</span>
+
+      <span class="cm">/* Insert the object then print in response */</span>
+      <span class="cm">/* Note the _id has been created */</span>
+      <span class="nx">coll</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span> <span class="nx">object_to_insert</span><span class="p">,</span> <span class="p">{</span><span class="nx">safe</span><span class="o">:</span><span class="kc">true</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">'Content-Type'</span><span class="o">:</span> <span class="s1">'text/plain'</span><span class="p">});</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">object_to_insert</span><span class="p">));</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">'\n'</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">print_visits</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="cm">/* Connect to the DB and auth */</span>
+  <span class="nx">require</span><span class="p">(</span><span class="s1">'mongodb'</span><span class="p">).</span><span class="nx">connect</span><span class="p">(</span><span class="nx">mongourl</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">conn</span><span class="p">){</span>
+    <span class="nx">conn</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'ips'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">coll</span><span class="p">){</span>
+      <span class="cm">/*find with limit:10 &amp; sort */</span>
+      <span class="nx">coll</span><span class="p">.</span><span class="nx">find</span><span class="p">({},</span> <span class="p">{</span><span class="nx">limit</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">sort</span><span class="o">:</span><span class="p">[[</span><span class="s1">'_id'</span><span class="p">,</span><span class="s1">'desc'</span><span class="p">]]},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">cursor</span><span class="p">){</span>
+        <span class="nx">cursor</span><span class="p">.</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">items</span><span class="p">){</span>
+          <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">'Content-Type'</span><span class="o">:</span> <span class="s1">'text/plain'</span><span class="p">});</span>
+          <span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">items</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="o">+</span> <span class="s2">"\n"</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="section-2">在后台</h3>
+
+<p>在部署过程中暂存您的应用程序时，Cloud Foundry 将做出以下两项修改：</p>
+
+<ul>
+<li>它为应用程序提供 <a href="https://npmjs.org/package/cf-autoconfig">cf-autoconfig</a> Node 模块。</li>
+  <li>它在引导应用程序的同时预加载 cf-autoconfig 模块。</li>
+</ul><p>cf-autoconfig 模块利用 Node.js 缓存机制。此模块在应用程序文件中搜索支持的 Node 模块并重新定义模块连接函数，使其能够被 Cloud Foundry 连接参数调用。例如，我们来了解一下它是如何重新定义 MongoDB Node 模块的连接函数的：</p>
+
+<pre><code class="language-javascript"><span class="k">if</span> <span class="p">(</span><span class="s2">"connect"</span> <span class="k">in</span> <span class="nx">moduleData</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">oldConnect</span> <span class="o">=</span> <span class="nx">moduleData</span><span class="p">.</span><span class="nx">connect</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">oldConnectProto</span> <span class="o">=</span> <span class="nx">moduleData</span><span class="p">.</span><span class="nx">connect</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
+  <span class="nx">moduleData</span><span class="p">.</span><span class="nx">connect</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+    <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">oldConnect</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+  <span class="p">};</span>
+  <span class="nx">moduleData</span><span class="p">.</span><span class="nx">connect</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">oldConnectProto</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+
+<p>其他函数也是如此重新定义的。请看 <a href="https://github.com/cloudfoundry/vcap-node/tree/master/cf-autoconfig">Github 上的 cf-autoconfig 模块源</a>。欢迎提供反馈，甚至可以提交拉取请求。</p>
+
+<h3 id="section-3">受支持的模块</h3>
+
+<p>下面列出了受支持的模块：</p>
+
+<ul>
+<li><a href="https://github.com/postwait/node-amqp">amqp</a></li>
+  <li><a href="https://github.com/mongodb/node-mongodb-native">mongodb</a></li>
+  <li><a href="https://github.com/learnboost/mongoose">mongoose</a></li>
+  <li><a href="https://github.com/felixge/node-mysql">mysql</a></li>
+  <li><a href="https://github.com/brianc/node-postgres">pg</a></li>
+  <li><a href="https://github.com/mranney/node_redis">redis</a></li>
+</ul><p>根据 <a href="http://www.npmjs.org">npmjs.org</a>，这些模块是最可靠的。这意味着许多其他模块可以使用这些模块作为数据库连接层，所以它们也可以使用自动重新配置功能。</p>
+
+<h3 id="section-4">限制</h3>
+
+<p>服务的自动重新配置机制仅在以下条件下才会发挥作用：</p>
+
+<ul>
+<li>您仅使用一项属于给定类型的服务。例如，仅使用一项 mysql 服务或一项 redis 服务。</li>
+  <li>您使用的是上述受支持模块列表中的服务 Node 模块，或者其他任何使用其中一种模块进行下层服务连接的模块。</li>
+  <li>您的应用程序不直接使用 cf-runtime 或 cf-autoconfig Node 模块。</li>
+  <li>您的应用程序是典型的 Node.js 应用程序。对于复杂的应用程序，您可能需要考虑选择退出自动重新配置机制，改为使用 cf-runtime Node 模块，本系列中的下一篇博文将对此模块进行介绍。</li>
+</ul><h3 id="section-5">关闭自动重新配置</h3>
+<p>可以通过在应用程序基文件夹中创建一个 <code>cloudfoundry.json</code> 文件，并将选项“cfAutoconfig”设置为 false 来关闭自动重新配置。</p>
+
+<pre><code class="language-javascript"><span class="p">{</span> <span class="err">“</span><span class="nx">cfAutoconfig</span><span class="err">”</span> <span class="o">:</span> <span class="kc">false</span> <span class="p">}</span></code></pre>
+
+<p>此外，如上文中所提到的那样，如果应用程序使用的是 cf-runtime Node 模块，自动重新配置将不起作用。</p>
+
+<h2 id="section-6">常见问题解答</h2>
+
+<h3 id="nodejs--1">1. Node.js 自动重新配置存在哪些限制？</h3>
+<p>服务的自动重新配置机制仅在以下条件下才会发挥作用：</p>
+
+<ul>
+<li>您仅使用一项属于给定类型的服务。例如，仅使用一项 mysql 服务或一项 redis 服务。</li>
+  <li>您使用的是上述受支持模块列表中的服务 Node 模块，或者其他任何使用其中一种模块进行下层服务连接的模块。</li>
+  <li>您的应用程序不直接使用 cf-runtime 或 cf-autoconfig Node 模块。</li>
+  <li>您的应用程序是典型的 Node.js 应用程序。对于复杂的应用程序，您可能需要考虑选择退出自动重新配置机制，改为使用 cf-runtime Node 模块，本系列中的下一篇博文将对此模块进行介绍。</li>
+</ul><h3 id="section-7">2. 自动重新配置在默认情况下是否是开启的？</h3>
+<p>是的。</p>
+
+<h3 id="section-8">3. 我怎么关闭自动重新配置？</h3>
+
+<p>可以通过在应用程序基文件夹中创建一个 <code>cloudfoundry.json</code> 文件，并将选项“cfAutoconfig”设置为 false 来关闭自动重新配置。</p>
+
+<pre><code class="language-javascript"><span class="p">{</span> <span class="err">“</span><span class="nx">cfAutoconfig</span><span class="err">”</span> <span class="o">:</span> <span class="kc">false</span> <span class="p">}</span></code></pre>
+
+<p>此外，如上文中所提到的那样，如果应用程序使用的是 cf-runtime Node 模块，自动重新配置将不起作用。</p>
+
+<h3 id="nodejs">4. 需要使用什么版本的 Node.js？</h3>
+
+<p>Node.js v0.6.x、v0.8.x 和更高版本。</p>
+
+<h3 id="section-9">5. 我怎么能知道自动重新配置不起作用了？</h3>
+
+<p>通常您会看到“无法连接”给定服务的字样，通过这就可以知道。</p>
+
+<h3 id="section-10">6. 受支持的模块/服务有哪些？</h3>
+
+<p>下面列出了受支持的模块：</p>
+
+<ul>
+<li><a href="https://github.com/postwait/node-amqp">amqp</a></li>
+  <li><a href="https://github.com/mongodb/node-mongodb-native">mongodb</a></li>
+  <li><a href="https://github.com/learnboost/mongoose">mongoose</a></li>
+  <li><a href="https://github.com/felixge/node-mysql">mysql</a></li>
+  <li><a href="https://github.com/brianc/node-postgres">pg</a></li>
+  <li><a href="https://github.com/mranney/node_redis">redis</a></li>
+</ul><p>根据 <a href="http://www.npmjs.org">npmjs.org</a>，这些模块是最可靠的。这意味着许多其他模块可以使用这些模块作为数据库连接层，所以它们也可以使用自动重新配置功能。</p>
+
+<h3 id="section-11">有关详细信息：</h3>
+<p>请阅读以下链接中的博客：<a href="http://wp.me/p2wH9O-BS">Node.js 应用程序自动重新配置</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>

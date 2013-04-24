@@ -1,0 +1,2879 @@
+<!DOCTYPE html>
+<!--[if IE]>  <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" dir="ltr" class="no-js old_ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" dir="ltr" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" dir="ltr" class="no-js ie9"> <![endif]-->
+<html lang='en' xmlns:og='http://ogp.me/ns#'>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<meta content='VMware' name='author'>
+<meta content='Copyright VMware 2011. All Rights Reserved.' name='copyright'>
+<meta content='juhk3p2B-UhzEjLXtqFwDMVLo5Lmy4ZP-zVe7Gxo2Dw' name='google-site-verification'>
+<meta content='en-us' http-equiv='Content-Language'>
+<meta content='false' http-equiv='imagetoolbar'>
+<meta content='true' name='MSSmartTagsPreventParsing'>
+<meta content='all' name='robots'>
+<meta content='147862838623179' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='https://docs.cloudfoundry.com/deploy/bosh-docs.html' property='og:url'>
+<meta content='https://docs.cloudfoundry.com/images/cf100.png' property='og:image'>
+<meta content='Cloud Foundry | BOSH文档' property='og:title'>
+<meta content='BOSH文档' property='og:description'>
+<meta content='en_US' property='og:locale'>
+<title>Cloud Foundry | BOSH文档</title>
+<link href='/stylesheets/print.css' media='print' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/master.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='favicon.ico' rel='shortcut icon'>
+<link href='/stylesheets/uv_active4d.css' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css'>
+<script src='/js/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/js/documentation.js' type='text/javascript'></script>
+<script src='/js/jquery.easing.js' type='text/javascript'></script>
+<script src='/js/jquery.social.share.1.2.min.js' type='text/javascript'></script>
+<!--[if lt IE 9 ]> <link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if lt IE 8 ]> <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" /> <![endif]-->
+<link href='/stylesheets/master-cf.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+<body class='api'>
+<div class='wrapper'>
+<div class='container' id='header'>
+<div class='site-wrap'>
+<div class='container'>
+<div class='span-6 logo-wrap'>
+<!-- %a{:href => url(@config, :www_app)} -->
+<a href='http://www.cloudfoundry.cn'>
+<img alt="Cloud Foundry: The Industry's First Open Platform As A Service" height='70' src='/images/logo_header_cloudfoundry.png' width='373'>
+<span class='replaced'>Cloud Foundry: The Industry's First Open Platform As A Service</span>
+</img>
+</a>
+</div>
+<div class='span-9 last'>
+<div class='right'>
+<form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input' name='q' placeholder='search' type='text' value=''>
+</form>
+<ul class='super-nav'>
+<li>
+<a href='http://my.cloudfoundry.com/signup'>注册</a>
+</li>
+<li>
+<a href='http://my.cloudfoundry.com/micro'>下载</a>
+</li>
+<li>
+<a href='http://support.cloudfoundry.com' rel='external' target='_blank'>支持</a>
+</li>
+<li>
+<a href='http://status.cloudfoundry.com' target='_blank'>状态</a>
+</li>
+<li>
+<a href='http://http://www.cloudfoundry.com' target='_blank'>英文站点</a>
+</li>
+</ul>
+</div>
+<div id='nav'>
+<ul>
+<li class='selected'>
+<a href='http://cndocs.cloudfoundry.com'>技术文档</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/getinvolved"} 如何参与 -->
+<a href='http://cn.cloudfoundry.com/getinvolved'>如何参与</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/partners"} 合作伙伴 -->
+<a href='http://cn.cloudfoundry.com/partners'>合作伙伴</a>
+</li>
+<li>
+<!-- %a{:href => url(@config, :blog_app)} 中文博客 -->
+<a href='http://cnblog.cloudfoundry.com/'>中文博客</a>
+</li>
+<li>
+<!-- %a{:href => "#{url(@config, :www_app)}/about"} 关于我们 -->
+<a href='http://cn.cloudfoundry.com/about'>关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='main'>
+<div class='content-wrap'>
+<div class='header-wrap clearfix'>
+<div class='site-wrap'>
+<h1>Deploy</h1>
+<p class='sub-head'>BOSH文档</p>
+</div>
+</div>
+<div class='site-wrap'>
+<div class='container content'>
+<div class='span-15 prepend-top'>
+<div class='span-4'>
+<div class='sub-nav'>
+<p>
+<strong>
+<a href='/getting-started.html'>Cloud Foundry入门</a>
+</strong>
+迅速开始使用Cloud Foundry的入门文档.
+</p>
+<form action='http://www.cloudfoundry.com/search' class='search-form-docs' method='get' onsubmit='return submitQuery()'>
+<input autocomplete='off' class='search-input-docs' name='q' placeholder='search docs' type='text' value='more:docs'>
+</form>
+<br>
+<br>
+<div class='sidebar-shell' id='js-sidebar'>
+<div class='js-accordion-list sidebar-module'>
+<ul>
+<li class='js-topic'>
+<h3>
+<a href='#'>语言和编程框架</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/frameworks.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/spring.html'>Spring</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/java/spring/spring-insight.html'>Spring Insight</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/java/spring/grails.html'>Grails</a>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/scala/scala.html'>Scala</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/scala/lift.html'>Lift</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/play/play.html'>Play</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/play/java-getting-started.html'>Java入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/scala-getting-started.html'>Scala入门指南</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mysql.html'>在Java应用中使用MySQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-postgresql.html'>在Java应用中使用PostgreSQL</a>
+</li>
+<li>
+<a href='/frameworks/play/java-mongodb.html'>在Java应用中使用MongoDB</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/nodejs/nodejs.html'>Node.js</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/nodejs/nodeAutoReconfig.html'>有关自动配置</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/frameworks/ruby/ruby-rails-sinatra.html'>Ruby, Rails, Sinatra</a>
+<ul class='js-subguides'>
+<li>
+<a href='/frameworks/ruby/ruby.html'>概述</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-cf.html'>相关事宜</a>
+</li>
+<li>
+<a href='/frameworks/ruby/installing-ruby.html'>安装 Ruby</a>
+</li>
+<li>
+<a href='/frameworks/ruby/ruby-simple.html'>创建应用</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-0.html'>Rails 3.0</a>
+</li>
+<li>
+<a href='/frameworks/ruby/rails-3-1.html'>Rails 3.1</a>
+</li>
+<li>
+<a href='/frameworks/ruby/sinatra.html'>Sinatra</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>基础架构</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/infrastructure/overview.html'>Overview</a>
+</li>
+<li class='js-subtopic'>
+<a href='/infrastructure/micro/mcf.html'>MCF</a>
+<ul class='js-subguides'>
+<li>
+<a href='/infrastructure/micro/installing-mcf.html'>安装 MCF</a>
+</li>
+<li>
+<a href='/infrastructure/micro/using-mcf.html'>使用 MCF</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>服务</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/services.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mongodb/mongodb.html'>MongoDB</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mongodb/grails-mongodb.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mongodb/nodejs-mongodb.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/mongodb/ruby-mongodb-gridfs.html'>GridFS</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/mysql/mysql-overview.html'>MySQL</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/mysql/mysql.html'>介绍</a>
+</li>
+<li>
+<a href='/services/mysql/grails-mysql.html'>Grails</a>
+</li>
+<li>
+<a href='/services/mysql/ruby-mysql.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/rabbitmq/rabbitmq.html'>RabbitMQ</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/rabbitmq/faq-rabbitmq.html'>常见问题</a>
+</li>
+<li>
+<a href='/services/rabbitmq/nodejs-rabbitmq.html'>Node.js</a>
+</li>
+<li>
+<a href='/services/rabbitmq/ruby-rabbitmq.html'>Ruby</a>
+</li>
+<li>
+<a href='/services/rabbitmq/spring-rabbitmq.html'>Spring</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/redis/redis.html'>Redis</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/redis/ruby-redis.html'>Ruby</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/services/postgres/postgres.html'>vFabric Postgres</a>
+<ul class='js-subguides'>
+<li>
+<a href='/services/postgres/postgres-ruby.html'>Ruby</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>工具</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/tools/vmc/vmc.html'>VMC</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/vmc/installing-vmc.html'>安装</a>
+</li>
+<li>
+<a href='/tools/vmc/debugging.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-quick-ref.html'>快速参考</a>
+</li>
+<li>
+<a href='/tools/vmc/vmc-non-interactive.html'>非交互模式</a>
+</li>
+<li>
+<a href='/tools/vmc/caldecott.html'>Caldecott隧道</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/STS/sts-eclipse.html'>STS & Eclipse</a>
+<ul class='js-subguides'>
+<li>
+<a href='/tools/STS/configuring-STS.html'>配置</a>
+</li>
+<li>
+<a href='/tools/STS/debugging-CF-Eclipse.html'>应用调试</a>
+</li>
+<li>
+<a href='/tools/STS/deploying-CF-Eclipse.html'>应用部署</a>
+</li>
+<li>
+<a href='/tools/STS/remote-CF-Eclipse.html'>远程访问</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/spring-insight.html'>Spring Insight</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/gallery/box.html'>Box 集成</a>
+</li>
+<li class='js-subtopic'>
+<a href='/tools/deploying-apps.html'>部署应用</a>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>部署云平台</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/deploy/overview.html'>概述</a>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/dev_setup.html'>dev_setup</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/dev_setup-Single-Node.html'>单节点dev_setup</a>
+</li>
+<li>
+<a href='/deploy/dev_setup-Multi-Node.html'>多节点dev_setup</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/bosh.html'>什么是BOSH</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/bosh-docs.html'>BOSH文档</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/vSphere.html'>在vSphere上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/vSphere-IaaS.html'>准备IaaS环境</a>
+</li>
+<li>
+<a href='/deploy/vSphere-BOSH.html'>安装BOSH</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF.html'>部署Cloud Foundry</a>
+</li>
+<li>
+<a href='/deploy/vSphere-CF-mgmt.html'>管理和运维Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/OpenStack.html'>在OpenStack上部署</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/os-install.html'>OpenStack Essex安装及配置</a>
+</li>
+<li>
+<a href='/deploy/os-prepare.html'>准备BOSH CLI虚拟机</a>
+</li>
+<li>
+<a href='/deploy/os-micro-bosh.html'>部署Micro BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-bosh.html'>部署BOSH</a>
+</li>
+<li>
+<a href='/deploy/os-cf.html'>部署Cloud Foundry</a>
+</li>
+</ul>
+</li>
+<li class='js-subtopic'>
+<a href='/deploy/customize.html'>定制Cloud Foundry</a>
+<ul class='js-subguides'>
+<li>
+<a href='/deploy/customize-framework.html'>添加框架</a>
+</li>
+<li>
+<a href='/deploy/customize-runtime.html'>添加运行时</a>
+</li>
+<li>
+<a href='/deploy/customize-services.html'>添加系统服务</a>
+</li>
+<li>
+<a href='/deploy/customize-php.html'>支持PHP语言</a>
+</li>
+<li>
+<a href='/deploy/customize-python.html'>支持Python语言</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='js-topic'>
+<h3>
+<a href='#'>例子</a>
+</h3>
+<ul class='js-guides'>
+<li class='js-subtopic'>
+<a href='/samples/cool-apps.html'>酷炫应用程序</a>
+</li>
+<li class='js-subtopic'>
+<a href='/samples/samples.html'>精彩代码分析</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<strong>
+<a href='/faq.html'>FAQ</a>
+</strong>
+常见问题.
+</p>
+<p>
+<strong>
+<a href='http://stackoverflow.com/questions/tagged/cloudfoundry' target='_blank'>Forums</a>
+</strong>
+加入讨论.
+</p>
+<p>
+<strong>
+<a href='http://webinars.cloudfoundry.com'>Webinars</a>
+</strong>
+学习更多.
+</p>
+</div>
+</div>
+<div class='span-11 last'>
+<h2>BOSH文档</h2>
+<p class='tags'>
+<strong>Tags:</strong>
+<span>
+<a href="/tags/BOSH" rel="tag">BOSH</a>
+</span>
+</p>
+<p class='timestamp'>
+<strong>Last Updated:</strong>
+<span>
+2012-10-26
+</span>
+</p>
+<div id='social-share'></div>
+<p>Cloud Foundry BOSH 是一条开源工具链，用于对大规模分布式服务进行发行版工程处理、部署和生命周期管理。在本手册中，我们将介绍 BOSH 的体系结构、拓扑、配置和用法，以及在打包和部署过程中使用的结构和约定。</p>
+
+<h2 id="section">管理分布式服务</h2>
+
+<p>BOSH 最初是在 Cloud Foundry“应用平台即服务”的背景下开发的，不过，此框架是通用的，可以用来在诸如 VMware vSphere、Amazon Web Services 或 OpenStack 等“基础架构即服务”(IaaS) 产品的基础上部署其他分布式服务。</p>
+
+<h2 id="bosh-">BOSH 的组件</h2>
+
+<h3 id="bosh--1">图 1. BOSH 各组件之间的交互</h3>
+
+<p><img src="https://github.com/cloudfoundry/oss-docs/raw/master/bosh/documentation/fig1.png" alt="Interaction of BOSH Components"></p>
+
+<!--
+\begin{figure}[htbp]
+\centering
+\includegraphics[keepaspectratio,width=\textwidth,height=0.75\textheight]{fig1.png}
+\caption{Interaction of BOSH Components}
+\label{}
+\end{figure}
+-->
+
+<h3 id="iaas">基础架构即服务 (IaaS)</h3>
+
+<p>核心的 BOSH 引擎是基于任何特定的“基础架构即服务”(IaaS) 抽象出来的。IaaS 接口以 BOSH 插件的形式实现。目前，BOSH 既支持 VMware vSphere，又支持 Amazon Web Services。</p>
+
+<h3 id="section-1">云提供商接口</h3>
+
+<p>IaaS 接口插件通过由诸如 VMware 或 Amazon 等特定 IaaS 供应商提供的云提供商接口 (CPI) 进行通信。作为 BOSH 用户，无需关心 IaaS 或 CPI，但在学习 BOSH 工作原理时了解其基元可能会有助益。这些接口的现有示例的位置如下：	对于 vSphere，位于 <code>bosh/vsphere_cpi/lib/cloud/vsphere/cloud.rb</code> 中；对于 Amazon Web Services，位于 <code>bosh/aws_cpi/lib/cloud/aws/cloud.rb</code> 中。上述子目录中包含了一些 Ruby 类，这些类包含用来执行以下操作的方法：</p>
+
+<pre><code>create_stemcell / delete_stemcell
+create_vm  / delete_vm  / reboot_vm
+configure_networks
+create_disk / delete_disk / attach_disk / detach_disk
+</code></pre>
+
+<p>有关对 CPI 基元的进一步说明，请参考这些文件中的 <a href="https://github.com/cloudfoundry/bosh/blob/master/cpi/lib/cloud.rb">API 文档</a>。</p>
+
+<h3 id="bosh--2">BOSH 控制器</h3>
+
+<p>控制器是 BOSH 中的核心协调组件，它控制着创建虚拟机、进行部署以及软件和服务生命周期中的其他事件。在 CPI 创建好资源后，命令和控制权会移交给控制器与代理间的交互操作。</p>
+
+<h3 id="bosh--3">BOSH 代理</h3>
+
+<p>BOSH 代理负责侦听来自 BOSH 控制器的指令。每个虚拟机都包含一个代理。通过控制器与代理之间的交互，会在 Cloud Foundry 中为虚拟机分配<a href="#jobs">作业</a>（或称“角色”）。
+例如，如果虚拟机的作业是运行 MySQL，那么控制器将向代理发送指令来说明必须安装哪些包以及这些包的配置是什么。</p>
+
+<h3 id="bosh-cli">BOSH CLI</h3>
+
+<p>BOSH 命令行界面是用户使用终端会话与 BOSH 进行交互的途径。BOSH 命令采用下面所示的格式：</p>
+
+<p>$ bosh [–verbose] [–config|-c <file>] [--cache-dir <dir>]
+[--force] [--no-color] [--skip-director-checks] [--quiet]
+[--non-interactive]</dir></file></p>
+
+<p>如需了解有关这些选项的更多详情，请<a href="#installing-bosh-command-line-interface">安装</a> <a href="http://rubygems.org/gems/bosh_cli">BOSH 命令行界面</a> gem，然后运行 <code>bosh</code> 命令。</p>
+
+<h3 id="stemcell">Stemcell</h3>
+
+<p>Stemcell 是一个嵌入了 <a href="#bosh-agent">BOSH 代理</a>的虚拟机模板。用于 Cloud Foundry 的 Stemcell 是一个标准的 Ubuntu 分发包。
+Stemcell 是使用 <a href="#bosh-cli">BOSH CLI</a> 上传的，由 <a href="#bosh-director">BOSH 控制器</a>在通过[云提供商接口] (#cloud-provider-interface)创建虚拟机时使用。
+当此控制器通过 CPI 创建虚拟机时，它会将用于网络连接和存储的配置以及<a href="#message-bus">消息总线</a>和 <a href="#blobstore">Blobstore</a> 的位置及凭据传递下去。</p>
+
+<h3 id="section-2">发行版</h3>
+
+<p>BOSH 中的发行版是将一些称作“作业”的服务描述符打包成的捆绑包。作业是由软件代码 (Bit) 和配置组成的集合。
+任何给定的发行版均包含让 BOSH 管理应用程序或分布式服务所需的全部静态代码（源代码或二进制代码）。</p>
+
+<p>发行版通常不局限于任何特定环境。因此，可以跨群集重用它来处理服务生命周期中的不同阶段，如开发、QA、暂存或生产。
+<a href="#bosh-cli">BOSH CLI</a> 既管理发行版的创建工作，也管理将它们部署到特定环境中的工作。</p>
+
+<p>如需更深入地了解发行版和<a href="#jobs">作业</a>，请参见<a href="#packages">包</a>一节。</p>
+
+<h3 id="section-3">部署</h3>
+
+<p>虽然 BOSH 的 <a href="#stemcells">Stemcell</a> 和<a href="#packages">包</a>都是静态组件，但 <a href="#bosh-deployment-manifest">BOSH 部署清单</a>将它们绑定在一起进行部署。
+在部署清单中，您需要声明虚拟机池、这些池位于哪些网络中以及您要激活发行版中的哪些<a href="#jobs">作业</a>（服务组件）。
+作业配置指定了生命周期参数、作业的实例数目以及网络和存储要求。
+此外，通过部署清单，您还可以指定用来对发行版中包含的配置模板进行参数化的属性。</p>
+
+<p>借助 <a href="#bosh-cli">BOSH CLI</a>，您可以指定部署清单并执行部署操作 (<code>bosh deploy</code>)，部署操作会按照您的指定在群集中创建或更新资源。
+有关示例，请参考<a href="#steps-of-a-deployment">部署步骤</a>。</p>
+
+<h3 id="blobstore">Blobstore</h3>
+
+<p>BOSH Blobstore 用于存储发行版的内容（源代码形式的 BOSH <a href="#jobs">作业</a>和<a href="#packages">包</a>以及编译后的 BOSH 包映像）。
+<a href="#releases">发行版</a>由 <a href="#bosh-cli">BOSH CLI</a> 上传并由 <a href="#bosh-director">BOSH 控制器</a>插入到 Blobstore 中。
+部署发行版时，BOSH 将协调包的编译工作，并将结果存储在 Blobstore 中。
+BOSH 将 BOSH 作业部署到虚拟机时，BOSH 代理会从 Blobstore 中提取指定的作业及关联的 BOSH 包。</p>
+
+<p>BOSH 还将该 Blobstore 用作大型有效负载的中间存储区，例如日志文件（请参见 BOSH 日志）以及超过消息总线上消息的最大大小的 BOSH 代理输出。</p>
+
+<p>目前在 BOSH 中支持三种 Blobstore：</p>
+
+<ol>
+<li><a href="http://www.emc.com/storage/atmos/atmos.htm">Atmos</a></li>
+  <li><a href="http://aws.amazon.com/s3/">S3</a></li>
+  <li><a href="https://github.com/cloudfoundry/bosh/tree/master/simple_blobstore_server">简单 blobstore 服务器</a></li>
+</ol><p>有关每种 Blobstore 的示例配置，请参见 <a href="#blobs">Blob</a> 一节。当负载非常轻且用户更看重低延迟时，默认的 BOSH 配置使用简单 blobstore 服务器。</p>
+
+<h3 id="section-4">运行状况监视器</h3>
+
+<p>BOSH 运行状况监视器负责接收 <a href="#bosh-agent">BOSH 代理</a>发来的运行状况和生命周期事件，并且可以通过通知插件发送提醒（如电子邮件）。运行状况监视器对系统中的事件具有简单的感知能力，因此如果是更新组件，它便不会发出提醒。</p>
+
+<h3 id="section-5">消息总线</h3>
+
+<p>BOSH 使用 <a href="https://github.com/derekcollison/nats">NATS</a> 消息总线来发出命令和进行控制。</p>
+
+<h2 id="bosh">使用 BOSH</h2>
+
+<p>我们需要先安装 <a href="#bosh-cli">BOSH CLI</a>，然后才能使用 BOSH。您需要有一个包含已上传的 Stemcell 且正在运行的开发环境，接下来才能按照本节中的说明操作。如果尚不具备此条件，您可以按照 <a href="#bosh-installation">BOSH 安装</a>一节中的说明操作。</p>
+
+<h3 id="bosh--4">安装 BOSH 命令行界面</h3>
+
+<p>按以下步骤操作可将 BOSH CLI 安装到 Ubuntu 10.04 LTS 上。可以在物理机上安装，也可在虚拟机上安装。</p>
+
+<h4 id="rbenv--ruby">通过 rbenv 安装 Ruby</h4>
+
+<ol>
+<li>
+    <p>BOSH 是用 Ruby 编写的。我们来安装 Ruby 的依赖项</p>
+
+    <pre><code> sudo apt-get install git-core build-essential libsqlite3-dev curl \
+ libmysqlclient-dev libxml2-dev libxslt-dev libpq-dev
+</code></pre>
+  </li>
+  <li>
+    <p>获取最新版本的 rbenv</p>
+
+    <pre><code> cd
+ git clone git://github.com/sstephenson/rbenv.git .rbenv
+</code></pre>
+  </li>
+  <li>
+    <p>将 <code>~/.rbenv/bin</code> 添加到您的 <code>$PATH</code> 以便能够访问 <code>rbenv</code> 命令行实用程序</p>
+
+    <pre><code> echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.bash_profile
+</code></pre>
+  </li>
+  <li>
+    <p>将 rbenv init 添加到您的 shell 以启用填充程序 (Shim) 和自动完成</p>
+
+    <pre><code> echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.bash_profile
+</code></pre>
+  </li>
+  <li>
+    <p>下载 Ruby 1.9.2</p>
+  </li>
+</ol><p><em>注意：您也可以使用适用于 rbenv 的 ruby-build 插件来构建 ruby。请参见 https://github.com/sstephenson/ruby-build</em></p>
+
+<pre><code>	wget http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.2-p290.tar.gz
+</code></pre>
+
+<ol>
+<li>
+    <p>将 Ruby 解包并安装</p>
+
+    <pre><code> tar xvfz ruby-1.9.2-p290.tar.gz
+ cd ruby-1.9.2-p290
+ ./configure --prefix=$HOME/.rbenv/versions/1.9.2-p290
+ make
+ make install
+</code></pre>
+  </li>
+  <li>
+    <p>重新启动您的 shell 以使路径更改生效</p>
+
+    <pre><code> source ~/.bash_profile
+</code></pre>
+  </li>
+  <li>
+    <p>将您的默认 Ruby 设置为 1.9.2 版本</p>
+
+    <pre><code> rbenv global 1.9.2-p290
+</code></pre>
+  </li>
+</ol><p><em>注意：使用此方法时可能需要重新安装 rake 0.8.7 gem</em></p>
+
+<pre><code>	gem pristine rake
+</code></pre>
+
+<ol>
+<li>更新 rubygem 并安装捆绑包。</li>
+</ol><p><em>注意：安装 gem（<code>gem install</code> 或 <code>bundle install</code>）后，运行 <code>rbenv rehash</code> 以添加新的填充程序</em></p>
+
+<pre><code>	rbenv rehash
+	gem update --system
+	gem install bundler
+	rbenv rehash
+</code></pre>
+
+<h4 id="bosh--bosh-">安装本地 BOSH 和 BOSH 发行版</h4>
+
+<ol>
+<li>
+    <p>在 <a href="http://reviews.cloudfoundry.org">http://reviews.cloudfoundry.org</a> 注册 Cloud Foundry Gerrit 服务器</p>
+  </li>
+  <li>
+    <p>设置您的 ssh 公钥（接受所有默认值）</p>
+
+    <pre><code> ssh-keygen -t rsa
+</code></pre>
+  </li>
+  <li>
+    <p>将您的密钥从 <code>~/.ssh/id_rsa.pub</code> 复制到您的 Gerrit 帐户中</p>
+  </li>
+  <li>
+    <p>在您的 Gerrit 帐户配置文件中创建并上传自己的公共 SSH 密钥</p>
+  </li>
+  <li>
+    <p>设置您的名称和电子邮件</p>
+
+    <pre><code> git config --global user.name "Firstname Lastname"
+ git config --global user.email "your_email@youremail.com"
+</code></pre>
+  </li>
+  <li>
+    <p>安装好 gerrit-cli gem</p>
+
+    <pre><code> gem install gerrit-cli
+</code></pre>
+  </li>
+  <li>
+    <p>从 Gerrit 克隆 BOSH 代码库</p>
+
+    <pre><code> gerrit clone ssh://[&lt;your username&gt;@]reviews.cloudfoundry.org:29418/cf-release.git
+ gerrit clone ssh://[&lt;your username&gt;@]reviews.cloudfoundry.org:29418/bosh.git
+</code></pre>
+  </li>
+  <li>
+    <p>运行一些 rake 任务来安装 BOSH CLI</p>
+
+    <pre><code> gem install bosh_cli
+ rbenv rehash
+ bosh --version
+</code></pre>
+  </li>
+</ol><h4 id="bosh--5">部署到您的 BOSH 环境</h4>
+
+<p>有了完全配置好的环境后，我们便可以开始将 Cloud Foundry 发行版部署到我们的环境中了。正如前提条件中所列的那样，您应该已经有了一个正在运行的环境，以及 BOSH 控制器的 IP 地址。要设置这项前提条件，请跳至 <a href="#bosh-installation">BOSH 安装</a>一节。</p>
+
+<h4 id="bosh--6">使 BOSH 指向一个目标并清理您的环境</h4>
+
+<ol>
+<li>
+    <p>为控制器设定目标（例如设定为下面的 IP）。</p>
+
+    <pre><code> bosh target 11.23.128.219:25555
+</code></pre>
+  </li>
+  <li>
+    <p>检查 BOSH 设置的状态。</p>
+
+    <pre><code> bosh status
+</code></pre>
+  </li>
+  <li>
+    <p>状态结果将类似于：</p>
+
+    <pre><code> Target         dev48 (http://11.23.128.219:25555) Ver: 0.3.12 (01169817)
+ UUID           4a8a029c-f0ae-49a2-b016-c8f47aa1ac85
+ User           admin
+ Deployment     not set
+</code></pre>
+  </li>
+  <li>
+    <p>列出以前的所有部署（我们很快就会删除它们）。如果这是您首次部署，将不会有任何内容列出。</p>
+
+    <pre><code> bosh deployments
+</code></pre>
+  </li>
+  <li>
+    <p><code>bosh deployments</code> 的结果应类似于：</p>
+
+    <pre><code> +-------+
+ | Name      |
+ +-------+
+ | dev48 |
+ +-------+
+</code></pre>
+  </li>
+  <li>
+    <p>删除现有的部署（例如：dev48）。</p>
+
+    <pre><code> bosh delete deployment dev48
+</code></pre>
+  </li>
+  <li>
+    <p>出现提示时请回答 <code>yes</code>，然后等待删除操作完成。</p>
+  </li>
+  <li>
+    <p>列出以前的发行版（我们很快就会删除它们）。如果这是您首次部署，将不会有任何内容列出。</p>
+
+    <pre><code> bosh releases
+</code></pre>
+  </li>
+  <li>
+    <p><code>bosh releases</code> 的结果应类似于：</p>
+
+    <pre><code> +---------------+---------------+
+ | Name          | Versions      |
+ +---------------+---------------+
+ | cloudfoundry	| 47, 55, 58    |
+ +---------------+---------------+
+</code></pre>
+  </li>
+  <li>
+    <p>删除现有的发行版（例如：cloudfoundry）</p>
+
+    <pre><code> bosh delete release cloudfoundry
+</code></pre>
+  </li>
+  <li>
+    <p>出现提示时请回答 <code>yes</code>，然后等待删除操作完成。</p>
+  </li>
+</ol><h4 id="section-6">创建一个发行版</h4>
+
+<ol>
+<li>
+    <p>将目录切换到发行版目录。</p>
+
+    <pre><code> cd ~/cf-release
+</code></pre>
+
+    <p>此目录包含 Cloud Foundry 部署和发行版文件。</p>
+  </li>
+  <li>
+    <p>更新子模块并下载 blob（还用于更新代码库）。</p>
+
+    <pre><code> ./update
+</code></pre>
+  </li>
+  <li>
+    <p>重置您的环境</p>
+
+    <pre><code> bosh reset release
+</code></pre>
+  </li>
+  <li>
+    <p>出现提示时请回答 <code>yes</code>，然后等待环境重置完毕</p>
+  </li>
+  <li>
+    <p>创建一个发行版</p>
+
+    <pre><code> bosh create release --force
+</code></pre>
+  </li>
+  <li>
+    <p>出现 <code>release name</code> 提示时请回答 <code>cloudfoundry</code></p>
+  </li>
+  <li>
+    <p>您的终端将显示有关此发行版的信息，包括发行版清单、包、作业和 tar 包位置。</p>
+  </li>
+  <li>
+    <p>创建或找到一个清单文件。例如，可以从
+<code>oss-docs</code> 文档资源库复制 <code>bosh/samples/cloudfoundry.yml</code>
+。</p>
+  </li>
+  <li>
+    <p>用您喜欢的文本编辑器打开此清单文件，确认 <code>name</code> 和 <code>version</code> 是否与发行版创建结束时终端中显示的版本匹配（如果这是您的第一个发行版，将为版本 1）。</p>
+  </li>
+</ol><h4 id="section-7">部署此发行版</h4>
+
+<ol>
+<li>将部署设置为指向您的清单文件</li>
+</ol><p>bosh deployment path/to/my-manifest.yml</p>
+
+<ol>
+<li>
+    <p>将此 cloudfoundry 发行版上传到您的环境。</p>
+
+    <pre><code> bosh upload release
+</code></pre>
+  </li>
+  <li>
+    <p>您的终端将显示有关此次上传的信息，上传进度栏将在几分钟后达到 100%。</p>
+  </li>
+  <li>
+    <p>打开此清单，确保您的网络设置与之前向您提供的环境匹配。</p>
+  </li>
+  <li>
+    <p>部署此发行版。</p>
+
+    <pre><code> bosh deploy
+</code></pre>
+  </li>
+  <li>
+    <p>此次部署将需要几分钟时间才能完成。如果部署失败，原因可能是此清单与发行版目录不匹配。如果您的目标平台具有由管理员提供的模板清单（如 <code>template.erb</code>），您可以使用 <code>bosh diff template.erb</code> 来将您的清单与最新的目标进行对比，然后修复常见的问题，例如缺少属性或作业。</p>
+  </li>
+  <li>
+    <p>现在您便可以按照 Cloud Foundry 文档中的说明使用 VMC 来为 Cloud Foundry 部署设定目标。</p>
+  </li>
+</ol><h2 id="bosh--7">BOSH 安装</h2>
+
+<p>BOSH 的安装是使用一款称作“微 BOSH”(Micro BOSH) 的工具完成的，该工具是一个虚拟机，在同一映像中包含了所有的 BOSH 组件。如果您想要体验一下 BOSH，或者创建一个简单的部署环境，那么您可以使用 <a href="#bosh-deployer">BOSH 部署器</a>来安装微 BOSH。如果您想要在生产环境中使用 BOSH 来管理分布式系统，您也可以使用 BOSH 部署器，安装微 BOSH，然后将它用作一种在多个虚拟机上部署最终分布式系统的方式。</p>
+
+<p>理解这种两步过程的一种很好的方式就是将 BOSH 本身也看作一个分布式系统。由于 BOSH 的核心用途是部署和管理分布式系统，因此我们使用它来部署它自己是合情合理的。在 BOSH 团队中，我们将此戏称为<a href="http://en.wikipedia.org/wiki/Inception">盗梦空间</a>。</p>
+
+<h3 id="bosh--8">BOSH 引导程序</h3>
+
+<h4 id="section-8">前提条件</h4>
+
+<ol>
+<li>
+    <p>我们建议您运行 Ubuntu 中的 BOSH 引导程序，因为它是 BOSH 团队所使用的分发包且已经过全面测试。</p>
+  </li>
+  <li>
+    <p>在 Ubuntu 上安装 BOSH 部署器所依赖的一些核心包。</p>
+
+    <pre><code> sudo apt-get -y install libsqlite3-dev genisoimage
+</code></pre>
+  </li>
+  <li>
+    <p>安装 Ruby 1.9.2 或更高版本。</p>
+  </li>
+  <li>
+    <p>安装 BOSH 部署器 ruby gem。</p>
+
+    <pre><code> gem install bosh_deployer
+</code></pre>
+  </li>
+</ol><p>一旦安装了该部署器，那么您在命令行中键入 <code>bosh</code> 后将会看到一些额外的命令显示出来。</p>
+
+<p><strong>上述 <code>bosh micro</code> 命令必须在微 BOSH 部署目录中运行</strong></p>
+
+<pre><code>	% bosh help
+	...
+	Micro
+		micro deployment [&lt;name&gt;] 选择要使用的微部署
+		micro status              显示微 BOSH 部署的状态
+		micro deployments         显示部署列表
+		micro deploy &lt;stemcell&gt;   将微 BOSH 实例部署到当前 选择的部署
+                        --update  更新现有实例
+		micro delete              删除微 BOSH 实例（包括 持久磁盘）
+		micro agent &lt;args&gt;        发送代理消息
+		micro apply &lt;spec&gt;        应用规范
+</code></pre>
+
+<h4 id="section-9">配置</h4>
+
+<p>有关最低 vSphere 配置示例，请参见：<code>https://github.com/cloudfoundry/bosh/blob/master/deployer/spec/assets/test-bootstrap-config.yml</code>。请注意 <code>disk_path</code> 为 <code>BOSH_Deployer</code>，而非 <code>BOSH_Disks</code>。如果您的 vCenter 承载其他控制器，那么需要一个除 <code>BOSH_Disks</code> 以外的数据存储文件夹。<code>disk_path</code> 文件夹需手动创建。此外，您的配置必须位于 <code>deployments</code> 目录中，并遵循具有包含 <code>micro_bosh.yml</code> 的 <code>$name</code> 子目录这一约定，其中 <code>$name</code> 是部署名称。</p>
+
+<p>例如：</p>
+
+<pre><code>	% find deployments -name micro_bosh.yml
+	deployments/vcs01/micro_bosh.yml
+	deployments/dev32/micro_bosh.yml
+	deployments/dev33/micro_bosh.yml
+</code></pre>
+
+<p>部署状态将持久保留到 <code>deployments/bosh-deployments.yml</code>。</p>
+
+<h4 id="vcenter-">vCenter 配置</h4>
+
+<p>虚拟中心配置节大致如下。</p>
+
+<pre><code>	cloud:
+	  plugin:vsphere
+	  properties:
+	    agent:
+	      ntp:
+	        - &lt;ntp_host_1&gt;
+	        - &lt;ntp_host_2&gt;
+	     vcenters:
+	       - host:&lt;vcenter_ip&gt;
+	         user:&lt;vcenter_userid&gt;
+	         password:&lt;vcenter_password&gt;
+	         datacenters:
+	           - name:&lt;datacenter_name&gt;
+	             vm_folder:&lt;vm_folder_name&gt;
+	             template_folder:&lt;template_folder_name&gt;
+	             disk_path:&lt;subdir_to_store_disks&gt;
+	             datastore_pattern:&lt;data_store_pattern&gt;
+	             persistent_datastore_pattern:&lt;persistent_datastore_pattern&gt;
+	             allow_mixed_datastores:&lt;true_if_persistent_datastores_and_datastore_patterns_are_这些_same&gt;
+	             clusters:
+	             - &lt;cluster_name&gt;:
+	                 resource_pool:&lt;resource_pool_name&gt;
+</code></pre>
+
+<p>如果您想要在 vCenter 中为 BOSH 用户创建一个角色，需要的权限如下：</p>
+
+<table>
+<thead><tr>
+<th>对象</th>
+      <th>权限</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td>数据存储</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>分配空间</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>浏览数据存储</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>低级文件操作</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>删除文件</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>更新虚拟机文件</td>
+    </tr>
+<tr>
+<td>文件夹（所有）</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>创建文件夹</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>删除文件夹</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>移动文件夹</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>对文件夹进行重命名</td>
+    </tr>
+<tr>
+<td>全局</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>取消任务</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>诊断</td>
+    </tr>
+<tr>
+<td>主机/配置（所有）</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>高级设置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>身份验证存储</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>更改日期和时间设置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>更改 PCIPassthru 设置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>更改 SNMP 设置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>连接</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>固件</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>超线程</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>维护</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>内存配置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>网络配置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>电源</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>查询修补程序</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>安全配置文件和防火墙</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>存储器分区配置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>系统管理</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>系统资源</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>虚拟机自动启动配置</td>
+    </tr>
+<tr>
+<td>主机/清单（所有）</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>为群集添加主机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>添加独立主机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>创建群集</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>修改群集</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>移动群集或独立主机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>移动主机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>删除群集</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>删除主机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>对群集进行重命名</td>
+    </tr>
+<tr>
+<td>主机/本地操作</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>创建虚拟机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>删除虚拟机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>重新配置虚拟机</td>
+    </tr>
+<tr>
+<td>网络</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>分配网络</td>
+    </tr>
+<tr>
+<td>资源（所有）</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>应用建议</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>将 vApp 分配给资源池</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>将虚拟机分配给资源池</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>创建资源池</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>迁移</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>修改资源池</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>移动资源池</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>查询 VMotion</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>重定位</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>删除资源池</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>对资源池进行重命名</td>
+    </tr>
+<tr>
+<td>调度任务（所有）</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>创建任务</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>修改任务</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>删除任务</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>运行任务</td>
+    </tr>
+<tr>
+<td>会话</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>查看和停止会话</td>
+    </tr>
+<tr>
+<td>任务（所有）</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>创建任务</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>更新任务</td>
+    </tr>
+<tr>
+<td>vApp（所有）</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>添加虚拟机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>分配资源池</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>分配 vApp</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>克隆</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>创建</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>删除</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>导出</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>导入</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>移动</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>关闭</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>打开</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>重命名</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>挂起</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>取消注册</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>vApp 应用程序配置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>vApp 实例配置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>vApp 资源配置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>查看 OVF 环境</td>
+    </tr>
+<tr>
+<td>虚拟机（所有）/配置（所有）</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>添加现有磁盘</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>添加新磁盘</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>添加或删除设备</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>高级</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>更改 CPU 数目</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>更改资源</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>磁盘更改跟踪</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>磁盘租用</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>扩展虚拟磁盘</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>主机 USB 设备</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>内存</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>修改设备设置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>查询容错兼容性</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>查询无所有者的文件</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>原始设备</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>从路径中重新加载</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>删除磁盘</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>重命名</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>重置客户机信息</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>设置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>交换文件放置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>解锁虚拟机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>升级虚拟硬件</td>
+    </tr>
+<tr>
+<td>虚拟机（所有）/交互（所有）</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>获取客户机控制票证</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>回答问题</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>备份虚拟机上的操作</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>配置 CD 介质</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>配置软盘介质</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>控制台交互</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>创建屏幕截图</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>对所有磁盘执行碎片整理</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>设备连接</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>禁用容错</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>启用容错</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>关闭</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>打开</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>记录虚拟机上的会话</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>重放虚拟机上的会话</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>重置</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>挂起</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>测试故障切换</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>测试重新启动辅助虚拟机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>关闭容错</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>打开容错</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>VMware Tools 安装</td>
+    </tr>
+<tr>
+<td>虚拟机（所有）/清单（所有）</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>从现有项创建</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>新建</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>移动</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>注册</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>删除</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>取消注册</td>
+    </tr>
+<tr>
+<td>虚拟机（所有）/置备（所有）</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>允许访问磁盘</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>允许对磁盘进行只读访问</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>允许下载虚拟机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>允许上传虚拟机文件</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>克隆模板</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>克隆虚拟机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>从虚拟机创建模板</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>自定义</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>部署模板</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>标记为模板</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>标记为虚拟机</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>修改自定义规范</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>升级磁盘</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>读取自定义规范</td>
+    </tr>
+<tr>
+<td>虚拟机（所有）/状态（所有）</td>
+      <td> </td>
+    </tr>
+<tr>
+<td> </td>
+      <td>创建快照</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>删除快照</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>对快照进行重命名</td>
+    </tr>
+<tr>
+<td> </td>
+      <td>恢复到快照</td>
+    </tr>
+</tbody>
+</table><p>您必须先在虚拟中心内执行以下操作，然后才能运行微 BOSH 部署器：</p>
+
+<ol>
+<li>
+    <p>创建 vm_folder</p>
+  </li>
+  <li>
+    <p>创建 template_folder</p>
+  </li>
+  <li>
+    <p>在相应的数据存储中创建 disk_path</p>
+  </li>
+  <li>
+    <p>创建 resource_pool。</p>
+  </li>
+</ol><p>资源池是可选的，没有资源池亦可运行。如果没有资源池，群集属性大致如下：</p>
+
+<pre><code>	persistent_datastore_pattern:&lt;datastore_pattern&gt;
+	allow_mixed_datastores:&lt;true_if_persistent_datastores_and_datastore_patterns_are_这些_same&gt;
+	clusters:
+        		- &lt;cluster_name&gt;
+</code></pre>
+
+<p>上面的数据存储模式可以直接采用数据存储的名称，也可以是与数据存储名称匹配的某种正则表达式。</p>
+
+<p>如果您有一个名为“vc_data_store_1”的数据存储，并且您希望对持久磁盘和非持久磁盘均使用此数据存储，那么您的配置将大致如下：</p>
+
+<pre><code>	datastore_pattern:vc_data_store_1
+	persistent_datastore_pattern:vc_data_store_1
+	allow_mixed_datastores:true
+</code></pre>
+
+<p>如果您有 2 个分别名为“<em>data_store</em>1”、“vc_data_store_2”的数据存储，并且您希望对持久磁盘和非持久磁盘均使用这两个数据存储，那么您的配置将大致如下：</p>
+
+<pre><code>	datastore_pattern:vc_data_store_?
+	persistent_datastore_pattern:vc_data_store_?
+	allow_mixed_datastores:true
+</code></pre>
+
+<p>如果您有 2 个分别名为“vnx:1”、“vnx:2”的数据存储，并且您希望将持久磁盘与非持久磁盘分开，那么您的配置将大致如下</p>
+
+<pre><code>	datastore_pattern:vnx:1
+	persistent_datastore_pattern:vnx:2
+	allow_mixed_datastores:false
+</code></pre>
+
+<h4 id="section-10">部署</h4>
+
+<ol>
+<li>
+    <p>下载微 BOSH Stemcell：</p>
+
+    <pre><code> % mkdir -p ~/stemcells
+ % cd stemcells
+ % bosh public stemcells
+ +-------------------------------+----------------------------------------------------+
+ | Name                          | Url                                                |
+ +-------------------------------+----------------------------------------------------+
+ | bosh-stemcell-0.4.7.tgz       | https://blob.cfblob.com/rest/objects/4e4e7...h120= |
+ | micro-bosh-stemcell-0.1.0.tgz | https://blob.cfblob.com/rest/objects/4e4e7...5Mms= |
+ | bosh-stemcell-0.3.0.tgz       | https://blob.cfblob.com/rest/objects/4e4e7...mw1w= |
+ | bosh-stemcell-0.4.4.tgz       | https://blob.cfblob.com/rest/objects/4e4e7...r144= |
+ +-------------------------------+----------------------------------------------------+
+ To download use 'bosh download public stemcell &lt;stemcell_name&gt;'.
+ % bosh download public stemcell micro-bosh-stemcell-0.1.0.tgz
+</code></pre>
+  </li>
+  <li>
+    <p>使用以下命令设置此微 BOSH 部署：</p>
+
+    <pre><code> % cd /var/vcap/deployments
+ % bosh micro deployment dev33
+ Deployment set to '/var/vcap/deployments/dev33/micro_bosh.yml'
+</code></pre>
+  </li>
+  <li>
+    <p>部署一个新的微 BOSH 实例并创建一个新的持久磁盘。</p>
+
+    <pre><code> % bosh micro deploy ~/stemcells/micro-bosh-stemcell-0.1.0.tgz
+</code></pre>
+  </li>
+  <li>
+    <p>更新现有的微 BOSH 实例。现有的持久磁盘将连接到新虚拟机。</p>
+
+    <pre><code> % bosh micro deploy ~/stemcells/micro-bosh-stemcell-0.1.1.tgz --update
+</code></pre>
+  </li>
+</ol><h4 id="bosh--9">删除微 BOSH 部署</h4>
+
+<p><code>delete</code> 命令将会删除虚拟机、Stemcell 和持久磁盘。</p>
+
+<p>示例：</p>
+
+<pre><code>	% bosh micro delete
+</code></pre>
+
+<h4 id="bosh--10">查看微 BOSH 部署的状态</h4>
+
+<p>status 命令将显示给定的微 BOSH 实例的持久状态。</p>
+
+<pre><code>	% bosh micro status
+	Stemcell CID   sc-f2430bf9-666d-4034-9028-abf9040f0edf
+	Stemcell name  micro-bosh-stemcell-0.1.0
+	VM CID         vm-9cc859a4-2d51-43ca-8dd5-220425518fd8
+	Disk CID       1
+	Deployment     /var/vcap/deployments/dev33/micro_bosh.yml
+	Target         micro (http://11.23.194.100:25555) Ver: 0.3.12 (00000000)
+</code></pre>
+
+<h4 id="section-11">列出部署</h4>
+
+<p><code>deployments</code> 命令将以表格视图的形式输出 deployments/bosh-deployments.yml 的内容。</p>
+
+<pre><code>	% bosh micro deployments
+</code></pre>
+
+<p>如果您以后希望能够更新自己的微 BOSH 实例，那么需要保存 <code>deployments</code> 目录中的文件。这些文件全都是文本文件，因此您可以将它们提交到 git 资源库，以确保万一您的引导虚拟机停机，这些文件也安全无虞。</p>
+
+<h4 id="section-12">应用规范</h4>
+
+<p>micro-bosh-stemcell 包含一个嵌入式 <code>apply_spec.yml</code>。此命令可用来对现有的实例应用其他规范。<code>apply_spec.yml</code> 属性与您的部署的 network.ip 和 cloud.properties.vcenters 属性合并在了一起。</p>
+
+<pre><code>	% bosh micro apply apply_spec.yml
+</code></pre>
+
+<h4 id="bosh--11">向微 BOSH 代理发送消息</h4>
+
+<p>CLI 可以使用 <code>agent</code> 命令通过 HTTP 向此代理发送消息。</p>
+
+<p>示例：</p>
+
+<pre><code>	% bosh micro agent ping
+	"pong"
+</code></pre>
+
+<h3 id="aws--bosh-stemcell">为 AWS 构建您自己的微 BOSH stemcell</h3>
+
+<p>如果您想要创建自己的微 BOSH stemcell 来与 AWS 搭配使用，那么本节便说明了为此而需要执行的步骤。不过，建议的方式是下载其中一个公共 stemcell。</p>
+
+<h4 id="bosh--12">构建 BOSH 发行版</h4>
+
+<p>首先，您需创建 BOSH 发行版的 tar 包</p>
+
+<pre><code>	cd ~
+	git clone git@github.com:cloudfoundry/bosh-release.git
+	cd ~/bosh-release
+	git submodule update --init
+	bosh create release --with-tarball
+</code></pre>
+
+<p>如果这是您第一次在发行版 repo 中运行 <code>bosh create release</code>，它会要求您对此发行版进行命名（如“<code>bosh</code>”），这样，输出将为 <code>dev_releases/bosh-n.tgz</code>。</p>
+
+<h4 id="bosh--13">微 BOSH 清单</h4>
+
+<p>现在，您需要微 BOSH 清单文件，可以在 <code>bosh-release</code> repo 中的 <code>micro/aws.yml</code> 中获得此文件。此文件描述了微 BOSH 的各个组件以及应如何配置这些组件。</p>
+
+<pre><code>	---
+	deployment:micro
+	release:
+	  name:micro
+	  version: 9
+	configuration_hash: {}
+	properties:
+	  micro:true
+	  domain：vcap.me
+	  env:
+	  networks:
+	    apps:local
+	    management:local
+	  nats:
+	    user:nats
+	    password:nats
+	    address: 127.0.0.1
+	    port: 4222
+	  redis:
+	    address: 127.0.0.1
+	    port: 25255
+	    password:redis
+	  postgres:
+	    user:postgres
+	    password:postgres
+	    address: 127.0.0.1
+	    port: 5432
+	    database:bosh
+	  blobstore:
+	    address: 127.0.0.1
+	    backend_port: 25251
+	    port: 25250
+	    director:
+	      user:director
+	      password:director
+	    agent:
+	      user:agent
+	      password:agent
+	  director:
+	    address: 127.0.0.1
+	    name:micro
+	    port: 25555
+	  aws_registry:
+	    address: 127.0.0.1
+	    http:
+	      port: 25777
+	      user:admin
+	      password:admin
+	    db:
+	      database:postgres://postgres:postgres@localhost/bosh
+	      max_connections: 32
+	      pool_timeout: 10
+	    aws:
+	      max_retries: 2
+	  hm:
+	    http:
+	      port: 25923
+	      user:hm
+	      password:hm
+	    loglevel:info
+	    director_account:
+	      user:admin
+	      password:admin
+	    intervals:
+	      poll_director: 60
+	      poll_grace_period: 30
+	      log_stats: 300
+	      analyze_agents: 60
+	      agent_timeout: 180
+	      rogue_agent_alert: 180
+</code></pre>
+
+<p><strong>请注意，此清单的密码是公开的，但在部署期间可以覆盖这些密码，而且也应该覆盖它们</strong></p>
+
+<h4 id="bosh-stemcell">构建微 BOSH stemcell</h4>
+
+<p>现在，您已经有了组装微 BOSH AWS stemcell 所需的全部元件</p>
+
+<pre><code>	cd ~/bosh/agent
+	rake stemcell2:micro[aws,~/bosh-release/aws.yml,~/bosh-release/dev_builds/bosh-1.tgz]
+</code></pre>
+
+<p>这样便会在 <code>/var/tmp/bosh/agent-x.y.z-nnnnn/work/work/micro-bosh-stemcell-aws-x.y.z.tgz</code> 中输出该 stemcell</p>
+
+<h4 id="section-13">部署它</h4>
+
+<p>如果您是在自己的本地系统上构建 stemcell 的，那么您需要先将您构建的 stemcell 上传到 AWS 引导虚拟机，然后才能进行部署：</p>
+
+<pre><code>	scp micro-bosh-stemcell-aws-x.y.z.tgz ubuntu@ec2-nnn-nnn-nnn-nnn.compute-1.amazonaws.com:
+</code></pre>
+
+<p>然后，登录到该 AWS 虚拟机并创建 <code>~/deployments/aws/micro_bosh.yml</code> 文件</p>
+
+<pre><code>	---
+	name:micro-bosh-aws
+
+	logging:
+	  level:DEBUG
+
+	network:
+	  type:dynamic
+
+	resources:
+	  cloud_properties:
+	    instance_type:m1.small
+
+	cloud:
+	  plugin:aws
+	  properties:
+	    aws:
+	      access_key_id: ...
+	      secret_access_key: ...
+	      default_key_name: ...
+	      default_security_groups:["default"]
+	      ec2_private_key:~/.ssh/ec2.pem
+
+	apply_spec: properties: nats: user: ... password: ... postgres: user: ... password: ...
+        ...
+</code></pre>
+
+<p>最后，运行</p>
+
+<pre><code>	cd ~/deployments
+	bosh micro deployment aws
+	bosh micro deploy ~/micro-bosh-stemcell-aws-x.y.z.tgz
+</code></pre>
+
+<p>成功部署后输出结果将大致如下：</p>
+
+<p>$ bosh micro deploy ~/micro-bosh-stemcell-aws-x.y.z.tgz
+Deploying new micro BOSH instance <code>aws/micro_bosh.yml' to </code>micro-bosh-aws’ (type ‘yes’ to continue):yes</p>
+
+<p>Verifying stemcell…
+File exists and readable                                     OK
+Manifest not found in cache, verifying tarball…
+Extract tarball                                              OK
+Manifest exists                                              OK
+Stemcell image file                                          OK
+Writing manifest to cache…
+Stemcell properties                                          OK</p>
+
+<p>Stemcell info
+        ————-
+Name:micro-bosh-stemcell
+Version:x.y.z</p>
+
+<p>Deploy Micro BOSH
+unpacking stemcell (00:00:12)
+uploading stemcell (00:06:20)
+creating VM from ami-a99d34c0 (00:00:24)
+waiting for the agent (00:02:29)
+create disk (00:00:00)
+mount disk (00:00:20)
+stopping agent services (00:00:01)
+applying micro BOSH spec (00:00:25)
+starting agent services (00:00:00)
+waiting for the director (00:01:21)
+Done             11/11 00:11:44
+WARNING!Your target has been changed to <code>http://nnn.nnn.nnn.nnn:25555'!
+Deployment set to '/home/ubuntu/deployments/aws/micro_bosh.yml'
+Deployed </code>aws/micro_bosh.yml’ to `micro-bosh-aws’, took 00:11:44 to complete</p>
+
+<h3 id="bosh--bosh--1">使用微 BOSH 将 BOSH 作为应用程序进行部署。</h3>
+
+<ol>
+<li>
+    <p>部署微 BOSH。请参见上一节中的具体步骤。</p>
+  </li>
+  <li>
+    <p>微 BOSH 实例部署完毕后，您便可以为其控制器设定目标：</p>
+
+    <pre><code> $ bosh micro status
+ ...
+ Target         micro (http://11.23.194.100:25555) Ver: 0.3.12 (00000000)
+
+ $ bosh target http://11.23.194.100:25555
+ Target set to 'micro (http://11.23.194.100:25555) Ver: 0.3.12 (00000000)'
+
+ $ bosh status
+ Updating director data... done
+
+ Target         micro (http://11.23.194.100:25555) Ver: 0.3.12 (00000000)
+ UUID           b599c640-7351-4717-b23c-532bb35593f0
+ User           admin
+ Deployment     not set
+</code></pre>
+  </li>
+</ol><h4 id="bosh-stemcell-1">下载 BOSH stemcell</h4>
+
+<ol>
+<li>
+    <p>使用 bosh public stemcells 列出公共 stemcell</p>
+
+    <pre><code> % mkdir -p ~/stemcells
+ % cd stemcells
+ % bosh public stemcells
+ +-------------------------------+----------------------------------------------------+
+ | Name                          | Url                                                |
+ +-------------------------------+----------------------------------------------------+
+ | bosh-stemcell-0.4.7.tgz       | https://blob.cfblob.com/rest/objects/4e4e7...h120= |
+ | micro-bosh-stemcell-0.1.0.tgz | https://blob.cfblob.com/rest/objects/4e4e7...5Mms= |
+ | bosh-stemcell-0.3.0.tgz       | https://blob.cfblob.com/rest/objects/4e4e7...mw1w= |
+ | bosh-stemcell-0.4.4.tgz       | https://blob.cfblob.com/rest/objects/4e4e7...r144= |
+ +-------------------------------+----------------------------------------------------+
+ To download use 'bosh download public stemcell &lt;stemcell_name&gt;'.
+</code></pre>
+  </li>
+  <li>
+    <p>下载一个公共 stemcell。<em>请注意，在这种情况下，您并不使用微 BOSH stemcell。</em></p>
+
+    <pre><code> bosh download public stemcell bosh-stemcell-0.1.0.tgz
+</code></pre>
+  </li>
+  <li>
+    <p>将下载的 stemcell 上传到微 BOSH。</p>
+
+    <pre><code> bosh upload stemcell bosh-stemcell-0.1.0.tgz
+</code></pre>
+  </li>
+</ol><h4 id="bosh--14">上传 BOSH 发行版</h4>
+
+<ol>
+<li>
+    <p>您可以创建一个 BOSH 发行版，也可以使用其中一个公共发行版。以下步骤说明了如何使用公共发行版。</p>
+
+    <pre><code> cd /home/bosh_user
+ gerrit clone ssh://[&lt;your username&gt;@]reviews.cloudfoundry.org:29418/bosh-release.git
+</code></pre>
+  </li>
+  <li>
+    <p>从 bosh-release 上传一个公共发行版</p>
+
+    <pre><code> cd /home/bosh_user/bosh-release/releases/
+ bosh upload release bosh-1.yml
+</code></pre>
+  </li>
+</ol><h4 id="bosh--15">设置 BOSH 部署清单并进行部署</h4>
+
+<ol>
+<li>
+    <p>创建并设置一个 BOSH 部署清单。查看 (https://github.com/cloudfoundry/oss-docs/bosh/samples/bosh.yml) 中的 BOSH 示例清单。假定您已经在 <code>/home/bosh_user</code> 中创建了一个 <code>bosh.yml</code>。</p>
+
+    <pre><code> cd /home/bosh_user
+ bosh deployment ./bosh.yml
+</code></pre>
+  </li>
+  <li>
+    <p>部署 BOSH</p>
+
+    <pre><code> bosh deploy.
+</code></pre>
+  </li>
+  <li>
+    <p>为新部署的 BOSH 控制器设定目标。在示例 <code>bosh.yml</code> 中，BOSH 控制器的 IP 地址为 192.0.2.36。因此，如果您要将此控制器的目标设定为 <code>bosh target http://192.0.2.36:25555</code>（其中 25555 是默认的 BOSH 控制器端口），那么您新安装的 BOSH 实例现在即可使用。</p>
+  </li>
+</ol><h2 id="bosh--aws">使用 BOSH 部署到 AWS</h2>
+
+<p>借助适用于 AWS 的 BOSH 云提供商接口，BOSH 可以向 AWS 部署内容。</p>
+
+<h3 id="aws-">AWS 云属性</h3>
+
+<p>AWS 所特有的云属性如下</p>
+
+<h4 id="section-14">资源池</h4>
+
+<ol>
+<li>
+    <p><code>key_name</code></p>
+  </li>
+  <li>
+    <p><code>availability_zone</code></p>
+  </li>
+  <li>
+    <p><code>instance_type</code></p>
+  </li>
+</ol><h4 id="section-15">网络</h4>
+
+<ol>
+<li>
+    <p><code>type</code></p>
+  </li>
+  <li>
+    <p><code>ip</code></p>
+  </li>
+</ol><h3 id="cloud-foundry--aws-">将 Cloud Foundry 部署到 AWS 时的安全问题</h3>
+
+<p>如果您使用 BOSH 将 <a href="https://github.com/cloudfoundry/cf-release">Cloud Foundry</a> 部署到 AWS，则需要将 <code>nfs_server.network</code> 部署属性设置为 <code>*</code>（或 <code>10/8</code>），因为我们无法限制属于此部署的 IP 的列表。要限制访问，请创建并使用安全组。</p>
+
+<h2 id="bosh--16">BOSH 命令行界面</h2>
+
+<p>BOSH 命令行界面用于与 BOSH 控制器进行交互以便在云上执行操作。如需最近发布的关于其功能的文档，请安装 BOSH，然后键入 <code>bosh</code> 即可。Usage:</p>
+
+<pre><code>	bosh [--verbose] [--config|-c &lt;FILE&gt;] [--cache-dir &lt;DIR]
+	[--force] [--no-color] [--skip-director-checks] [--quiet]
+	[--non-interactive]
+	command [&lt;args&gt;]
+</code></pre>
+
+<p>目前可供使用的 BOSH 命令有：</p>
+
+<pre><code>	部署
+	deployment [&lt;name&gt;]       选择要使用的部署（它还会更新
+	当前目标）
+	delete deployment &lt;name&gt;  删除部署
+	                                --force    在删除部署的组成部分时忽略
+	所有错误
+	deployments               显示可用部署的列表
+	deploy                    按照当前选择的部署清单
+	进行部署
+	                                --recreate 在部署过程中重新创建所有虚拟机
+	diff [&lt;template_file&gt;]    将您当前的 BOSH 部署
+	配置与指定的 BOSH 部署
+	配置模板区分开来，以便
+	您可以使您的部署配置文件保持
+	最新状态。可以在部署 repo 中找到开发
+	模板。
+	
+	发行版管理
+	create release            创建发行版（假定当前目录为
+	发行版资源库）
+	                                --force    绕过 git 脏状态检查
+	                                --final    创建可投入生产环境中使用的发行版
+	（将项目存储在 blobstore 中，
+	增加最终版本）
+	                                --with-tarball
+	创建完整的发行版 tar 包（默认情况下
+	仅创建清单）
+	                                --dry-run  先停止，再写入发行版清单
+	（用于诊断）
+	delete release &lt;name&gt; [&lt;version&gt;]
+	删除发行版（或发行版的特定版本）
+	                                --force    在删除期间忽略错误
+	verify release &lt;path&gt;     验证发行版
+	upload release [&lt;path&gt;]   上传发行版（&lt;path&gt; 可以指向 tar 包或
+	清单，默认为指向最新创建的
+	发行版）
+	releases                  显示可用发行版的列表
+	reset release             重置发行版部署环境（删除
+	所有开发项目）
+	
+	init release [&lt;path&gt;]     初始化发行版目录
+	generate package &lt;name&gt;   生成包模板
+	generate job &lt;name&gt;       生成作业模板
+	
+	Stemcell
+	upload stemcell &lt;path&gt;    上传 stemcell
+	verify stemcell &lt;path&gt;    验证 stemcell
+	stemcells                 显示可用 stemcell 的列表
+	delete stemcell &lt;name&gt; &lt;version&gt;
+	删除 stemcell
+	public stemcells          显示供下载的公开 stemcell 的
+	列表。
+	download public stemcell &lt;stemcell_name&gt;
+	从公共 blobstore 下载 stemcell。
+	
+	用户管理
+	create user [&lt;name&gt;] [&lt;password&gt;]
+	创建用户
+	
+	作业管理
+	start &lt;job&gt; [&lt;index&gt;]     启动作业/实例
+	stop &lt;job&gt; [&lt;index&gt;]      停止作业/实例
+	                                --soft     仅停止进程
+	                                --hard     关闭虚拟机
+	restart &lt;job&gt; [&lt;index&gt;]   重新启动作业/实例（软停止 + 启动）
+	recreate &lt;job&gt; [&lt;index&gt;]  重新创建作业/实例（硬停止 + 启动）
+	
+	日志管理
+	logs &lt;job&gt; &lt;index&gt;        提取作业日志（默认）或代理日志（如果提供了
+	选项）
+	                                --agent    提取代理日志
+	                                --only &lt;filter1&gt;[...]
+	仅提取符合指定过滤器
+	（在作业规范中定义）的条件的日志
+	                                --all      提取作业或代理日志目录中的所有
+	目录
+	
+	任务管理
+	tasks                     显示正在运行的任务的列表
+	tasks recent [&lt;number&gt;]   显示最近 &lt;number&gt; 项任务
+	task [&lt;task_id&gt;|last]     显示任务状态并开始跟踪其输出
+	                                --no-cache 不在本地缓存输出
+	                                --event|--soap|--debug
+	要跟踪的不同日志类型
+	                                --raw      不美化日志
+	cancel task &lt;id&gt;          任务一旦达到下一个取消检查点，
+	即将其取消
+	
+	属性管理
+	set property &lt;name&gt; &lt;value&gt;
+	设置部署属性
+	get property &lt;name&gt;       获取部署属性
+	unset property &lt;name&gt;     取消对部署属性进行的设置
+	properties                列出当前部署属性
+	                                --terse    便于分析输出
+	
+	维护
+	cleanup                   从当前控制器中删除除最近几个 stemcell 和发行版
+	以外的所有 stemcell 和发行版（不删除
+	当前正在使用的 stemcell 和发行版）
+	cloudcheck                云一致性检查和交互式修复
+	                                --auto     自动解决问题（对于生产环境，
+	不推荐使用）
+	                                --report   仅生成报告，不尝试
+	解决问题
+	
+	其他
+	status                    显示当前状态（当前目标、用户、
+	部署信息等）
+	vms [&lt;deployment&gt;]        列出所有应在部署范围内的虚拟机
+	target [&lt;name&gt;] [&lt;alias&gt;] 选择要与哪个控制器通信（还可以选择创建
+	一个别名）。如果不提供参数，则显示当前
+	设为目标的控制器
+	login [&lt;name&gt;] [&lt;password&gt;]
+	为与目标控制器的
+	后续交互提供凭据
+	logout                    忘记已保存的目标控制器凭据
+	purge                     清除本地清单缓存
+	
+	远程访问
+	ssh &lt;job&gt; [index] [&lt;options&gt;] [command]
+	在指定了作业的情况下，执行指定的命令或启动
+	交互式会话
+	                                --public_key &lt;file&gt;
+	                                --gateway_host &lt;host&gt;
+	                                --gateway_user &lt;user&gt;
+	                                --default_password
+	使用默认的 ssh 密码。不
+	推荐使用。
+	scp &lt;job&gt; &lt;--upload | --download&gt; [options] /path/to/source /path/to/destination
+	将源文件上传/下载到指定的作业。
+	注意：如果是下载，则 /path/to/destination 是一个
+	目录
+	                                --index &lt;job_index&gt;
+	                                --public_key &lt;file&gt;
+	                                --gateway_host &lt;host&gt;
+	                                --gateway_user &lt;user&gt;
+	ssh_cleanup &lt;job&gt; [index] 清理 SSH 证书
+	
+	Blob
+	upload blob &lt;blobs&gt;      将指定的 blob 上传到 blobstore
+	                                --force    绕过重复项检查
+	sync blobs                将 blob 与 blobstore 同步
+	                                --force    用远程 blob 覆盖所有
+	本地副本
+	blobs                     输出 blob 状态
+</code></pre>
+
+<h2 id="section-16">发行版</h2>
+
+<p>发行版是由源代码、用于运行服务的配置文件和启动脚本以及一个唯一标识这些组件的版本号组成的集合。创建新发行版时，您应使用源代码管理器（如 <a href="http://git-scm.com/">git</a>）来管理所含文件的新版本。</p>
+
+<h3 id="section-17">发行版资源库</h3>
+
+<p>BOSH 发行版是基于一个目录树构建的，此目录树包含本节中所介绍的内容。典型的发行版资源库包含以下子目录：</p>
+
+<table><tbody>
+<tr>
+<td>目录</td>
+      <td>内容</td>
+    </tr>
+<tr>
+<td>————</td>
+      <td>———-</td>
+    </tr>
+<tr>
+<td><code>jobs</code></td>
+      <td>作业定义</td>
+    </tr>
+<tr>
+<td><code>packages</code></td>
+      <td>包定义</td>
+    </tr>
+<tr>
+<td><code>config</code></td>
+      <td>发行版配置文件</td>
+    </tr>
+<tr>
+<td><code>releases</code></td>
+      <td>最终发行版</td>
+    </tr>
+<tr>
+<td><code>src</code></td>
+      <td>包的源代码</td>
+    </tr>
+<tr>
+<td><code>blobs</code></td>
+      <td>大型源代码捆绑包</td>
+    </tr>
+</tbody></table><h3 id="section-18">作业</h3>
+
+<p>作业是包的实现，即，运行包中的一个或多个进程。作业包含运行包中的二进制文件所需的配置文件和启动脚本。</p>
+
+<p>作业与虚拟机之间存在<em>一对多</em> 映射关系 - 在任何给定的虚拟机中都只能运行一个作业，但多个虚拟机可以运行同一个作业。例如，可能会有四个虚拟机都在运行云控制器作业，但云控制器作业与 DEA 作业则不能在同一虚拟机中运行。如果您需要在同一虚拟机中运行两个不同的进程（从两个不同的包中运行），那么您需要创建一个可以启动这两个进程的作业。</p>
+
+<h4 id="prepare-">Prepare 脚本</h4>
+
+<p>如果某一作业需要从其他作业（如超级作业）中来汇编自己，则可以使用 <code>prepare</code> 脚本，该脚本会在此作业打包前运行，并且可以创建、复制或修改文件。</p>
+
+<h4 id="section-19">作业模板</h4>
+
+<p>作业模板是作业的经过泛化的配置文件和脚本，在 Stemcell 转变成作业时，作业将使用 <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html">ERB</a> 文件来生成最终的配置文件和脚本。</p>
+
+<p>将配置文件转变成模板时，会将特定于实例的信息抽象成一个属性，之后当 [控制器][控制器] 在虚拟机上启动作业时会提供该属性。例如，这种信息可以是 Web 服务器应在哪个端口上运行，或者数据库应使用哪个用户名及密码。</p>
+
+<p>这些文件位于 <code>templates</code> 目录中，在作业 <code>spec</code> 文件中的 templates 部分中提供了模板文件与其最终位置之间的映射关系。例如</p>
+
+<pre><code>	templates:
+	foo_ctl.erb:bin/foo_ctl
+	foo.yml.erb:config/foo.yml
+	foo.txt:config/foo.txt
+</code></pre>
+
+<h4 id="section-20">属性的用法</h4>
+
+<p>用于作业的属性来自于部署清单，部署清单通过 [代理][代理] 将特定于实例的信息传递给虚拟机。</p>
+
+<h4 id="section-21">“虚拟机的作业”</h4>
+
+<p>首次启动虚拟机时，该作业为 Stemcell，Stemcell 可以变成任何类型的作业。当控制器指示虚拟机运行作业时，首先就会运行该作业，以使它获得自己的<em>身份</em>.</p>
+
+<h4 id="monitrc">监视 (Monitrc)</h4>
+
+<p>BOSH 使用 <a href="http://mmonit.com/monit/">monit</a> 来管理和监视作业的进程。<code>monit</code> 文件描述了 BOSH [代理][代理] 将如何停止和启动该作业，该文件包含至少三个部分：</p>
+
+<dl>
+<dt><code>with pidfile</code></dt>
+  <dd>该进程将其 pid 文件保存在何处</dd>
+  <dt><code>start program</code></dt>
+  <dd>monit 应如何启动该进程</dd>
+  <dt><code>stop program</code></dt>
+  <dd>monit 应如何停止该进程</dd>
+</dl><p><code>monit</code> 文件通常包含一段脚本，可通过调用此脚本来启动/停止该进程；不过它可以直接调用二进制文件。</p>
+
+<h4 id="dns-">DNS 支持</h4>
+
+<p>待撰写</p>
+
+<h3 id="packages">Packages</h3>
+
+<p>包是一个集合，其中包含：源代码；一段脚本，该脚本包含了相应的指令来说明如何将此源代码编译成二进制格式并加以安装；与其他必备包的依赖关系，此项可选。</p>
+
+<h4 id="section-22">包编译</h4>
+
+<p>包是在部署期间根据需要进行编译的。<a href="#bosh-director">控制器</a>首先会检查要将该包部署到的 stemcell 版本是否已经有了该包的已编译版本，如果尚不存在已编译的版本，控制器将实例化一个编译虚拟机（使用要将该包部署到的同一 stemcell 版本），编译虚拟机将从 blobstore 获取该包的源代码，对其进行编译，然后将所得到的二进制文件打包并存储到 blobstore 中。</p>
+
+<p>为了将源代码转变成二进制文件，每个包都有 <code>packaging</code> 脚本，该脚本负责编译，并在编译虚拟机上运行。该脚本会获取从 BOSH 代理中设置的两个环境变量：</p>
+
+<dl>
+<dt><code>BOSH_INSTALL_TARGET</code></dt>
+  <dd>用于告知要将该包生成的文件安装到何处。它设置为 <code>/var/vcap/data/packages/&lt;package name&gt;/&lt;package version&gt;</code>。</dd>
+  <dt><code>BOSH_COMPILE_TARGET</code></dt>
+  <dd>用于告知包含源代码的目录（在调用 <code>packaging</code> 脚本时为当前目录）。</dd>
+</dl><p>安装该包时，将从 <code>/var/vcap/packages/&lt;package name&gt;</code> 创建一个指向该包最新版本的符号链接。在 <code>packaging</code> 脚本中引用其他包时应使用该链接。</p>
+
+<p>有一段可选的 <code>pre_packaging</code> 脚本，在 <code>bosh create release</code> 执行期间汇编该包的源代码时会运行此脚本。例如，此脚本可以用来限制将源代码中的哪些部分打包并存储在 blobstore 中。此脚本会获取由 <a href="#bosh-cli">BOSH CLI</a> 设置的环境变量 <code>BUILD_DIR</code>，此环境变量表示包含要打包的源代码的目录。</p>
+
+<h4 id="section-23">包规范</h4>
+
+<p>包的内容在 <code>spec</code> 文件中加以指定，此文件包含三个部分：</p>
+
+<dl>
+<dt><code>name</code></dt>
+  <dd>包的名称。</dd>
+  <dt><code>dependencies</code></dt>
+  <dd>可选，表示该包依赖的其他包的列表，[见下文][依赖项]。</dd>
+  <dt><code>files</code></dt>
+  <dd>该包包含的文件的列表，可以包含 glob。<code>*</code> 与任何文件都匹配，可以通过 glob 中的其他值加以限制，例如 <code>*.rb</code> 仅匹配以 <code>.rb</code> 结尾的文件。<code>**</code> 以递归方式匹配目录。</dd>
+</dl><h4 id="section-24">依赖项</h4>
+
+<p>包的 <code>spec</code> 文件包含一个列出当前包依赖的其他包的部分。这些依赖项为编译时依赖项，相反，作业依赖项则是运行时依赖项。</p>
+
+<p>当<a href="#bosh-director">控制器</a>在部署期间计划包的编译工作时，它首先会确保所有依赖项均已编译，接着才会编译当前包；还会确保在开始编译前，依赖的所有包均安装到了编译虚拟机上。</p>
+
+<h3 id="section-25">源代码</h3>
+
+<p><code>src</code> 目录包含包的所有源代码。</p>
+
+<p>如果您是使用源代码资源库来管理您的发行版，应避免在其中存储大型对象（例如 <code>src</code> 目录中的源代码 tar 包），而应使用下面所述的 <a href="#blobs">blob</a>。</p>
+
+<h3 id="blob">Blob</h3>
+
+<p>要创建最终发行版，您需要使用 blobstore 配置发行版资源库。BOSH 会将最终发行版上传到此资源库，这样以后便可以从其他计算机检索该发行版。</p>
+
+<p>为防止发行版资源库充斥着大型的二进制文件（源代码 tar 包），可以将大型文件放入 <code>blobs</code> 目录中，再上传到 blobstore。</p>
+
+<p>对于生产发行版，您应使用 Atmos 或 S3 blobstore，并按如下说明配置它们。</p>
+
+<h4 id="atmos">Atmos</h4>
+
+<p>Atmos 是 EMC 出品的一款共享存储解决方案。要使用 Atmos，请编辑 <code>config/final.tml</code> 和 <code>config/private.yml</code>，然后添加以下内容（将 <code>url</code>、<code>uid</code> 和 <code>secret</code> 替换成您的帐户信息）：</p>
+
+<p><code>config/final.yml</code> 文件</p>
+
+<pre><code>---
+blobstore:
+provider:atmos
+options:
+tag:BOSH
+url:https://blob.cfblob.com
+uid:1876876dba98981ccd091981731deab2/user1
+</code></pre>
+
+<p><code>config/private.yml</code> 文件</p>
+
+<pre><code>---
+blobstore_secret:ahye7dAS93kjWOIpqla9as8GBu1=
+</code></pre>
+
+<h4 id="s3">S3</h4>
+
+<p>要使用由 Amazon 出品的共享存储解决方案 S3，请编辑 <code>config/final.tml</code> 和 <code>config/private.yml</code>，然后添加以下内容（将 <code>access_key_id</code>、<code>bucket_name</code>、<code>encryption_key</code> 和 <code>secret_access_key</code> 替换成您的帐户信息）：</p>
+
+<p><code>config/final.yml</code> 文件</p>
+
+<pre><code>---
+blobstore:
+provider:s3
+options:
+access_key_id:KIAK876234KJASDIUH32
+bucket_name:87623bdc
+encryption_key:sp$abcd123$foobar1234
+</code></pre>
+
+<p><code>config/private.yml</code> 文件</p>
+
+<pre><code>---
+blobstore_secret:kjhasdUIHIkjas765/kjahsIUH54asd/kjasdUSf
+</code></pre>
+
+<h4 id="section-26">本地</h4>
+
+<p>如果您要试用 BOSH，但没有 Atmos 或 S3 帐户，您可以使用 local blobstore 提供商（它会将文件存储在磁盘上而不是远程服务器上）。</p>
+
+<p><code>config/final.yml</code> 文件</p>
+
+<pre><code>---
+blobstore:
+provider:local
+options:
+blobstore_path:/path/to/blobstore/directory
+</code></pre>
+
+<p>请注意，应仅将 <strong>only</strong> 用于测试目的，因为无法与其他对象共享它（除非这些对象运行在同一系统上）。</p>
+
+<h3 id="section-27">配置发行版</h3>
+
+<p>可以在一个空的 git repo 中使用 <code>bosh init release command</code> 来进行初次发行版配置。这将创建一些可用来保存作业、包和源代码的目录。</p>
+
+<h3 id="section-28">构建发行版</h3>
+
+<p>要创建新的发行版，请使用 <code>bosh create release</code> 命令。此命令将尝试用发行版 repo 的内容创建一个新的发行版。具体过程如下：</p>
+
+<ul>
+<li>BOSH CLI 识别出它在一个发行版 repo 目录中，并尝试找到该 repo 中的所有作业和包。然后，对于每个项目（包/作业）：
+    <ol>
+<li>使用项目内容、文件权限及其他一些可跟踪数据构建指纹。</li>
+      <li>BOSH CLI 尝试查找与该指纹匹配的项目的“最终”版本。所有的“最终”版本均应通过 blobstore 进行共享，blobstore ID 则在发行版 repo 中加以跟踪。找到所需的 blobstore ID 后，CLI 便尝试在本地缓存中查找实际项目，如果实际项目缺失或者出现校验和不匹配，CLI 会从 blobstore 中提取它（随后保存在本地缓存中）。</li>
+      <li>如果未找到任何最终版本，CLI 会尝试在本地缓存中查找开发版本。开发版本是特定于开发人员计算机上的发行版 repo 的本地副本的，因此不会尝试进行下载，它要么不存在，要么存在于本地。</li>
+      <li>如果找到了项目（开发版本或最终版本），CLI 会使用与该项目关联的版本。这么看来，从第 1 步到第 4 步的整个过程本质上就是通过计算出来的指纹查找 tar 包及其版本。包/作业中的任何更改都应该会更改其指纹，这会触发第 5 步（生成一个新的版本）。</li>
+      <li>如果需要生成新的项目版本，CLI 将使用其 spec 文件来了解需要在所生成的 tar 包中包含什么内容。对于包，它会解析依赖关系，复制匹配的文件并运行 <code>pre_packaging</code> 脚本（如果有）。对于作业，它会检查包含的所有包和配置模板是否存在。如果所有检查均已通过，CLI 会生成一个新的项目 tar 包并将其打包，然后为其分配一个新版本（请参见下文中的发行版版本控制）。</li>
+    </ol>
+</li>
+  <li>此时所有包和作业都已生成，CLI 也有了对它们的引用。仅剩的一步是生成一个发行版清单，从而将所有这些作业和包绑定在一起。所生成的 YAML 文件会保存下来，其路径将提供给 CLI 用户。可以通过将此路径与 <code>bosh upload release</code> 一起使用向 BOSH 控制器上传发行版。</li>
+</ul><h3 id="section-29">最终发行版与发行版版本控制</h3>
+
+<p>测试完所有更改并且需要向生产环境中实际部署发行版时，便可以创建最终发行版。最终发行版与开发发行版的区分标准主要有三个：</p>
+
+<ol>
+<li>
+<em>版本控制架构</em>: 最终发行版与版本无关。每次生成新的最终发行版时，其版本都是通过在上一最终发行版的基础上简单递增得出的，而不考虑在这两个最终发行版之间创建了多少个开发发行版。各个发行版项目也是如此，它们的最终版本与开发版本无关。</li>
+  <li>
+<em>Blob 共享</em>: 最终发行版中包含的包和作业 tar 包也是上传到 blobstore，因此将来尝试在同一发行版 repo 中创建发行版的任何人员使用的都将是相同的实际代码，而非在本地生成它们。这对于保持一致和在需要时能够生成最终发行版的旧版本而言十分重要。</li>
+  <li>
+<em>仅重用组件，而不生成新组件</em>: 最终发行版应仅包含以前生成的项目。如果根据 repo 的当前状态计算出来的指纹与以前生成的开发或最终版本不匹配，将会引发错误，从而告知 CLI 用户确保先生成和测试开发发行版。</li>
+</ol><p>最终发行版可以通过运行 <code>bosh create release --final</code> 来创建。通常，只有参与更新生产系统的人员才应生成最终版本。还有一个 <code>--dry-run</code> 选项用于在实际并不生成和上传项目的情况下测试发行版创建操作。</p>
+
+<p>默认情况下，所有项目均存储在发行版 repo 内的 <code>.final_builds</code> 目录中，而发行版清单则保存在 <code>releases</code> 目录中。如果需要实际的发行版 tar 包，则可以使用 <code>bosh create release --with tarball</code>。此外，可以使用 <code>bosh create release /path/to/release_manifest.yml</code> 根据以前创建过的发行版的清单来重新创建该发行版。在这两种情况下，输出都是自我包含且已经可以上传的发行版 tar 包。</p>
+
+<p>开发发行版项目的版本控制与最终发行版项目略有不同：最新生成的项目最终版本用作开发内部版本的主要版本，而实际的内部版本修订号则用作次要版本。</p>
+
+<p>示例如下：</p>
+
+<ol>
+<li>发行版 repo 中有一个 cloud_controller 包：尚无开发版本和最终版本。</li>
+  <li>
+<code>bosh create release</code> 第一次运行</li>
+  <li>现在，有了开发发行版 1，cloud_controller 现在便有了开发版本 0.1，尚无最终版本</li>
+  <li>
+    <p><code>bosh create release</code> is a no-op now, unless we make some repo changes.</p>
+  </li>
+  <li>有人编辑了 cloud_controller 包匹配的一个或多个文件。</li>
+  <li>
+<code>bosh create release</code> 现在生成了开发发行版 2，cloud_controller 有了开发版本 0.2，尚无最终版本。</li>
+  <li>
+<code>bosh create release --final</code> 现在将创建最终发行版 1，cloud_controller 有了开发版本 0.2，此版本也改称为最终版本 1。</li>
+  <li>接下来对 cloud_controller 所做的编辑随后将生成开发版本 1.1、1.2，依此类推，直到创建新的最终版本为止</li>
+</ol><p>这种版本控制架构的主要用途是将以下两类受众的发行版工程处理流程区分开来：</p>
+
+<ol>
+<li>在自己所做更改的基础上快速迭代且实际不关心使 BOSH 发行版版本控制保持一致的开发人员，BOSH CLI 将为他们处理所有的版本控制细节并防止他人看到所有尚未完成的发行版。</li>
+  <li>实际构建用于生产目的的发行版并希望这些发行版得到一致的版本控制和源代码控制的 SRE。</li>
+</ol><h3 id="s3-">使用 S3 设置新的发行版资源库</h3>
+
+<p>以下说明要求您使用 BOSH CLI 0.19.6 或更高版本。</p>
+
+<p>要发布 BOSH 发行版资源库，您需要完成两个步骤：
+1. 使用 git 使该资源库可供用户使用
+（例如放置到 <a href="https://github.com/">github</a> 上）
+2. 使最终作业和包可供用户使用
+（例如使用 <a href="http://aws.amazon.com/s3/">S3</a>）</p>
+
+<p>本篇博文以 <a href="https://github.com/cloudfoundry/bosh-sample-release">bosh-sample-release</a> 为例来说明如何使用公开的最终作业和包来设置 BOSH 发行版资源库。以<span style="color:red;">红色</span>显示的文本需替换成您的具体信息，如 Amazon 访问密钥 ID 和 bucket 名称。</p>
+
+<p>首先，您需要在 Amazon IAM 中创建一个将能够向 S3 上传数据的新用户，再创建一个将用来存储最终对象的 S3 bucket。</p>
+
+<p>然后，需设置一项允许匿名用户（任何人）从该 bucket 获取对象的 bucket 策略：</p>
+
+<p><code>{
+  "Version": "2008-10-17",
+  "Statement": [
+    {
+      "Sid": "AddPerm",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::&lt;code style="color: red;"&gt;bosh-sample-release&lt;/code&gt;/*"
+    }
+  ]
+}</code></p>
+
+<p>初始化一个新的发行版资源库：</p>
+
+<pre><code>bosh init release &lt;code style="color:red;"&gt;bosh-sample-release&lt;/code&gt; --git
+</code></pre>
+
+<p>在该发行版资源库中，创建包含以下内容的 <code>config/final.yml</code> 文件：</p>
+
+<p><code>---
+final_name: wordpress
+min_cli_version: 0.19.6
+blobstore:
+  provider: s3
+  options:
+    bucket_name: &lt;code style="color: red;"&gt;bosh-sample-release&lt;/code&gt;</code></p>
+
+<p>Next create the file <code>private.yml</code> somewhere <strong>outside</strong> of the repository and create a soft link to it in the <code>config</code> directory.这样做是为了防止您无意中将 S3 凭据提交到该资源库，从而暴露了机密信息。</p>
+
+<p><code>---
+blobstore:
+  s3:
+    secret_access_key: &lt;code style="color: red;"&gt; EVGFswlmOvA33ZrU1ViFEtXC5Sugc19yPzokeWRf&lt;/code&gt;
+    access_key_id: &lt;code style="color: red;"&gt; AKIAIYJWVDUP4KRWBESQ&lt;/code&gt;</code></p>
+
+<p>现在，您需要将所做的更改提交到该资源库</p>
+
+<p>git add .
+git commit -m ‘initial commit’</p>
+
+<p>创建一些作业和包</p>
+
+<p>bosh generate package foo
+bosh generate job bar</p>
+
+<p>创建一个开发发行版。当您在该资源库中有未提交的更改时，便需要用到 <code>--force</code> 选项。</p>
+
+<p>bosh create release –force</p>
+
+<p>对所做的更改感到满意后，请提交它们并构建最终发行版。</p>
+
+<p>git add .
+git commit -m ‘added package foo and job bar’
+bosh create release –final</p>
+
+<p>这会将最终的包和作业上传到 S3，并在您的发行版资源库中存储对它们的引用。这些引用也需要提交。</p>
+
+<p>git add .
+git commit -m ‘release #1’</p>
+
+<h2 id="bosh--17">BOSH 部署</h2>
+
+<h3 id="section-30">部署步骤</h3>
+
+<p>使用 BOSH 进行部署时，各个步骤按以下顺序执行：</p>
+
+<ol>
+<li>Preparing deployment
+    <ul>
+<li>绑定部署 - 如果控制器的数据库中不存在与此次部署对应的条目，则在该数据库中创建一个。</li>
+      <li>绑定发行版 - 确保在部署配置中指定的发行版存在，然后将其锁定以免遭删除。</li>
+      <li>绑定现有部署 - 获取现有虚拟机并对它们进行设置以供此次部署使用。</li>
+      <li>绑定资源池 - 为空闲的虚拟机预留网络。</li>
+      <li>绑定 stemcells - 确保指定的 stemcell 已上传，然后将其锁定以免遭删除。</li>
+      <li>绑定模板 - 设置内部数据对象以便跟踪包及其安装前提条件。</li>
+      <li>绑定未分配的虚拟机 - 对于所需的每个作业实例，它会确定是否已经存在运行该实例的虚拟机，如果不存在，则会分配一个。</li>
+      <li>绑定实例网络 - 为没有网络的每个虚拟机预留网络。</li>
+    </ul>
+</li>
+  <li>编译包 - 计算需要编译的所有包及其依赖项。然后它便开始编译这些包并将它们的输出存储在 blobstore 中。在部署配置中指定的 <code>workers</code> 数目决定着一次可以创建多少个用于执行编译的虚拟机。</li>
+  <li>准备 DNS - 如果不存在 DNS 条目，则创建此条目。</li>
+  <li>创建已绑定的缺失虚拟机 - 创建新的虚拟机，删除多余/已过期/空闲的虚拟机。</li>
+  <li>绑定实例虚拟机 - 为此次部署设置所有未绑定的虚拟机。</li>
+  <li>准备配置 - 获取要运行的每个作业的配置。</li>
+  <li>更新/删除作业 - 删除不需要的实例、创建需要的实例、更新尚未更新的现有实例。这是为对象注入活力的步骤。</li>
+  <li>重新填充资源池 - 在所有实例更新程序创建完附加虚拟机后跨资源池创建缺失的虚拟机，以便平衡资源池。</li>
+</ol><h3 id="bosh--18">BOSH 部署清单</h3>
+
+<p>BOSH 部署清单是一个 YAML 文件，用于定义部署的布局和属性。当 BOSH 用户使用 CLI 启动新的部署时，BOSH 控制器会收到一个版本的部署清单，并使用此清单创建一个新的部署计划（请参见 <a href="#steps-of-a-deployment">部署步骤</a>）。清单包含若干部分：</p>
+
+<ul>
+<li>
+<code>name</code> [字符串，必需] 部署名称。一个 BOSH 控制器可以管理多个部署并通过名称来区别它们。</li>
+  <li>
+<code>director_uuid</code> [字符串，必需] 控制器 UUID。标识用来管理给定部署的 BOSH 控制器。目标控制器的 UUID 应该与此属性匹配，这样 BOSH CLI 才会允许对该部署执行任何操作。</li>
+  <li>
+<code>release</code> [哈希，必需] 发行版属性。
+    <ul>
+<li>
+<code>name</code> [字符串，必需] 发行版名称。引用将用于解析部署组件（包、作业）的发行版名称。</li>
+      <li>
+<code>version</code> [字符串，必需] 发行版版本。指向要使用的确切发行版版本。</li>
+    </ul>
+</li>
+  <li>
+<code>compilation</code> [哈希，必需] 包的编译属性。
+    <ul>
+<li>
+<code>workers</code> [整数，必需] 将创建多少个用来编译包的编译虚拟机。</li>
+      <li>
+<code>reuse_compilation_vms</code> [布尔，可选] 如果设置为 True，在编译包时将重用编译虚拟机。如果为 False，那么每次需要编译新包（作为当前部署的一部分）时，都将创建一个新的工作进程虚拟机（总数不超过编译工作进程数目），完成单个包的编译后将关闭此虚拟机。默认值为 False。如果 IaaS 创建/删除虚拟机所耗费的时间很长或者需要优化包的编译成本，那么建议将其设置为 True（因为编译虚拟机的存续时间通常很短，并且某些 IaaS 计费方式会将使用时间向上舍入为一个小时）。</li>
+      <li>
+<code>network</code> [字符串，必需] 网络名称，引用在 <code>networks</code> 部分中定义的有效网络名称。为编译虚拟机分配其所有网络属性时依据的是该网络的类型及其他属性。</li>
+      <li>
+<code>cloud_properties</code> [哈希，必需] 将用于创建编译虚拟机的任何特定于 IaaS 的属性。</li>
+    </ul>
+</li>
+  <li>
+<code>update</code> [哈希，必需] 实例的更新属性。这些属性控制在部署期间将如何更新作业实例。
+    <ul>
+<li>
+<code>canaries</code> [整数，必需] Canary 实例的数目。Canary 实例在其他实例前更新，如果 Canary 实例出现任何更新错误，则意味着部署应停止。这样可以防止有错误的包或作业接管所有作业实例，因为有问题的代码仅会影响 Canary。Canary 完成后，此作业的其他实例将以并行方式更新（遵照 <code>max_in_flight</code> 设置）。</li>
+      <li>
+<code>canary_watch_time</code> [范围，整数] 在认定作业是否正常运行前等待 Canary 更新的时长。如果提供的是整数，控制器将睡眠一定时间后检查作业是否正常运行，睡眠时长等于该整数所表示的时间（以秒为单位）。如果给定的是 `lo..hi` 范围，控制器将等待 `lo` 毫秒后检查作业是否正常运行，如果运行不正常，它将再睡眠这么长的时间，如果反复下去，直到超过 `hi` 毫秒为止。如果此时作业的运行仍然不正常，控制器将放弃。整数&gt;</li>
+      <li>
+<code>update_watch_time</code> [范围，整数]：从语义上而言与 `canary_watch_time` 并无二致，用于常规（非 Canary）更新。整数&gt;</li>
+      <li>
+<code>max_in_flight</code> [整数，必需] 可以并行执行的非 Canary 实例更新的最大数目。</li>
+    </ul>
+</li>
+  <li>
+<code>networks</code> [哈希，必需] 描述部署使用的网络。有关详细信息，请参见 [nework_spec]。数组&gt;</li>
+  <li>
+<code>resource_pools</code> [哈希，必需] 描述部署使用的资源池。有关详细信息，请参见 [resource_pool_spec]。数组&gt;</li>
+  <li>
+<code>jobs</code> [哈希，必需] 列出包含在此部署中的作业。有关详细信息，请参见 [job_spec]。数组&gt;</li>
+  <li>
+<code>properties</code> [哈希，必需] 全局部署属性。有关详细信息，请参见 [job_cloud_properties]。</li>
+</ul><h4 id="section-31">网络规范</h4>
+
+<p>网络规范指定了作业可以引用的网络配置。不同的环境的网络连接功能差别很大，因此存在多种网络类型。每种类型都有一个必需的 <code>name</code> 属性，该属性用于在 BOSH 中标识相应的网络，因此必须是唯一的。</p>
+
+<p>下面是更详细的网络类型描述：</p>
+
+<ol>
+<li>
+<code>dynamic</code> 这种网络并非由 BOSH 加以管理。使用这种网络的虚拟机应该是从 DHCP 服务器或者通过某种其他方式获取其 IP 地址及其他网络配置，BOSH 将相信每一个虚拟机在其 <code>get_state</code> 响应中报告的其当前 IP 地址。这种网络支持的唯一一个额外属性是 <code>cloud_properties</code>，该属性包含用于 CPI 的任何特定于 IaaS 的网络详细信息。</li>
+  <li>
+<code>manual</code> 这种网络完全由 BOSH 管理。为动态、静态和预留的 IP 池、DNS 服务器提供了范围。手动管理的网络可以进一步划分成若干子网。使用这种类型的网络时，BOSH 将负责分配 IP 地址、执行与网络有关的健全性检查以及告知虚拟机它们打算使用哪些网络配置。这种类型的网络只有 <code>subnets</code> 这一个额外属性，该属性是一个哈希数组，其中的每个哈希都是一个包含以下属性的子网规范：
+    <ul>
+<li>
+<code>range</code> [字符串，必需] 包含此子网中的所有 IP 的子网 IP 范围（由 Ruby 的 NetAddr::CIDR.create 语义定义）。</li>
+      <li>
+<code>gateway</code> [字符串，可选] 子网网关 IP。</li>
+      <li>
+<code>dns</code> [数组，可选] 此子网的 DNS IP 地址。字符串&gt;</li>
+      <li>
+<code>cloud_properties</code> 传递给 CPI 的不透明且特定于 IaaS 的详细信息。</li>
+      <li>
+<code>reserved</code> [字符串，可选] 预留的 IP 范围。该范围的 IP 绝不会分配给由 BOSH 管理的虚拟机，这些 IP 应该完全在 BOSH 之外进行管理。</li>
+      <li>
+<code>static</code> [字符串，可选] 静态 IP 范围。当作业请求静态 IP 时，所有这些 IP 都应来自于某个子网静态 IP 池。</li>
+    </ul>
+</li>
+  <li>
+<code>vip</code> 这种网络只是一个由虚拟 IP（例如 EC2 弹性 IP）组成的集合，每个作业规范将提供这种网络应该具有的 IP 的范围。实际虚拟机无法感知这些 IP。这种网络支持的唯一一个额外属性是 <code>cloud_properties</code>，该属性包含用于 CPI 的任何特定于 IaaS 的网络详细信息。</li>
+</ol><h4 id="section-32">资源池规范</h4>
+
+<p>资源池规范本质上就是一个描绘由 BOSH 创建和管理的虚拟机的蓝图。一个部署清单中可能有多个资源池，<code>name</code> 用于标识和引用它们，因此需要是唯一的。资源池虚拟机在部署中创建，随后作业会应用于这些虚拟机。作业可能会覆盖部分资源池设置（如网络），但一般而言，资源池是根据容量和 IaaS 配置需求划分作业的良好工具。资源池规范的属性有：</p>
+
+<ul>
+<li>
+<code>name</code>[字符串，必需] 唯一的资源池名称。</li>
+  <li>
+<code>network</code> [字符串，必需] 引用一个网络名称（有关详细信息，请参见 [network_spec]）。空闲的资源池虚拟机将使用这种网络配置。之后，向这些资源池虚拟机应用作业时，可以重新配置网络来满足作业的需求。</li>
+  <li>
+<code>size</code> [整数，必需] 资源池中的虚拟机数目。资源池的大小应至少达到使用它的作业实例总数。还可能有额外的虚拟机，在添加更多作业来填充这些虚拟机之前，这些虚拟机将一直处于空闲状态。</li>
+  <li>
+<code>stemcell</code> [哈希，必需] 用于运行资源池虚拟机的 Stemcell。
+    <ul>
+<li>
+<code>name</code> [字符串，必需] Stemcell 名称。</li>
+      <li>
+<code>version</code> [字符串，必需] Stemcell 版本。</li>
+    </ul>
+</li>
+  <li>
+<code>cloud_properties</code> [哈希，必需] 特定于 IaaS 的资源池属性（请参见 [job_cloud_properties]）。</li>
+  <li>
+<code>env</code> [哈希，可选] 虚拟机环境。用于向 CPI <code>create_stemcell</code> 调用提供特定的虚拟机环境。这些数据将以虚拟机设置的形式供 BOSH 代理使用。默认为 {}（空哈希）。</li>
+</ul><h4 id="section-33">作业规范</h4>
+
+<p>作业是运行同一软件、实质上就是表示同一角色的一个或多个虚拟机（称作实例）。作业使用作为发行版一部分的作业模板来向虚拟机中填充包、配置文件，以及告知 BOSH 代理要在特定虚拟机上运行什么内容的控制脚本。最常用的作业属性有：</p>
+
+<ul>
+<li>
+<code>name</code> [字符串，必需] 唯一的作业名称。</li>
+  <li>
+<code>template</code> [字符串，必需] 作业模板。作业模板是发行版的一部分，通常包含（以原始形式）在发行版 repo 中的发行版“jobs”目录中，并作为发行版捆绑包的一部分上传到 BOSH 控制器。</li>
+  <li>
+<code>persistent_disk</code> [整数，可选] 持久磁盘的大小。如果它是正整数，则会创建持久磁盘并将该磁盘连接到每个作业实例虚拟机。默认值为 0（无持久磁盘）。</li>
+  <li>
+<code>properties</code> [哈希，可选] 作业属性。有关详细信息，请参见 [job_cloud_properties]。</li>
+  <li>
+<code>resource_pool</code> [字符串，必需] 要运行作业实例的资源池。引用 <code>resource_pool</code> 部分中的一个有效资源池名称。</li>
+  <li>
+<code>update</code> [哈希，可选] 特定于作业的更新设置。通过它可以在每个作业的设置中覆盖全局作业更新设置（与 <code>properties</code> 类似）。</li>
+  <li>
+<code>instances</code> [整数，必需] 作业实例的数目。每个实例是一个运行此特定作业的虚拟机。</li>
+  <li>
+<code>networks</code> [数组] 此作业所需的网络。对于每个网络，可以指定以下属性：
+哈希&gt;    <ul>
+<li>
+<code>name</code> [字符串，必需] 在 <code>networks</code> 中指定网络名称。</li>
+      <li>
+<code>static_ips</code> [区间，可选] 指定作业应在该网络中预留的 IP 地址范围。</li>
+      <li>
+<code>default</code> [数组，可选] 指定从此网络中填充哪些默认网络组件（DNS、网关），仅在有多个网络时这才有意义。</li>
+    </ul>
+</li>
+</ul><h4 id="section-34">作业属性和云属性</h4>
+
+<p>在部署清单中可以提供两种类型的属性。</p>
+
+<ol>
+<li>cloud_properties: 向 CPI 传递的不透明哈希（通常“按原样”传递）。通常它控制着一些特定于 IaaS 的属性（如虚拟机配置参数、网络 VLAN 名称等）。CPI 需验证这些属性是否正确。</li>
+  <li>作业属性。几乎所有重要的作业都需要填入一些属性，以便它可以了解如何与其他作业通信以及要使用哪些非默认设置。BOSH 允许在部署清单的属性部分中列出全局部署属性。控制器会以递归方式将所有这些属性从哈希转换成 Ruby OpenStruct 对象，以便可以使用原始哈希键名称作为方法名来访问它们。所得到的 OpenStruct 以 <code>properties</code> 名称公开，并且可以在任意作业配置模板中加以处理（使用 ERB 语法）。下面提供了一个示例
+来说明如何定义和使用属性：</li>
+</ol><p><code>deployment_manifest.yml</code> 文件</p>
+
+<pre><code>…
+properties:
+  foo:
+    bar:
+      baz
+</code></pre>
+
+<p>文件	<code>jobs/foobar_manager/templates/config.yml.erb</code></p>
+
+<pre><code>---
+bar_value:&lt; %= properties.foo.bar %&gt;
+</code></pre>
+
+<p>全局属性可供任意作业使用。除此之外，每个作业还可以定义自己的 <code>properties</code> 部分，这些属性只能在该作业的配置模板中加以访问。本地作业属性是以递归方式合并到全局作业属性中的，因此访问这两类属性时所需的语法完全相同。请注意，可以使用本地属性来按作业覆盖全局属性。</p>
+
+<h4 id="section-35">实例规范</h4>
+
+<p>实例规范是一种任何作业配置文件皆可访问的特殊对象，与 <code>properties</code> 类似（实际上 <code>properties</code> 仅仅是 <code>spec.properties</code> 的简易版，因此它们只是规范的一小部分）。它包含很多属性，作业创建程序可以使用这些属性来访问特定作业实例环境的详细信息，可能还可以使用它们在创建作业时作出基于运行时的决策。</p>
+
+<p><code>job</code> 和 <code>index</code> 是实例规范的两个重要组成部分。<code>job</code> 包含作业名称，<code>index</code> 包含从 0 开始的实例索引。如果您希望对特定作业实例仅执行某些操作（如数据库迁移），或者希望仅在某些实例上而非全部实例上测试新功能，此索引便会派上重要用场。通过此规范提供的其他内容有 <code>networks</code> 和 <code>resource_pool</code>，在获取有关作业行踪的一些数据时，它们可能会派上用场。</p>
+
+<h3 id="bosh--19">BOSH 属性存储</h3>
+
+<p>部署清单是一个 YAML 文件，但它在经 ERB 处理后才会实际使用，因此它可能包含 ERB 表达式。通过此清单，BOSH 控制器可以替换其数据库中保存的一些属性，以便敏感或易变的数据仅在部署时设置，而不是由清单作者在创建实际清单时设置。</p>
+
+<p>BOSH CLI 提供了一些可用来管理属性的命令：</p>
+
+<pre><code>set property &lt;name&gt; &lt;value&gt;
+get property &lt;name&gt;
+unset property &lt;name&gt;
+properties
+</code></pre>
+
+<p>You can set the property using <code>bosh set property &lt;name&gt; &lt;value&gt;</code> and then reference it in the deployment manifest using <code>&lt; %= property(name) %&gt;</code> syntax.</p>
+
+<h2 id="bosh--20">BOSH 故障排除</h2>
+
+<h3 id="bosh-ssh">BOSH SSH</h3>
+
+<p>要对正在运行的作业运行 ssh，首先请查出该作业的名称和索引。使用 <code>bosh vms</code> 可显示正在运行的虚拟机的列表以及每个虚拟机上的作业。To ssh to it, run <code>bosh ssh &lt;job_name&gt; &lt;index&gt;</code>.密码是在 Stemcell 中设置的任意密码。对于默认 Stemcell，密码为 cloudc0w。</p>
+
+<h3 id="bosh--21">BOSH 日志</h3>
+
+<p>对 BOSH 或 BOSH 部署进行故障排除时，务必要阅读日志文件以便可以缩小问题范围。有以下三种类型的日志。</p>
+
+<ol>
+<li>可通过 <code>bosh task &lt;task_number&gt;</code> 查看的 BOSH 控制器日志</li>
+</ol><p>这些日志包含 BOSH 控制器上运行 BOSH 命令时产生的输出。如果在运行 BOSH 命令时出现问题，您应该先从这些日志着手排查。例如，如果您运行 <code>bosh deploy</code>，且此命令失败，那么 BOSH 控制器将有记录了出错位置的日志。要访问这些日志，请通过运行 <code>bosh tasks recent</code> 找到失败的命令的任务编号。然后，运行 <code>bosh task &lt;task_number&gt;</code>。控制器的日志记录程序会将相关信息写入到这些日志中。</p>
+
+<ol>
+<li>可在 <code>/var/vcap/bosh/log</code> 中找到或通过 <code>bosh logs</code> 查看的代理日志</li>
+</ol><p>这些日志包含代理产生的输出。当怀疑虚拟机设置存在问题时，这些日志便很有用。它们将显示代理的操作，如设置网络、磁盘和运行作业。如果 <code>bosh deploy</code> 因其中一个虚拟机出现问题而失败，您需要使用 BOSH 控制器日志才能查出是哪个虚拟机。Then, either ssh and access <code>/var/vcap/bosh/log</code> or use <code>bosh logs &lt;job_name&gt; &lt;index&gt; --agent</code>.</p>
+
+<ol>
+<li>服务日志</li>
+</ol><p>这些日志由虚拟机上运行的实际作业产生，可能是由 Redis、Web 服务器等产生的日志。这些日志间会有差别，因为它们输出到的位置由部署来配置。通常，具体的输出路径在 <code>release/jobs/&lt;job_name&gt;/templates/&lt;config_file&gt;</code> 中的配置文件中定义。对于 Cloud Foundry，我们的作业通常配置为记录到 <code>/var/vcap/sys/log/&lt;job_name&gt;/&lt;job_name&gt;.log</code>。These logs can also be accessed via <code>bosh logs &lt;job_name&gt; &lt;index&gt;</code>.</p>
+
+<h3 id="bosh--22">BOSH 云检查</h3>
+
+<p>BOSH 云检查是一项 BOSH 命令行实用程序，可自动检查已经部署的虚拟机和作业中是否存在问题。它会检查是否存在虚拟机不响应/不同步、磁盘未绑定等情况。要使用它，请运行 <code>bosh cck</code>，如果发现了任何问题，它会提示您需采取哪些操作。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='container' id='footer'>
+<div class='site-wrap'>
+<div class='row'>
+<div class='span-3 social-icons'>
+<a class='twitter replaced' href='http://e.weibo.com/2169336083/profile' rel='external' target='_blank'>Weibo</a>
+<a class='facebook replaced' href='http://cloudfoundry.csdn.net' rel='external' target='_blank'>CSDN</a>
+<a class='youtube replaced' href='http://i.youku.com/u/id_UNDI5MTA2Mjk2' rel='external' target='_blank'>YouKu</a>
+</div>
+<div class='prepend-2 span-5'>
+<p>
+<!-- %a{:href => "#{url(@config, :www_app)}/faq"} 问题 -->
+<a href='http://cndocs.cloudfoundry.com/faq.html'>问题</a>
+|
+<a href='http://forum.csdn.net/slist/cloudfoundry' rel='external'>论坛</a>
+|
+<!-- %a{:href => url(@config, :blog_app), :rel => "external"} 博客 -->
+<a href='http://cnblog.cloudfoundry.com/' rel='external'>博客</a>
+|
+<a href='http://www.cloudfoundry.com/jobs'>工作</a>
+|
+<a href='http://www.cloudfoundry.com/legal'>法律</a>
+|
+<a href='http://www.cloudfoundry.com/terms'>条款</a>
+|
+<a href='http://www.vmware.com/help/privacy.html' rel='external' target='_blank'>隐私</a>
+</p>
+</div>
+<div class='span-5 last right'>
+<p>Copyright &copy; 2013 VMware, Inc. All rights reserved.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22181585-14']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    /$(document).ready(function() {
+     / $('#social-share').dcSocialShare({
+      /  buttonSize: 'horizontal',
+      / buttons: 'facebook,twitter,plusone,linkedin',
+      /  location: 'top',
+      /  align: 'right',
+      /  offsetLocation: 260,
+      /  offsetAlign: 100,
+      /  width: 80,
+      /  center: true,
+      /  centerPx: 600,
+      /  disableFloat: true,
+      /  tabText: '',
+      /  twitterId: 'cloudfoundry'
+      /});
+    /});
+  //]]>
+</script>
+</body>
+</html>
